@@ -1,0 +1,38 @@
+======================= Log Before Release =====================================
+2016-11-26: Ver. 0.1-1
+  * Add more vignettes.
+
+2016-11-24: Ver. 0.1-1
+  * Add RPC.CS for pbdCS commands.
+  * Add remoter and pbdCS applications to vignettes.
+  * Adjust for Solaris and Mac OSX.
+
+2016-11-19: Ver. 0.1-1
+  * Move rpcopt and use .pbd_env$RPC.* in arguments.
+  * Add RPC.RR for remoter commands.
+  * Fix plink authentication problems.
+
+2016-11-13: Ver. 0.1-1
+  * Improve rpcopt.
+
+2016-10-15: Ver. 0.1-1
+  * Add controls and login design to .pbd_env for default.
+
+2016-10-14:
+  * Try Win32-OpenSSH, but it needs more external dependences.
+
+2016-10-08: Ver. 0.1-1
+  * Add low/raw level functions, such as ssh(), plink(), run_rpc(), ...
+
+2016-07-27: Ver. 0.1-1
+  * Add RPC calls.
+  * Add start_remoter(), check_remoter(), and kill_remoter().
+
+2016-07-21: Ver. 0.1-0
+  * Initial the package and convert from pbdTERM.
+  * Test on xubuntu, windows, and Solaris.
+  * Fix windows 64bits.
+  * Add ssh.
+
+2015-xx-xx:
+  * Initial pbdTERM.

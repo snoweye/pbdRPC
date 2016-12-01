@@ -1,0 +1,103 @@
+%\VignetteIndexEntry{pbdRPC-guide}
+
+\documentclass[article,shortnames,nojss]{jss}
+
+\newcommand{\mpiversion}{0.3-0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% declarations for jss.cls %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% almost as usual
+\author{
+\begin{minipage}{6in}
+\centering
+Wei-Chen Chen
+\end{minipage}
+\\
+\\
+pbdR Core Team \\
+Silver Spring, MD, USA \\
+%\\
+%\\
+%\today
+}
+%\title{A Quick Guide for the \pkg{pbdRPC} Package {\small (Ver. \mpiversion)}}
+\title{A Quick Guide for the \pkg{pbdRPC} Package}
+
+
+%% for pretty printing and a nice hypersummary also set:
+\Plainauthor{Wei-Chen Chen} %% comma-separated
+% \Plaintitle{Quick Guide for pbdRPC (Ver. \mpiversion)} %% without formatting
+\Plaintitle{Quick Guide for pbdRPC} %% without formatting
+% \Shorttitle{Quick Guide for pbdRPC (Ver. \mpiversion)} %% a short title (if necessary)
+\Shorttitle{Quick Guide for pbdRPC} %% a short title (if necessary)
+
+%% an abstract and keywords
+%\Abstract{
+%}
+%\Keywords{}
+%\Plainkeywords{} %% without formatting
+%% at least one keyword must be supplied
+
+%% publication information
+%% NOTE: Typically, this can be left commented and will be filled out by the technical editor
+%% \Volume{13}
+%% \Issue{9}
+%% \Month{September}
+%% \Year{2004}
+%% \Submitdate{2004-09-29}
+%% \Acceptdate{2004-09-29}
+
+%% The address of (at least) one author should be given
+%% in the following format:
+\Address{
+  Wei-Chen Chen\\
+  E-mail: \email{wccsnow@gmail.com}\\
+  URL: \url{http://snoweye.github.io/}
+}
+%% It is also possible to add a telephone and fax number
+%% before the e-mail in the following format:
+%% Telephone: +43/1/31336-5053
+%% Fax: +43/1/31336-734
+
+%% for those who use Sweave please include the following line (with % symbols):
+%% need no \usepackage{Sweave.sty}
+
+%% end of declarations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\input{./pbdRPC-include/my_jss.cls}
+\input{./pbdRPC-include/00-preamble}
+
+\begin{document}
+
+\pagenumbering{roman}
+\tableofcontents
+
+%\newpage
+\input{./pbdRPC-include/01-copyright}
+
+%% include your article here, just as usual
+%% Note that you should use the \pkg{}, \proglang{} and \code{} commands.
+
+% \newpage
+% \input{./pbdRPC-include/01-acknowledgement}
+
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{./pbdRPC-include/02-introduction}
+\input{./pbdRPC-include/03-login_information}
+\input{./pbdRPC-include/04-application_rr}
+\input{./pbdRPC-include/05-application_cs}
+\input{./pbdRPC-include/99-faq}
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{References}
+\bibliography{./pbdRPC-include/pbdRPC}
+
+\end{document}
+

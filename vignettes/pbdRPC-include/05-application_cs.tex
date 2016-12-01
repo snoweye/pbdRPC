@@ -1,0 +1,83 @@
+
+\section[An Application Using \pkg{pbdCS}]{An Application Using \pkg{pbdCS}}
+\label{sec:application_cs}
+\addcontentsline{toc}{section}{\thesection. An Application Using \pkg{pbdCS}}
+
+Similar to the \pkg{remoter}, the \pkg{pbdCS}~\citep{pbdCS} provides
+interactivity for clusters running \proglang{R}'s via the
+\pkg{pbdMPI}~\citep{Chen2012pbdMPIpackage} in SPMD computing
+framework~\citep{pbdR2012}.
+See \citet{xsede16} for an introduction of \pkg{remoter} and \pkg{pbdCS}, and
+see \url{https://github.com/snoweye/user2016.demo}
+for a demo of both packages.
+
+In a simplified scenario such as the setting in
+Section~\ref{sec:handling_login_information},
+several pbdCS \proglang{R}'s can run 4 instances on the server,
+Xubuntu, ip=192.168.56.101 as in the next.
+\begin{Command}[title=\pkg{pbdCS} cluster with 4 \proglang{R} instances]
+$ source ~/work-my/00_set_devel_R
+$ nohup mpiexec -np 4 Rscript -e 'pbdCS::pbdserver()' > .cclog 2>&1 < /dev/null &
+$ ps ax|grep '[p]bdCS::pbdserver'
+$ kill -9 $(ps ax|grep '[p]bdCS::pbdserver'|awk '{print $1}')
+\end{Command}
+The example above is very similar to the one in
+Section~\ref{sec:application_rr}, but further demonstrates
+how to ``start'', ``check'', and ``kill''
+a \pkg{pbdCS} cluster with 4 \proglang{R} launched by/within
+the MPI program \code{mpiexec}.
+
+In an well established server, one can use \code{ssh} or \code{plink.exe}
+to send those commands from the local laptop.
+Furthermore, one may also use \pkg{pbdRPC} directly within an \proglang{R}
+environment to send those commands. The example is in next.
+\begin{Code}[title=Using \pkg{pbdRPC} to control \pkg{pbdCS}]
+> library(pbdRPC, quietly = TRUE)
+> rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+> .pbd_env$RPC.CT$use.shell.exec <- FALSE
+>
+> preload <- "source ~/work-my/00_set_devel_R; "
+> start_cs(preload = preload)
+character(0)
+>
+> library(pbdCS)
+> pbdCS::pbdclient(addr = "192.168.56.101")
+
+pbdR> library(pbdMPI)
+pbdR> allreduce(1)
+[1] 4 
+pbdR> q()
+>
+> check_cs()
+[1] "12578 ?        Sl     0:00 mpiexec -np 4 Rscript -e pbdCS::pbdserver()"                                                      
+[2] "12580 ?        Sl     0:00 /home/snoweye/work-my/local/R-devel/lib64/R/bin/exec/R --slave --no-restore -e pbdCS::pbdserver()"
+[3] "12581 ?        Sl     0:00 /home/snoweye/work-my/local/R-devel/lib64/R/bin/exec/R --slave --no-restore -e pbdCS::pbdserver()"
+[4] "12583 ?        Sl     0:00 /home/snoweye/work-my/local/R-devel/lib64/R/bin/exec/R --slave --no-restore -e pbdCS::pbdserver()"
+[5] "12588 ?        Sl     0:00 /home/snoweye/work-my/local/R-devel/lib64/R/bin/exec/R --slave --no-restore -e pbdCS::pbdserver()"
+> kill_cs()
+character(0)
+\end{Code}
+where \code{pbdclient()} is for connect to the \pkg{pbdCS} cluster
+started by \code{start_cs()}.
+
+The \code{start_cs()}, \code{check_cs()}, and \code{kill_cs()} are
+all wrapper functions of \code{rpc()} to submit different commands stored in
+\code{.pbd_env$RPC.CS$start}, \code{.pbd_env$RPC.CS$check}, and
+\code{.pbd_env$RPC.CS$kill}, respectively.
+The details of \code{RPC.CS} are in next.
+\begin{Code}[title=\code{RPC.CS} for controlling \pkg{pbdCS}]
+> .pbd_env$RPC.CS
+$check
+[1] "ps ax|grep '[p]bdCS::pbdserver'"
+
+$kill
+[1] "kill -9 $(ps ax|grep '[p]bdCS::pbdserver'|awk '{print $1}')"
+
+$start
+[1] "nohup mpiexec -np 4 Rscript -e 'pbdCS::pbdserver()' > .cslog 2>&1 < /dev/null &"
+
+$preload
+[1] "source ~/work-my/00_set_devel_R; "
+
+\end{Code}
+

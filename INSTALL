@@ -1,0 +1,6 @@
+0. download and extract 'pbdRPC'
+
+1. Default Installation:
+   This should work with most platforms.
+
+   > R CMD INSTALL pbdRPC_0.1-1.tar.gz

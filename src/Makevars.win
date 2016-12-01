@@ -1,0 +1,20 @@
+ifeq "$(WIN)" "64"
+  DEFS = -D_WINDOWS -D_RTOOLS -D_WIN64
+else
+  DEFS = -D_WINDOWS -D_RTOOLS
+endif
+PKG_CPPFLAGS = $(DEFS) -I./putty -I./putty/windows
+BUILD_BIN = plink.exe
+
+### Include source code.
+include ./inc.plink.win
+
+### Start making here.
+all: $(BUILD_BIN)
+
+plink.exe: $(PLINK_OBJS)
+	$(CC) $(LDFLAGS) -o $@ $(PLINK_OBJS)
+
+clean:
+	@-rm -f $(PLINK_OBJS) $(BUILD_BIN)
+	@-rm -f *.o *.d *.rc Makedeps

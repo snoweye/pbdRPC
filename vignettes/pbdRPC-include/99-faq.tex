@@ -1,0 +1,49 @@
+
+
+\section[FAQs]{FAQs}
+\label{sec:faqs}
+\addcontentsline{toc}{section}{\thesection. FAQs}
+
+
+\subsection[General]{General}
+\label{sec:general}
+\addcontentsline{toc}{subsection}{\thesubsection. General}
+
+\begin{enumerate}
+\item {\bf\color{blue} Q:}
+      Does \pkg{pbdRPC} support Windows system? \\
+      {\bf\color{blue} A:}
+      Yes, the \code{plink.exe} from PuTTY will be the program to send
+      commands to remote servers. An internal built \code{plink.exe} will
+      be provided and wrapped by the \pkg{pbdRPC} command \code{plink()}.
+
+\item {\bf\color{blue} Q:}
+      Is an authentication used in \pkg{pbdRPC}? How does it work? \\
+      {\bf\color{blue} A:}
+      Yes, the authentication is the same way to \code{ssh} and
+      \code{plink.exe} provided public and private keys are setup correctly.
+      For example, when an RSA key is used, the \code{ssh} will by
+      default search
+      \code{~/.ssh/id_rsa} or via the option ``\code{-i ./id_rsa}'' for a local
+      private key.
+      Similarly,
+      the \code{plink.exe} uses the option ``\code{-i ./id_rsa.ppk}'' for a
+      local private key.
+      Inside \pkg{pbdRPC}, one can use the options of the control
+      \code{.pbd_env$RPC.LI$priv.key} and \code{.pbd_env$RPC.LI$pri.key.ppk} to
+      indicate the file of the private key. Then, \code{ssh()}, \code{plink()},
+      and \code{rpc()} commands will automatically access those files,
+      accordingly.
+
+\item {\bf\color{blue} Q:}
+      Can a \code{ssh} private key be converted to \code{plink}'s private
+      key? i.e. convert OpenSSH format to PuTTY format. \\
+      {\bf\color{blue} A:}
+      Yes, the \code{puttygen} on linux can convert the \code{id_rsa}
+      (OpenSSH format) to \code{id_rsa.ppk} (PuTTY format) as in next.
+\begin{Command}
+$ sudo apt-get install putty
+$ puttygen id_rsa -O private -o id_rsa.ppk
+\end{Command}
+
+\end{enumerate}

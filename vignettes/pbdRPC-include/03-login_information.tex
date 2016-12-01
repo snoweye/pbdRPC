@@ -1,0 +1,84 @@
+\section[Handling Login Information]{Handling Login Information}
+\label{sec:handling_login_information}
+\addcontentsline{toc}{section}{\thesection. Handling Login Information}
+
+Suppose an Oracle VM VirtualBox runs Xubuntu 15.10 as the guest OS within a
+Windows 8 system as the host OS.
+The VM has an virtual network adaptor (host-only)
+with ip address \code{192.168.56.101}, so that one can
+login to the VM using either \code{telnet}, \code{plink}, or \code{ssh}
+from the Windows 8 system.
+Note that \code{telnet} and \code{ssh} uses ports 23 and 22 as default,
+respectively.
+Suppose further the login id is called ``snoweye'', then one may use
+the function \code{rpcopt_set()} to assign/overwrite the login information to
+\code{.pbd_env$RPC.LI} as in next.
+\begin{Code}[title=Set login information]
+> rpcopt_set(user = "snoweye", hostname = "192.168.56.101", pport = "22")
+\end{Code}
+
+In next, the basic login information \code{RPC.LI} describes that
+\code{rpc()} will
+\begin{itemize}
+\item use \code{ssh} (exec.type) to execute a command
+      (given by \code{rpc()}, \code{ssh()}, or \code{plink()})
+\item with \code{args} (additional arguments to \code{ssh} or \code{plink.exe})
+\item and a \code{user} account (snoweye)
+\item login into a \code{hostname} (server ip = \code{192.168.56.101} or
+      host name)
+\item from a \code{pport} (server port = 22), and
+\item may use authentication keys in \code{priv.key} or \code{priv.key.ppk}.
+\end{itemize}
+\begin{Code}[title=Basic \code{RPC.LI}]
+> .pbd_env$RPC.LI
+$exec.type
+[1] "ssh"
+
+$args
+[1] ""
+
+$pport
+[1] "22"
+
+$user
+[1] "snoweye"
+
+$hostname
+[1] "192.168.56.101"
+
+$priv.key
+[1] "~/.ssh/id_rsa"
+
+$priv.key.ppk
+[1] "./id_rsa.ppk"
+\end{Code}
+Currently, the \code{exec.type} is only for non-Windows systems, and it
+will be ignored on Windows systems ("plink" will be used).
+Also, \code{ssh} uses ``\code{-p}'' to input the server port argument.
+\code{plink.exe} uses ``\code{-P}'' to input the server port argument.
+Therefore, the \code{args} should not include ``\code{-p}'' nor ``\code{-P}''.
+Similarly, the ``\code{-i}'' may not be include in the \code{args} as well
+because additional authentication may be required.
+
+The account may have the private key for authentication to avoid typing
+the login password for the user account.
+The private keys may be stored in files indicated by
+\code{prive.key} for \code{ssh()} or
+\code{prive.key.ppk} for \code{plink()}.
+When all setups are correct, command calls can be executed at the
+\code{hostname} (192.168.56.101) remotely.
+By default, the \code{prive.key.ppk} will read the file from the current
+working directory (from \code{getwd()}) in Windows systems.
+In this case, the file
+\code{C:/Users/login_account/Documents/id_rsa.ppk} is probably read
+for authentication.
+
+To generat private and public keys
+is pretty standard for most Linux systems via the \code{ssh-keygen} command
+which will generate keys in OpenSSH format.
+One may use \code{puttygen} in Linux to convert OpenSSH format to
+PuTTY format for Windows.
+See Section~\ref{sec:general} for the conversion from \code{id_rsa} to
+\code{id_rsa.ppk}.
+For Windows systems, one may also use \code{puttygen.exe} to obtain both keys.
+

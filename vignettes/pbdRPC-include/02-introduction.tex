@@ -1,0 +1,193 @@
+
+{\color{red} \bf Disclaimer:}\\
+The findings and conclusions in this article have not been
+formally disseminated by the U.S. Department of Health \& Human Services
+nor by the U.S. Department of Energy,
+and should not be construed to represent any determination or
+policy of University, Agency, Administration and National Laboratory.
+
+{\color{red} \bf Warning:}\\
+This document is written to explain the main
+functions of \pkg{pbdRPC}~\citep{Chen2017pbdRPCpackage}, version 0.1-1.
+Every effort will be made to ensure future versions are consistent with
+these instructions, but features in later versions may not be explained
+in this document.
+
+Information about the functionality of this package,
+and any changes in future versions can be found on website:
+``Programming with Big Data in R'' at
+\url{http://r-pbd.org/}~\citep{pbdR2012}.
+
+
+
+
+\section[Introduction]{Introduction}
+\label{sec:introduction}
+\addcontentsline{toc}{section}{\thesection. Introduction}
+
+This package, \pkg{pbdRPC}~\citep{Chen2017pbdRPCpackage},
+provides one high level function, \code{rpc()}, that can securely send
+commands to remote servers via \code{ssh} (OpenSSH) or
+\code{plink}/\code{plink.exe} (PuTTY).
+The high level function is also a wrapper
+of two low level functions, \code{ssh()} and \code{plink()}.
+These functions can ask remote servers to execute commands without
+logining to the servers.
+These functions mainly depend on four RPC controls:
+\begin{enumerate}
+\item \code{.pbd_env$RPC.CT} is main RPC controls taking care several basic
+      functionalities of three functions, \code{rpc()}, \code{ssh()}, and
+      \code{plink()}.
+\item \code{.pbd_env$RPC.LI} has information of login account for logining to
+      the remote server include authentication using private keys.
+      See Section~\ref{sec:handling_login_information} for details.
+\item \code{.pbd_env$RPC.RR} has examples of executing multiple commands
+      on a remote server which is an application related
+      to an \proglang{R} package, \pkg{remoter}~\citep{remoter}. See
+      Section~\ref{sec:application_rr} for details.
+\item \code{.pbd_env$RPC.CS} has examples of executing multiple commands
+      on a \pkg{pbdCS} cluster which is an application related
+      to an \proglang{R} package, \pkg{pbdCS}~\citep{pbdCS}. See
+      Section~\ref{sec:application_cs} for details.
+\end{enumerate}
+Note that \code{.pbd_env} will be first generated when the library \pkg{pbdRPC}
+is loaded, then default objects \code{RPC.CT}, \code{RPC.LI}, \code{RPC.RR},
+and \code{RPC.CS} will be generated.
+
+Most OSs (Linux, Solaris, Mac OSX) have the system command \code{ssh} (OpenSSH)
+installed, so the
+\code{ssh()} is a wrapper function to the system \code{ssh} command.
+For Windows, the \code{plink.exe} (from PuTTY) will be compiled with
+\pkg{pbdRPC}, so the \code{plink()} is a wrapper function to the
+executable file, \code{plink.exe}.
+Note that for non-Windows system, the \code{plink} can be compiled as well.
+
+
+\subsection[Basic \code{ssh} and \code{rpc()}]{Basic \code{ssh} and \code{rpc()}}
+\label{sec:basic_rpc}
+\addcontentsline{toc}{subsection}{\thesubsection. Basic \code{ssh}\  and \code{rpc()}}
+
+Suppose a \code{sshd} is set and running correctly on a server running a Linux
+system at an ip address ``192.168.56.101'' and a port ``22''.
+Further, suppose an account
+called ``snoweye'' is created and a password for the account is set on
+the server.
+
+From a termial of non-Windows systems, one may use
+\begin{Command}[title=Basic \code{ssh} in shell]
+$ ssh snoweye@192.168.56.101 'whoami'
+\end{Command}
+to access the server and ask it to execute a command \code{whoami}.
+Typing the password for the login account may be needed.
+The command \code{whoami} is available on most Linux systems, it should
+return the command result, ``snoweye'', on the screen/stdout without
+logining to a shell environment on the server.
+In the same setup, the command can be replaced the command call
+by any other proper programs, shell scripts, or procedures.
+For Windows system, one may use \code{plink.exe} instead of \code{ssh}
+from a termial \code{cmd.exe}. See Section~\ref{sec:basic_plink} for details.
+
+Within \proglang{R}, the next example will have the
+same results as the above shell command.
+\begin{Code}[title=Basic \code{rpc()} in \pkg{pbdRPC} and \proglang{R}]
+> library(pbdRPC, quietly = TRUE)
+> rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+> rpc("whoami")
+\end{Code}
+The command results may be captured by \proglang{R} as well.
+
+Regardless the system,
+the high level function \code{rpc()} can unify the calls to
+either \code{ssh()} or \code{plink()} functions.
+One may use \code{ssh()} in non-Windows system, but
+use \code{plink()} in Windows system.
+The \code{rpc()} automatically
+detects the system first, then calls the corresponding function.
+Currently, no external \code{plink.exe} or \code{plink} is implemented
+even though it is possible.
+The details of \code{ssh()} and \code{plink()} are given in next.
+
+
+\subsection[Basic \code{ssh()}]{Basic \code{ssh()}}
+\label{sec:basic_ssh}
+\addcontentsline{toc}{subsection}{\thesubsection. Basic \code{ssh()}}
+
+Inside \proglang{R} and via \pkg{pbdRPC}, this can be done by
+\begin{Code}[title=Basic \code{ssh()} in \pkg{pbdRPC} and \proglang{R}]
+> library(pbdRPC, quietly = TRUE)
+> ssh("snoweye@192.168.56.101 'whoami'")
+\end{Code}
+provided all other options (port, forwarding, etc) are set correctly.
+Note that the password for the account may be required when an
+authentication file (\code{id_rda}) is not available.
+
+Note that multiple commands can be automatically given at once
+as shell commands under an shell prompt, such as ``\code{;}'', ``\code{\&\&}'',
+``\code{>}'', ``\code{<}'', ``\code{|}'' or ``\code{\&}'' etc.
+For example, the next will tell current id, date/time, and files.
+\begin{Command}[title=Multiple commands to \code{ssh} in shell]
+$ ssh snoweye@192.168.56.101 'whoami;date;ls -a'
+\end{Command}
+The multiple commands can be applied to \code{ssh()} and \code{plink()} as
+\begin{Code}[title=Multipel commands to \code{ssh()} in \pkg{pbdRPC} and \proglang{R}]
+> library(pbdRPC, quietly = TRUE)
+> ssh("snoweye@192.168.56.101 'whoami;date;ls -a'")
+\end{Code}
+See Section~\ref{sec:application_rr} and \code{.pbd_env$RPC.RR} for
+more details.
+
+
+\subsection[Basic \code{plink.exe} and \code{plink()}]{Basic \code{plink.exe} and \code{plink()}}
+\label{sec:basic_plink}
+\addcontentsline{toc}{subsection}{\thesubsection. Basic \code{plink.exe}\  and \code{plink()}}
+
+In Windows system under \code{cmd.exe}, one may similarly use next
+\begin{Command}[title=Basic \code{plink.exe} in \code{cmd.exe}]
+C:\> plink.exe snoweye@192.168.56.101 'whoami'
+\end{Command}
+to access the server provided \code{plink.exe} is in the \code{PATH}.
+
+Inside \code{RGui} and via \pkg{pbdRPC}, this can be done by
+\begin{Code}[title=Basic \code{plink()} in \pkg{pbdRPC} and \proglang{R}]
+> library(pbdRPC, quietly = TRUE)
+> plink("snoweye@192.168.56.101 'whoami'")
+\end{Code}
+provided all other options (port, forwarding, etc) are set correctly.
+The multiple commands can be applied to \code{plink()} as well.
+
+By default,
+the \code{plink()} will open an \code{cmd.exe} to execute the
+command \code{whoami} because the password input is not allowed inside
+\code{RGui}.
+When the authentication file (\code{id_rsa.ppk}) is available,
+one may want to disable the opening \code{cmd.exe} as in next.
+\begin{Code}[title=Advance \code{plink()} in \pkg{pbdRPC} and \proglang{R}]
+> .pbd_env$RPC.CT$use.shell.exec <- FALSE
+> ret <- plink("snoweye@192.168.56.101 'whoami'")
+> print(ret)
+\end{Code}
+Because the \code{shell.exec()} is disable, the \code{plink()} call
+may accept returns of the remote server and capture/save the returns
+in an \proglang{R} object, \code{ret}.
+
+The \code{use.shell.exec} is for Windows system only and
+required to be \code{TRUE} when \code{RGui} is mainly used. The
+\code{plink()} in \code{RGui} may hang forever or crash when input/typing of a
+password or a passphrase is needed for logining to the server.
+\code{RGui} has different stdin and stdout than a usual terminal.
+The \code{use.shell.exec} can be switched to \code{FALSE} when
+the authentication is correct and no passphrase is needed, i.e.
+{\color{red} no stdin input/typing. }
+However, \code{Rcmd} running within a \code{cmd.exe} may be OK with stdin
+input/typing when \code{use.shell.exec = FALSE}.
+
+Other solutions to replace internal \code{plink.exe} of \pkg{pbdRPC}
+include:
+\begin{itemize}
+\item
+The \code{plink.exe} can be installed from the PuTTY as well.
+\item
+Windows PowerShell and git also provide \code{ssh.exe} but
+additional installation/configuration is unavoidable.
+\end{itemize}
+

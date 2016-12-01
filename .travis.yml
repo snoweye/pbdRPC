@@ -1,10 +1,22 @@
-language: R
-sudo: required
-warnings_are_errors: true
+language: r
+
+r:
+  - devel
+
+os:
+  - linux
 
 env: 
   global:
     - CRAN: https://cran.rstudio.com
 
 r_check_args: --no-build-vignettes --no-manual
+
+sudo: required
+dist: trusty
+
+notifications:
+  email:
+    on_success: never
+    on_failure: never
 

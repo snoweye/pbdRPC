@@ -28,6 +28,9 @@
 #' checked first then \code{-i priv.key} will be added to \code{args}
 #' when the file exists.
 #' \code{priv.key.ppk} is only used when \code{plink} is called.
+#' @param intern,wait
+#' arguments passed to \code{system()} or \code{shell()}
+#' whereever they are applicable.
 #'
 #' @return
 #' Mainly the message received from the command line of server
@@ -61,7 +64,8 @@ rpc <- function(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
     args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
     user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
     priv.key = .pbd_env$RPC.LI$priv.key,
-    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk)
+    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
+    intern = FALSE, wait = FALSE)
 {
   ### Pre-check.
   if (.Platform$OS.type == "windows")
@@ -96,9 +100,9 @@ rpc <- function(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
   args <- paste(args.pport, args.priv.key, args, user.hostname,
                 paste0("\"", cmd, "\""), sep = " ")
   if (exec.type == "ssh")
-    ret <- ssh(args)
+    ret <- ssh(args, intern = intern, wait = wait)
   else
-    ret <- plink(args)
+    ret <- plink(args, intern = intern, wait = wait)
 
   return(ret)
 }

@@ -32,6 +32,9 @@
 #' @param exec
 #' either \code{ssh} (i.e. \code{/usr/bin/ssh}) or a ``full path''
 #' to \code{plink}.
+#' @param intern,wait
+#' arguments passed to \code{system()} or \code{shell()}
+#' whereever they are applicable.
 #'
 #' @return
 #' Mainly the message received at the command line will be returned.
@@ -70,12 +73,14 @@ NULL
 
 #' @rdname ssh_plink
 #' @export
-ssh <- function(args = "snoweye@192.168.56.101 whoami")
+ssh <- function(args = "snoweye@192.168.56.101 whoami",
+    intern = FALSE, wait = FALSE)
 {
   tmp.exec <- "ssh"
   if(.pbd_env$RPC.CT$check.exec)
     check_exec(tmp.exec)
-  run_args(exec = tmp.exec, args = args)
+  run_args(exec = tmp.exec, args = args,
+           intern = intern, wait = wait)
 }
 
 
@@ -83,13 +88,15 @@ ssh <- function(args = "snoweye@192.168.56.101 whoami")
 #' @export
 plink <- function(args = "snoweye@192.168.56.101 whoami",
     use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
-    pause = .pbd_env$RPC.CT$pause)
+    pause = .pbd_env$RPC.CT$pause,
+    intern = FALSE, wait = FALSE)
 {
   tmp.exec <- find_plink()
   if(.pbd_env$RPC.CT$check.exec)
     check_exec(tmp.exec)
   run_args(exec = tmp.exec, args = args,
-           use.shell.exec = use.shell.exec, pause = pause)
+           use.shell.exec = use.shell.exec, pause = pause,
+           intern = intern, wait = wait)
 }
 
 
@@ -125,23 +132,27 @@ check_exec <- function(exec)
 #' @export
 run_args <- function(exec = "ssh", args = "",
     use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
-    pause = .pbd_env$RPC.CT$pause)
+    pause = .pbd_env$RPC.CT$pause,
+    intern = FALSE, wait = FALSE)
 {
   ### Assemble cmd.
   cmd <- paste(exec, args, sep = " ")
   if (.pbd_env$RPC.CT$verbose)
     cat(cmd, "\n", sep = "")
 
-  ### Check wait.
-  if (.pbd_env$RPC.CT$wait)
+  ### Check wait from control. Overwrite the argument if not NA.
+  if (!is.na(.pbd_env$RPC.CT$wait))
   {
-    intern <- TRUE
-    wait <- TRUE
-  }
-  else
-  {
-    intern <- FALSE
-    wait <- FALSE
+    if (.pbd_env$RPC.CT$wait)
+    {
+      intern <- TRUE
+      wait <- TRUE
+    }
+    else
+    {
+      intern <- FALSE
+      wait <- FALSE
+    }
   }
 
   ### Execute the cmd from system or shell.

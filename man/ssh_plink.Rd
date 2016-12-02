@@ -8,20 +8,23 @@
 \alias{ssh_plink}
 \title{ssh and plink}
 \usage{
-ssh(args = "snoweye@192.168.56.101 whoami")
+ssh(args = "snoweye@192.168.56.101 whoami", intern = FALSE, wait = FALSE)
 
 plink(args = "snoweye@192.168.56.101 whoami",
   use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
-  pause = .pbd_env$RPC.CT$pause)
+  pause = .pbd_env$RPC.CT$pause, intern = FALSE, wait = FALSE)
 
 check_exec(exec)
 
 run_args(exec = "ssh", args = "",
   use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
-  pause = .pbd_env$RPC.CT$pause)
+  pause = .pbd_env$RPC.CT$pause, intern = FALSE, wait = FALSE)
 }
 \arguments{
 \item{args}{All in text/characters that are passed to the command line.}
+
+\item{intern, wait}{arguments passed to \code{system()} or \code{shell()}
+whereever they are applicable.}
 
 \item{use.shell.exec}{if \code{shell.exec()} is used to execute the \code{plink} command in
 windows. No returns can be captured by R when this is \code{TRUE} as

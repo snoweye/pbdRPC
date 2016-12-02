@@ -7,7 +7,7 @@
 \alias{RPC.RR}
 \title{Sets of controls in pbdRPC.}
 \usage{
-RPC.CT(verbose = FALSE, wait = TRUE, check.exec = FALSE,
+RPC.CT(verbose = FALSE, wait = NA, check.exec = FALSE,
   use.shell.exec = TRUE, pause = TRUE)
 
 RPC.LI(exec.type = "ssh", args = "", pport = "22", user = "snoweye",

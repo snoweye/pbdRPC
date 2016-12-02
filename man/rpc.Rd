@@ -8,7 +8,8 @@ rpc(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
   args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
   user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
   priv.key = .pbd_env$RPC.LI$priv.key,
-  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk)
+  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk, intern = FALSE,
+  wait = FALSE)
 }
 \arguments{
 \item{cmd}{the command to be executed on the server.}
@@ -28,6 +29,9 @@ in addition to port, user id, and host name.}
 checked first then \code{-i priv.key} will be added to \code{args}
 when the file exists.
 \code{priv.key.ppk} is only used when \code{plink} is called.}
+
+\item{intern, wait}{arguments passed to \code{system()} or \code{shell()}
+whereever they are applicable.}
 }
 \value{
 Mainly the message received from the command line of server

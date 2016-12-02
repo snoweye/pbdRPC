@@ -35,7 +35,7 @@ NULL
 #' @rdname zz_rpc_control
 RPC.CT <- function(
   verbose = FALSE,
-  wait = TRUE,
+  wait = NA,
   check.exec = FALSE,
   use.shell.exec = TRUE,
   pause = TRUE

@@ -46,4 +46,15 @@ $ sudo apt-get install putty
 $ puttygen id_rsa -O private -o id_rsa.ppk
 \end{Command}
 
+\item {\bf\color{blue} Q:}
+      Is it possible to capture the returns from the RPC calls
+      by \code{rpc()}, \code{ssh()}, or \code{plink()}? How? \\
+      {\bf\color{blue} A:}
+      Yes, set the arguments \code{intern = TRUE} and \code{wait = TRUE}
+      to the RPC calls can obtain the outputs as used by \code{system()}.
+      The \code{plink()} used in \code{RGui} may not be able to capture
+      the outputs unless the authentication is set because \code{shell.exec()}
+      is used instead of \code{system()}.
+
 \end{enumerate}
+

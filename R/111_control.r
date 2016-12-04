@@ -117,6 +117,7 @@ RPC.RR <- function(
 ### For RPC pbdCS commands.
 # #' @export
 # #' @rdname zz_rpc_control
+### No need to export the above. Long command mad the R CMD check.
 RPC.CS <- function(
   check = "ps ax|grep '[p]bdCS::pbdserver'",
   kill = "kill -9 $(ps ax|grep '[p]bdCS::pbdserver'|awk '{print $1}')",

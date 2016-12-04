@@ -1,6 +1,6 @@
 Package: pbdRPC
 Version: 0.1-1
-Date: 2016-11-19
+Date: 2016-12-03
 Title: Programming with Big Data -- Remote Procedure Call
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"))

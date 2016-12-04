@@ -1,0 +1,86 @@
+\section[Local Port Forwarding]{Local Port Forwarding}
+\label{sec:local_port_forwarding}
+\addcontentsline{toc}{section}{\thesection. Local Port Forwarding}
+
+The \pkg{remoter} command \code{client()} has a default setting
+to connect to the \pkg{remoter} server using \code{addr = "localhost"} and
+\code{port = 55555} which assumes the \pkg{remoter} server and client are
+both working at \code{localhost}.
+This may only be possible for convenience of development and debugging only.
+In general, the server can be anywhere and more powerful than a laptop.
+Again, We may consider the environment setup in
+Sections~\ref{sec:application_rr} and \ref{sec:application_cs} to
+demonstrate local port forwarding, even though the setup is over simplified
+it is quite common for most general users.
+The server is running at \code{192.168.56.101:55555}, so the argument
+\code{addr = "192.168.56.101"} in the \pkg{remoter}
+command \code{client(addr = "192.168.56.101")} from the \code{localhost}
+is necessary.
+
+Note that this above case may not be a good reason to show local port
+forwarding.
+However, it can avoid typing address or to be independent to the \code{addr}.
+One may consider to forward the \code{localhost} port \code{55555} to the
+server directly.
+
+The following code serves the purpose of local port forwarding in
+\pkg{pbdRPC} using \code{rpc()}, then start a \pkg{remoter} server and
+launch a connection via \code{client()} without changing arguments.
+\begin{Code}[title=Forward \code{localhost:55555} to \code{192.168.56.101:55555}]
+> library(pbdRPC)
+> rpc(args = "-N -T -L 55555:192.168.56.101:55555")
+>
+> library(remoter)
+> start_rr()
+> client()    # equivalent to client(addr = "192.168.56.101")
+\end{Code}
+
+First, \code{rpc(args = "-N -T -L 55555:192.168.56.101:55555")}
+forwards the connection between \code{55555} of the local host and
+\code{192.168.56.101:5555}.
+Note that this call (local process) is running in background and is
+no disconnected even after quiting \proglang{R} ,
+because \code{intern = FALSE} and \code{wait = FALSE} are set by default
+in \code{rpc()}.
+{\color{red}
+The additional command ``\code{kill -p [pid]}'' may be needed to manually
+kill the local process (pid) when the forwarding is not needed anymore.
+}
+See Section~\ref{sec:arguments_local_port_forwarding} or
+\code{ssh}'s man page for details of arguments \code{-N -T -L}
+(inside \code{args}) to the \code{ssh} or \code{plink.exe}.
+
+Second, \code{client()} tries to connect with \code{localhost:55555}
+by default because it is from the laptop. The connection is then
+redirected to \code{192.168.56.101:5555} as well because the local
+port is being forwarded.
+
+
+\subsection[Arguments for Local Port Forwarding]{Arguments for Local Port Forwarding}
+\label{sec:arguments_local_port_forwarding}
+\addcontentsline{toc}{subsection}{\thesubsection. Arguments for Local Port Forwarding}
+
+Note that the \code{ssh} and \code{plink.exe} has similar functionalities
+for local port forwarding.
+
+The argument \code{-L} in \code{ssh} or \code{plink.exe} is a typical option
+for local port forwarding. The usage from the man page of the \code{ssh} says
+\begin{Command}[title=From \code{ssh} man page]
+-L [bind_address:]port:host:hostport
+      Specifies that the given port on the local (client) host is
+      to be forwarded to the given host and port on the remote side.
+\end{Command}
+
+Because the call of local port forwarding
+needs to be either alive or active during the access
+of other applications to the \code{[bind_address:]port},
+two other useful arguments are \code{-N} and \code{-T} that can combine and
+use with local port forwarding. The usages of both arguments
+from the man page say
+\begin{Command}[title=From \code{ssh} man page]
+-N    Do not execute a remote command.  This is useful for just
+      for warding ports (protocol version 2 only).
+-T    Disable pseudo-terminal allocation.
+\end{Command}
+i.e. batch and background modes are preferable.
+

@@ -29,9 +29,9 @@ launch a connection via \code{client()} without changing arguments.
 \begin{Code}[title=Forward \code{localhost:55555} to \code{192.168.56.101:55555}]
 > library(pbdRPC)
 > rpc(args = "-N -T -L 55555:192.168.56.101:55555", wait = FALSE)
+> start_rr()
 >
 > library(remoter)
-> start_rr()
 > client()    # equivalent to client(addr = "192.168.56.101")
 \end{Code}
 

@@ -56,7 +56,14 @@
 #' rpc("ls ~/work-my")
 #' rpc("cat ~/work-my/00_set_devel_R")
 #'
-#' ### see rpcopt(), ssh(), plink(), and run_args() for lower level examples.
+#' ### see ssh(), plink(), and run_args() for lower level examples.
+#'
+#' ### Local port forwarding
+#' rpc(args = "-N -T -L 55555:localhost:55555")
+#' start_rr()
+#'
+#' library(remoter)
+#' client()    # equivalent to client(addr = "192.168.56.101")
 #' }
 #'
 #' @export

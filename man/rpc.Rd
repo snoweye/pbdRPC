@@ -8,8 +8,8 @@ rpc(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
   args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
   user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
   priv.key = .pbd_env$RPC.LI$priv.key,
-  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk, intern = FALSE,
-  wait = FALSE)
+  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
+  intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
 }
 \arguments{
 \item{cmd}{the command to be executed on the server.}

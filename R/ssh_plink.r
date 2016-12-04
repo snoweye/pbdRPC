@@ -74,7 +74,7 @@ NULL
 #' @rdname ssh_plink
 #' @export
 ssh <- function(args = "snoweye@192.168.56.101 whoami",
-    intern = FALSE, wait = FALSE)
+    intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
 {
   tmp.exec <- "ssh"
   if(.pbd_env$RPC.CT$check.exec)
@@ -89,7 +89,7 @@ ssh <- function(args = "snoweye@192.168.56.101 whoami",
 plink <- function(args = "snoweye@192.168.56.101 whoami",
     use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
     pause = .pbd_env$RPC.CT$pause,
-    intern = FALSE, wait = FALSE)
+    intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
 {
   tmp.exec <- find_plink()
   if(.pbd_env$RPC.CT$check.exec)
@@ -133,27 +133,12 @@ check_exec <- function(exec)
 run_args <- function(exec = "ssh", args = "",
     use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
     pause = .pbd_env$RPC.CT$pause,
-    intern = FALSE, wait = FALSE)
+    intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
 {
   ### Assemble cmd.
   cmd <- paste(exec, args, sep = " ")
   if (.pbd_env$RPC.CT$verbose)
     cat(cmd, "\n", sep = "")
-
-  ### Check wait from control. Overwrite the argument if not NA.
-  if (!is.na(.pbd_env$RPC.CT$wait))
-  {
-    if (.pbd_env$RPC.CT$wait)
-    {
-      intern <- TRUE
-      wait <- TRUE
-    }
-    else
-    {
-      intern <- FALSE
-      wait <- FALSE
-    }
-  }
 
   ### Execute the cmd from system or shell.
   if (.Platform$OS.type == "windows")

@@ -7,7 +7,7 @@
 \alias{RPC.RR}
 \title{Sets of controls in pbdRPC.}
 \usage{
-RPC.CT(verbose = FALSE, wait = NA, check.exec = FALSE,
+RPC.CT(verbose = FALSE, intern = FALSE, wait = TRUE, check.exec = FALSE,
   use.shell.exec = TRUE, pause = TRUE)
 
 RPC.LI(exec.type = "ssh", args = "", pport = "22", user = "snoweye",
@@ -20,7 +20,7 @@ RPC.RR(check = "ps ax|grep '[r]emoter::server'",
   preload = "source ~/work-my/00_set_devel_R; ")
 }
 \arguments{
-\item{verbose, wait, check.exec, use.shell.exec, pause}{RPC control for \code{system}, \code{shell.exec}, and so on.
+\item{verbose, intern, wait, check.exec, use.shell.exec, pause}{RPC control for \code{system}, \code{shell.exec}, and so on.
 \code{wait = FALSE} allows asynchronous commands which need more test.
 e.g. continuously port forwarding without sending commands to background.}
 

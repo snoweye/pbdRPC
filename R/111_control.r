@@ -2,7 +2,7 @@
 #' 
 #' These sets of controls are used to provide default values in pbdRPC package.
 #' 
-#' @param verbose,wait,check.exec,use.shell.exec,pause
+#' @param verbose,intern,wait,check.exec,use.shell.exec,pause
 #' RPC control for \code{system}, \code{shell.exec}, and so on.
 #' \code{wait = FALSE} allows asynchronous commands which need more test.
 #' e.g. continuously port forwarding without sending commands to background.
@@ -35,13 +35,15 @@ NULL
 #' @rdname zz_rpc_control
 RPC.CT <- function(
   verbose = FALSE,
-  wait = NA,
+  intern = FALSE,
+  wait = TRUE,
   check.exec = FALSE,
   use.shell.exec = TRUE,
   pause = TRUE
 ){
   list(
     verbose = verbose,
+    intern = intern,
     wait = wait,
     check.exec = check.exec,
     use.shell.exec = use.shell.exec,

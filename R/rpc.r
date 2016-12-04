@@ -65,7 +65,7 @@ rpc <- function(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
     user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
     priv.key = .pbd_env$RPC.LI$priv.key,
     priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-    intern = FALSE, wait = FALSE)
+    intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
 {
   ### Pre-check.
   if (.Platform$OS.type == "windows")

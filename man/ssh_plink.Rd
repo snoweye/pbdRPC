@@ -8,17 +8,20 @@
 \alias{ssh_plink}
 \title{ssh and plink}
 \usage{
-ssh(args = "snoweye@192.168.56.101 whoami", intern = FALSE, wait = FALSE)
+ssh(args = "snoweye@192.168.56.101 whoami", intern = .pbd_env$RPC.CT$intern,
+  wait = .pbd_env$RPC.CT$wait)
 
 plink(args = "snoweye@192.168.56.101 whoami",
   use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
-  pause = .pbd_env$RPC.CT$pause, intern = FALSE, wait = FALSE)
+  pause = .pbd_env$RPC.CT$pause, intern = .pbd_env$RPC.CT$intern,
+  wait = .pbd_env$RPC.CT$wait)
 
 check_exec(exec)
 
 run_args(exec = "ssh", args = "",
   use.shell.exec = .pbd_env$RPC.CT$use.shell.exec,
-  pause = .pbd_env$RPC.CT$pause, intern = FALSE, wait = FALSE)
+  pause = .pbd_env$RPC.CT$pause, intern = .pbd_env$RPC.CT$intern,
+  wait = .pbd_env$RPC.CT$wait)
 }
 \arguments{
 \item{args}{All in text/characters that are passed to the command line.}

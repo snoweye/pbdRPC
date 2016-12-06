@@ -10,7 +10,9 @@ LazyLoad: yes
 LazyData: yes
 Copyright: See pbdRPC/inst/putty_LICENCE for files in src/putty/.
 Description: A very light yet secure implementation for remote procedure calls
-        via ssh (OpenSSH) or plink/plink.exe (PuTTY).
+        via ssh (OpenSSH) or plink/plink.exe (PuTTY). Public/private key
+	authentications, local port forwarding, reverse tunneling are
+	supported.
 SystemRequirements: ssh (OpenSSH) on Solaris, Linux, and Mac.
 License: Mozilla Public License 2.0
 URL: http://r-pbd.org/

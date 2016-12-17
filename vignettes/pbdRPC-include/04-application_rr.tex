@@ -9,11 +9,17 @@ provide client/server interface to control a remote \proglang{R}
 from a local \proglang{R} (e.g. running on a single laptop, Windows 8).
 Combining with \pkg{pbdMPI}~\citep{Chen2012pbdMPIpackage} and
 \pkg{pbdCS}~\citep{pbdCS}, one may extent the
-remoter \proglang{R} to control clusters to run
-\proglang{R}'s in a distributed environment.
-See \citet{xsede16} for an introduction of \pkg{remoter} and \pkg{pbdCS}, and
-see \url{https://github.com/snoweye/user2016.demo}
-for a demo of both packages.
+remote \proglang{R} to the \proglang{R} clusters by running
+\proglang{R}'s in a distributed/SPMD environment.
+\begin{itemize}
+\item See \citet{xsede16} for an introduction of \pkg{remoter} and \pkg{pbdCS}.
+\item See \url{http://github.com/snoweye/user2016.demo}
+      for a demo of both packages.
+\item See pbdR-Tech (\url{http://snoweye.github.io/pbdr/}) and
+      HPSC (\url{http://snoweye.github.io/hpsc/}) websites
+      for more applications of SPMD and
+      how to utilize \proglang{R} in clusters~\citep{hpsc2012}.
+\end{itemize}
 
 In a simplified scenario such as the setting in
 Section~\ref{sec:handling_login_information}, one may use the following
@@ -28,7 +34,7 @@ $ kill -9 $(ps ax|grep '[r]emoter::server'|awk '{print $1}')
 \end{Command}
 
 In an well established server, one can use \code{ssh} or \code{plink.exe}
-to send those commands from the local laptop.
+to send those commands from a local laptop.
 Furthermore, one may also use \pkg{pbdRPC} directly within an \proglang{R}
 environment to send those commands. The example is in next.
 \begin{Code}[title=Using \pkg{pbdRPC} to control \pkg{remoter}]
@@ -67,12 +73,16 @@ character(0)
 \end{Code}
 where \code{client()} is for connect to the remote \proglang{R} server
 started by \code{start_rr()}.
+Note that all commands in the above example were typed inside a
+local \proglang{R} in the local laptop. However, the computation
+\code{1+1} was done by a remote \proglang{R} on the server (192.168.56.101).
 
 The \code{start_rr()}, \code{check_rr()}, and \code{kill_rr()} are
 all wrapper functions of \code{rpc()} to submit different commands stored in
 \code{.pbd_env$RPC.RR$start}, \code{.pbd_env$RPC.RR$check}, and
 \code{.pbd_env$RPC.RR$kill}, respectively.
-The details of \code{RPC.RR} are in next.
+The tedious details of \code{RPC.RR} are in next which all can be
+simply sent by \code{rpc()} to execute on the server.
 \begin{Code}[title=\code{RPC.RR} for controlling \pkg{remoter}]
 > .pbd_env$RPC.RR
 $check

@@ -2,6 +2,12 @@
 \label{sec:local_port_forwarding}
 \addcontentsline{toc}{section}{\thesection. Local Port Forwarding}
 
+{\color{red} \bf Warning:}\\
+System security issues may raise when the materials of this section are
+implemented in open/public domains. Consulting with network security experts
+may be required.
+\\
+
 The \pkg{remoter} command \code{client()} has a default setting
 to connect to the \pkg{remoter} server using \code{addr = "localhost"} and
 \code{port = 55555} which assumes the \pkg{remoter} server and client are
@@ -39,9 +45,9 @@ First, \code{rpc(args = "-N -T -L 55555:192.168.56.101:55555")}
 forwards the connection between \code{55555} of the local host and
 \code{192.168.56.101:5555}.
 Note that this call (local process) is running in background and is
-no disconnected even after quiting \proglang{R},
+not disconnected even after quiting \proglang{R},
 because \code{intern = FALSE} (default) and {\color{red} \code{wait = FALSE}}
-are set to \code{rpc()} and passed down to its callees.
+are set to \code{rpc()} and passed down to its callee (in a shell).
 {\color{red}
 The additional command ``\code{kill -p [pid]}'' may be needed to manually
 kill the local process (pid) when the forwarding is not needed anymore.
@@ -69,6 +75,7 @@ for local port forwarding. The usage from the man page of the \code{ssh} says
 -L [bind_address:]port:host:hostport
       Specifies that the given port on the local (client) host is
       to be forwarded to the given host and port on the remote side.
+      ... skipped ...
 \end{Command}
 
 Because the call of local port forwarding
@@ -83,4 +90,24 @@ from the man page say
 -T    Disable pseudo-terminal allocation.
 \end{Command}
 i.e. batch and background modes are preferable.
+
+
+\subsection[Arguments for Tunneling]{Arguments for Tunneling}
+\label{sec:arguments_tunneling}
+\addcontentsline{toc}{subsection}{\thesubsection. Arguments for Tunneling}
+
+Theoretically, this is possible to be used in \code{rpc()}. However,
+there is no appropriate example yet.
+
+Note that the \code{ssh} and \code{plink.exe} has similar functionalities
+for local port forwarding.
+
+The argument \code{-R} in \code{ssh} or \code{plink.exe} is a typical option
+for tunneling. The usage from the man page of the \code{ssh} says
+\begin{Command}[title=From \code{ssh} man page]
+-R [bind_address:]port:host:hostport
+      Specifies that the given port on the remote (server) host is to
+      be forwarded to the given host and port on the local side.
+      ... skipped ...
+\end{Command}
 

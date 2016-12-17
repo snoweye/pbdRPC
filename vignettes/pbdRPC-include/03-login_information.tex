@@ -5,7 +5,7 @@
 Suppose an Oracle VM VirtualBox runs Xubuntu 15.10 as the guest OS within a
 Windows 8 system as the host OS.
 The VM has an virtual network adaptor (host-only)
-with ip address \code{192.168.56.101}, so that one can
+with IP address \code{192.168.56.101}, so that one can
 login to the VM using either \code{telnet}, \code{plink}, or \code{ssh}
 from the Windows 8 system.
 Note that \code{telnet} and \code{ssh} uses ports 23 and 22 as default,
@@ -54,9 +54,12 @@ $priv.key.ppk
 \end{Code}
 Currently, the \code{exec.type} is only for non-Windows systems, and it
 will be ignored on Windows systems ("plink" will be used).
-Also, \code{ssh} uses ``\code{-p}'' to input the server port argument.
-\code{plink.exe} uses ``\code{-P}'' to input the server port argument.
-Therefore, the \code{args} should not include ``\code{-p}'' nor ``\code{-P}''.
+Also, \code{ssh} uses ``\code{-p}'' (lower case) to input the server port
+argument.
+\code{plink.exe} uses ``\code{-P}'' (upper case) to input the server port
+argument.
+Therefore, the \code{args} should not include ``\code{-p}'' nor ``\code{-P}''
+to avoid confusion in the unified function \code{rpc()}.
 Similarly, the ``\code{-i}'' may not be include in the \code{args} as well
 because additional authentication may be required.
 
@@ -67,13 +70,13 @@ The private keys may be stored in files indicated by
 \code{prive.key.ppk} for \code{plink()}.
 When all setups are correct, command calls can be executed at the
 \code{hostname} (192.168.56.101) remotely.
-By default, the \code{prive.key.ppk} will read the file from the current
+By default, the \code{prive.key.ppk} will be read from the current
 working directory (from \code{getwd()}) in Windows systems.
-In this case, the file
+In this case (\code{"./id_rsa.ppk"}), the file
 \code{C:/Users/login_account/Documents/id_rsa.ppk} is probably read
 for authentication.
 
-To generat private and public keys
+To generate private and public keys
 is pretty standard for most Linux systems via the \code{ssh-keygen} command
 which will generate keys in OpenSSH format.
 One may use \code{puttygen} in Linux to convert OpenSSH format to

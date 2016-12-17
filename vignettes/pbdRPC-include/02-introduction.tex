@@ -9,7 +9,7 @@ policy of University, Agency, Administration and National Laboratory.
 {\color{red} \bf Warning:}\\
 This document is written to explain the main
 functions of \pkg{pbdRPC}~\citep{Chen2017pbdRPCpackage}, version 0.1-1.
-Every effort will be made to ensure future versions are consistent with
+Every effort will be made to ensure that future versions are consistent with
 these instructions, but features in later versions may not be explained
 in this document.
 
@@ -29,16 +29,17 @@ This package, \pkg{pbdRPC}~\citep{Chen2017pbdRPCpackage},
 provides one high level function, \code{rpc()}, that can securely send
 commands to remote servers via \code{ssh} (OpenSSH) or
 \code{plink}/\code{plink.exe} (PuTTY).
-The high level function is also a wrapper
-of two low level functions, \code{ssh()} and \code{plink()}.
+The high-level function is also a wrapper
+of two low-level functions, \code{ssh()} and \code{plink()}.
 These functions can ask remote servers to execute commands without
-logining to the servers.
-These functions mainly depend on four RPC controls:
+logging in the servers provided that an authentication is set properly.
+
+Four RPC controls are provided by the package to simply the functions:
 \begin{enumerate}
 \item \code{.pbd_env$RPC.CT} is main RPC controls taking care several basic
       functionalities of three functions, \code{rpc()}, \code{ssh()}, and
       \code{plink()}.
-\item \code{.pbd_env$RPC.LI} has information of login account for logining to
+\item \code{.pbd_env$RPC.LI} has information of login account for logging in
       the remote server include authentication using private keys.
       See Section~\ref{sec:handling_login_information} for details.
 \item \code{.pbd_env$RPC.RR} has examples of executing multiple commands
@@ -73,19 +74,19 @@ Further, suppose an account
 called ``snoweye'' is created and a password for the account is set on
 the server.
 
-From a termial of non-Windows systems, one may use
+From a terminal or a shell of non-Windows systems, one may use
 \begin{Command}[title=Basic \code{ssh} in shell]
 $ ssh snoweye@192.168.56.101 'whoami'
 \end{Command}
-to access the server and ask it to execute a command \code{whoami}.
+to access the server and to ask the server to execute a command \code{whoami}.
 Typing the password for the login account may be needed.
 The command \code{whoami} is available on most Linux systems, it should
 return the command result, ``snoweye'', on the screen/stdout without
-logining to a shell environment on the server.
-In the same setup, the command can be replaced the command call
+logging in a shell environment on the server.
+In the same setup, the command \code{whoami} can be replaced
 by any other proper programs, shell scripts, or procedures.
 For Windows system, one may use \code{plink.exe} instead of \code{ssh}
-from a termial \code{cmd.exe}. See Section~\ref{sec:basic_plink} for details.
+from a terminal \code{cmd.exe}. See Section~\ref{sec:basic_plink} for details.
 
 Within \proglang{R}, the next example will have the
 same results as the above shell command.
@@ -141,7 +142,7 @@ more details.
 \label{sec:basic_plink}
 \addcontentsline{toc}{subsection}{\thesubsection. Basic \code{plink.exe}\  and \code{plink()}}
 
-In Windows system under \code{cmd.exe}, one may similarly use next
+In Windows system and inside the \code{cmd.exe}, one may similarly use next
 \begin{Command}[title=Basic \code{plink.exe} in \code{cmd.exe}]
 C:\> plink.exe snoweye@192.168.56.101 'whoami'
 \end{Command}
@@ -173,7 +174,7 @@ in an \proglang{R} object, \code{ret}.
 The \code{use.shell.exec} is for Windows system only and
 required to be \code{TRUE} when \code{RGui} is mainly used. The
 \code{plink()} in \code{RGui} may hang forever or crash when input/typing of a
-password or a passphrase is needed for logining to the server.
+password or a passphrase is needed for logging in the server.
 \code{RGui} has different stdin and stdout than a usual terminal.
 The \code{use.shell.exec} can be switched to \code{FALSE} when
 the authentication is correct and no passphrase is needed, i.e.

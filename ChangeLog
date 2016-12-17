@@ -1,4 +1,7 @@
 ======================= Log Before Release =====================================
+2016-12-17: Ver. 0.1-1
+  * More vignette changes.
+
 2016-12-03: Ver. 0.1-1
   * Add intern = FALSE and wait = FALSE to rpc(), ssh(), and plink().
   * Add local port forwarding example to the vignette.

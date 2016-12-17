@@ -13,20 +13,25 @@ A very light yet secure implementation for remote procedure calls via ssh (OpenS
 ## Usage
 
 ```r
-# load the package
 library(pbdRPC)
 
-find_plink()
+rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+rpc("whoami")
 
-rpc()          # default 'whoami' is called at remote server
-rpc("ls -la")  # 'ls -la' is called
+### or
+
+rpc("whoami", user = "snoweye", hostname = "192.168.56.101")
 ```
+The above example in `R` is unified and equivalent to
+`ssh snoweye@192.168.56.101 "whoami"` in a Linux-like system and
+`plink.exe snoweye@192.168.56.101 "whoami"` in a windows system,
+provided that `ssh` and `plink.exe` are reachable through the `PATH`.
 
 
 ## Installation
 
 The package can be installed from the CRAN via the usual
-`install.packages("pbdRPC")`, or via the devtools package:
+`install.packages("pbdRPC")`, or via the `devtools` package:
 
 ```r
 library(devtools)

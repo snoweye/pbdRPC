@@ -419,12 +419,22 @@ static int handle_cmp_evtomain(void *av, void *bv)
 //    else
 //	return 0;
 // WCC:add
-    if ((long)a->u.g.ev_to_main < (long)b->u.g.ev_to_main)
+#if defined _WIN64
+    if ((unsigned long)a->u.g.ev_to_main < (unsigned long)b->u.g.ev_to_main)
 	return -1;
-    else if ((long)a->u.g.ev_to_main > (long)b->u.g.ev_to_main)
+    else if ((unsigned long)a->u.g.ev_to_main > (unsigned long)b->u.g.ev_to_main)
 	return +1;
     else
 	return 0;
+#else
+    if ((unsigned)a->u.g.ev_to_main < (unsigned)b->u.g.ev_to_main)
+	return -1;
+    else if ((unsigned)a->u.g.ev_to_main > (unsigned)b->u.g.ev_to_main)
+	return +1;
+    else
+	return 0;
+
+#endif
 }
 
 static int handle_find_evtomain(void *av, void *bv)
@@ -440,12 +450,21 @@ static int handle_find_evtomain(void *av, void *bv)
 //    else
 //	return 0;
 // WCC:add
-    if ((long)*a < (long)b->u.g.ev_to_main)
+#if defined _WIN64
+    if ((unsigned long)*a < (unsigned long)b->u.g.ev_to_main)
 	return -1;
-    else if ((long)*a > (long)b->u.g.ev_to_main)
+    else if ((unsigned long)*a > (unsigned long)b->u.g.ev_to_main)
 	return +1;
     else
 	return 0;
+#else
+    if ((unsigned)*a < (unsigned)b->u.g.ev_to_main)
+	return -1;
+    else if ((unsigned)*a > (unsigned)b->u.g.ev_to_main)
+	return +1;
+    else
+	return 0;
+#endif
 }
 
 struct handle *handle_input_new(HANDLE handle, handle_inputfn_t gotdata,

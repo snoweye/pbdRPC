@@ -420,9 +420,9 @@ static int handle_cmp_evtomain(void *av, void *bv)
 //	return 0;
 // WCC:add
 #if defined _WIN64
-    if ((unsigned long)a->u.g.ev_to_main < (unsigned long)b->u.g.ev_to_main)
+    if ((unsigned long long)a->u.g.ev_to_main < (unsigned long long)b->u.g.ev_to_main)
 	return -1;
-    else if ((unsigned long)a->u.g.ev_to_main > (unsigned long)b->u.g.ev_to_main)
+    else if ((unsigned long long)a->u.g.ev_to_main > (unsigned long long)b->u.g.ev_to_main)
 	return +1;
     else
 	return 0;
@@ -451,9 +451,9 @@ static int handle_find_evtomain(void *av, void *bv)
 //	return 0;
 // WCC:add
 #if defined _WIN64
-    if ((unsigned long)*a < (unsigned long)b->u.g.ev_to_main)
+    if ((unsigned long long)*a < (unsigned long long)b->u.g.ev_to_main)
 	return -1;
-    else if ((unsigned long)*a > (unsigned long)b->u.g.ev_to_main)
+    else if ((unsigned long long)*a > (unsigned long long)b->u.g.ev_to_main)
 	return +1;
     else
 	return 0;

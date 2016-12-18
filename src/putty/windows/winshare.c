@@ -16,7 +16,7 @@
 
 #include "wincapi.h"
 
-//WCC:add
+// WCC:add
 #include "winsecur.h"
 
 #ifdef COVERITY

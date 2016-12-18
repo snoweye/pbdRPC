@@ -411,14 +411,14 @@ static int handle_cmp_evtomain(void *av, void *bv)
     struct handle *a = (struct handle *)av;
     struct handle *b = (struct handle *)bv;
 
-/* WCC:replace unsigned by long
-    if ((unsigned)a->u.g.ev_to_main < (unsigned)b->u.g.ev_to_main)
-	return -1;
-    else if ((unsigned)a->u.g.ev_to_main > (unsigned)b->u.g.ev_to_main)
-	return +1;
-    else
-	return 0;
-*/
+// WCC:del, replace unsigned by long
+//  if ((unsigned)a->u.g.ev_to_main < (unsigned)b->u.g.ev_to_main)
+//	return -1;
+//    else if ((unsigned)a->u.g.ev_to_main > (unsigned)b->u.g.ev_to_main)
+//	return +1;
+//    else
+//	return 0;
+// WCC:add
     if ((long)a->u.g.ev_to_main < (long)b->u.g.ev_to_main)
 	return -1;
     else if ((long)a->u.g.ev_to_main > (long)b->u.g.ev_to_main)
@@ -432,14 +432,14 @@ static int handle_find_evtomain(void *av, void *bv)
     HANDLE *a = (HANDLE *)av;
     struct handle *b = (struct handle *)bv;
 
-/* WCC:replace unsigned by long
-    if ((unsigned)*a < (unsigned)b->u.g.ev_to_main)
-	return -1;
-    else if ((unsigned)*a > (unsigned)b->u.g.ev_to_main)
-	return +1;
-    else
-	return 0;
-*/
+// WCC:del, replace unsigned by long
+//  if ((unsigned)*a < (unsigned)b->u.g.ev_to_main)
+//	return -1;
+//    else if ((unsigned)*a > (unsigned)b->u.g.ev_to_main)
+//	return +1;
+//    else
+//	return 0;
+// WCC:add
     if ((long)*a < (long)b->u.g.ev_to_main)
 	return -1;
     else if ((long)*a > (long)b->u.g.ev_to_main)

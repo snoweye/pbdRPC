@@ -60,8 +60,9 @@ static int compare_timers(void *av, void *bv)
      * Failing that, compare on the other two fields, just so that
      * we don't get unwanted equality.
      */
-// WCC:add
+// WCC:del
 // #if defined(__LCC__) || defined(__clang__)
+// WCC:add
 #if defined(__LCC__) || defined(__clang__) || defined(__STDC__)
     /* lcc won't let us compare function pointers. Legal, but annoying. */
     {

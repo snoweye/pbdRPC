@@ -137,8 +137,12 @@ static int cmpfortree(void *av, void *bv)
 
 static int cmpforsearch(void *av, void *bv)
 {
+/* WCC: bug?
     Actual_Socket b = (Actual_Socket) bv;
     unsigned long as = (unsigned long) av, bs = (unsigned long) b->s;
+*/
+    Actual_Socket a = (Actual_Socket) av, b = (Actual_Socket) bv;
+    unsigned long as = (unsigned long) av->s, bs = (unsigned long) b->s;
     if (as < bs)
 	return -1;
     if (as > bs)

@@ -1,6 +1,12 @@
 0. download and extract 'pbdRPC'
 
-1. Default Installation:
+1. Default installation:
    This should work with most platforms.
 
    > R CMD INSTALL pbdRPC_0.1-1.tar.gz
+
+2. Force to install plink:
+
+   > R CMD INSTALL pbdRPC_0.1-1.tar.gz \
+       --configure-args="--enable-plink"
+

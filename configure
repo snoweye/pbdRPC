@@ -628,6 +628,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+enable_plink
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1235,6 +1236,12 @@ if test -n "$ac_init_help"; then
 
   cat <<\_ACEOF
 
+Optional Features:
+  --disable-option-checking  ignore unrecognized --enable/--with options
+  --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
+  --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --enable-plink          Enable plink, default no.
+
 Report bugs to the package provider.
 _ACEOF
 ac_status=$?
@@ -1671,19 +1678,6 @@ if test -z "${R_HOME}"; then
 fi
 R_SCMD="${R_HOME}/bin/Rscript -e"
 
-SYS_NAME=`${R_SCMD} "source('./R/get_conf.r');get.conf('SYS_NAME')"`
-OS_TYPE=`${R_SCMD} "source('./R/get_conf.r');get.conf('OS_TYPE')"`
-# if test "${SYS_NAME}" = "SunOS" -o "${SYS_NAME}" = "Darwin"; then
-#   BUILD_BIN=""
-# else
-#   BUILD_BIN="plink"
-# fi
-if test "${SYS_NAME}" = "Windows"; then
-  BUILD_BIN="plink"
-else
-  BUILD_BIN=""
-fi
-
 # Extract the first word of "ssh", so it can be a program name with args.
 set dummy ssh; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -1722,10 +1716,32 @@ $as_echo "no" >&6; }
 fi
 
 
-if test "${SSH}" = "F"; then
+if test "X${SSH}" = "XF"; then
   HAS_SSH="F"
 else
   HAS_SSH="T"
+fi
+
+ENABLE_PLINK=FASLE
+# Check whether --enable-plink was given.
+if test "${enable_plink+set}" = set; then :
+  enableval=$enable_plink; ENABLE_PLINK=TRUE
+else
+  ENABLE_PLINK=FALSE
+fi
+
+
+SYS_NAME=`${R_SCMD} "source('./R/get_conf.r');get.conf('SYS_NAME')"`
+OS_TYPE=`${R_SCMD} "source('./R/get_conf.r');get.conf('OS_TYPE')"`
+# if test "${SYS_NAME}" = "SunOS" -o "${SYS_NAME}" = "Darwin"; then
+#   BUILD_BIN=""
+# else
+#   BUILD_BIN="plink"
+# fi
+if test "X${SYS_NAME}" = "XWindows" -o "X${HAS_SSH}" = "XF" -o "X${ENABLE_PLINK}" = "XTRUE"; then
+  BUILD_BIN="plink"
+else
+  BUILD_BIN=""
 fi
 
 echo " "
@@ -1734,6 +1750,7 @@ echo " "
 echo ">> SYS_NAME = ${SYS_NAME}"
 echo ">> OS_TYPE = ${OS_TYPE}"
 echo ">> HAS_SSH = ${HAS_SSH}"
+echo ">> ENABLE_PLINK = ${ENABLE_PLINK}"
 echo ">> BUILD_BIN = ${BUILD_BIN}"
 echo " "
 echo "*************************************************************************"

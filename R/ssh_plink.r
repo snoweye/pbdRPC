@@ -143,7 +143,8 @@ run_args <- function(exec = "ssh", args = "",
   ### Execute the cmd from system or shell.
   if (.Platform$OS.type == "windows")
   {
-    if (use.shell.exec){
+    if (use.shell.exec)
+    {
       cmd.fn <- tempfile(fileext = ".bat")
 
       if (pause)
@@ -158,14 +159,20 @@ run_args <- function(exec = "ssh", args = "",
     {
       ret <- try(system(cmd, intern = intern, wait = wait),
                  silent = TRUE)
-      return(ret)
+      if (intern)
+        return(ret)
+      else
+        return(invisible(ret))
     }
   }
   else
   {
     ret <- try(system(cmd, intern = intern, wait = wait),
                silent = TRUE)
-    return(ret)
+    if (intern)
+      return(ret)
+    else
+      return(invisible(ret))
   }
 }
 

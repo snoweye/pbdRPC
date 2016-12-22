@@ -22,7 +22,12 @@
 
 #if defined _RTOOLS & defined _WIN64
 typedef unsigned __int64 __uint64_t;
+// WCC:del
+// typedef unsigned __int128 __uint128_t;
+// WCC:add
+#ifndef __STDC__
 typedef unsigned __int128 __uint128_t;
+#endif
 #endif
 
 #if defined __SIZEOF_INT128__

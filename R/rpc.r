@@ -111,6 +111,16 @@ rpc <- function(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
   else
     ret <- plink(args, intern = intern, wait = wait)
 
-  return(ret)
+  ### For return.
+  if (.Platform$OS.type == "windows")
+  {
+    if (.pbd_env$RPC.CT$use.shell.exec)
+      return(invisible(ret))
+  }
+
+  if (intern)
+    return(ret)
+  else
+    return(invisible(ret))
 }
 

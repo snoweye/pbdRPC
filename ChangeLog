@@ -1,4 +1,9 @@
 ======================= Log Before Release =====================================
+2016-12-21: Ver. 0.1-1
+  * Add --enable-plink.
+  * Check with Fedora 25.
+  * Adjust invisible and visible returns.
+
 2016-12-17: Ver. 0.1-1
   * More vignette changes.
 

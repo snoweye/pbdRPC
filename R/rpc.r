@@ -114,7 +114,7 @@ rpc <- function(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
   ### For return.
   if (.Platform$OS.type == "windows")
   {
-    if (use.shell.exec)
+    if (.pbd_env$RPC.CT$use.shell.exec)
       return(invisible(ret))
   }
 

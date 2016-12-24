@@ -26,11 +26,12 @@ AC_ARG_ENABLE(plink,
 dnl Get build_bin
 SYS_NAME=`${R_SCMD} "source('./R/get_conf.r');get.conf('SYS_NAME')"`
 OS_TYPE=`${R_SCMD} "source('./R/get_conf.r');get.conf('OS_TYPE')"`
-# if test "${SYS_NAME}" = "SunOS" -o "${SYS_NAME}" = "Darwin"; then
-#   BUILD_BIN=""
-# else
-#   BUILD_BIN="plink"
-# fi
+# if test "X${SYS_NAME}" = "XSunOS" -o "X${SYS_NAME}" = "XDarwin"; then
+if test "X${SYS_NAME}" = "XSunOS"; then
+  BUILD_BIN=""
+else
+  BUILD_BIN="plink"
+fi
 if test "X${SYS_NAME}" = "XWindows" -o "X${HAS_SSH}" = "XF" -o "X${ENABLE_PLINK}" = "XTRUE"; then
   BUILD_BIN="plink"
 else

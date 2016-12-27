@@ -7,7 +7,7 @@
 * **Author:** See section below.
 
 
-A very light yet secure implementation for remote procedure calls via ssh (OpenSSH) or plink/plink.exe (PuTTY).
+A very light yet secure implementation for remote procedure calls with unified interface via ssh (OpenSSH) or plink/plink.exe (PuTTY).
 
 
 ## Usage

@@ -1,6 +1,6 @@
 Package: pbdRPC
 Version: 0.1-1
-Date: 2016-12-17
+Date: 2016-12-26
 Title: Programming with Big Data -- Remote Procedure Call
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"))
@@ -10,8 +10,9 @@ LazyLoad: yes
 LazyData: yes
 Copyright: See pbdRPC/inst/putty_LICENCE for files in src/putty/.
 Description: A very light implementation yet secure for remote procedure calls
-        via ssh (OpenSSH) or plink/plink.exe (PuTTY).
-SystemRequirements: ssh (OpenSSH) on Solaris, Linux, and Mac.
+        with unified interface via ssh (OpenSSH) or plink/plink.exe (PuTTY).
+SystemRequirements: ssh (OpenSSH) or plink (PuTTY) on Solaris, Linux,
+        and Mac.
 License: Mozilla Public License 2.0
 URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/

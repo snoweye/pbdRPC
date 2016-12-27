@@ -1,4 +1,7 @@
 ======================= Log Before Release =====================================
+2016-12-26: Ver. 0.1-1
+  * Add system plink to find_plink() by default.
+
 2016-12-21: Ver. 0.1-1
   * Add --enable-plink.
   * Check with Fedora 25.

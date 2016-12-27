@@ -17,6 +17,14 @@ else
   HAS_SSH="T"
 fi
 
+dnl Check ssh in path.
+AC_CHECK_PROG(PLINK, plink, plink, "F")
+if test "X${PLINK}" = "XF"; then
+  HAS_PLINK="F"
+else
+  HAS_PLINK="T"
+fi
+
 dnl All AC_ARG_ENABLE
 ENABLE_PLINK=FASLE
 AC_ARG_ENABLE(plink,
@@ -28,24 +36,12 @@ SYS_NAME=`${R_SCMD} "source('./R/get_conf.r');get.conf('SYS_NAME')"`
 OS_TYPE=`${R_SCMD} "source('./R/get_conf.r');get.conf('OS_TYPE')"`
 
 dnl Check each condition
-### This is wrong
-# if test "X${SYS_NAME}" = "XSunOS" -o "X${SYS_NAME}" = "XDarwin"; then
-#   BUILD_BIN=""
-# else
-#   BUILD_BIN="plink"
-# fi
-# if test "X${SYS_NAME}" = "XWindows" -o "X${HAS_SSH}" = "XF" -o "X${ENABLE_PLINK}" = "XTRUE"; then
-#   BUILD_BIN="plink"
-# else
-#   BUILD_BIN=""
-# fi
 BUILD_BIN=""
-if test "X${HAS_SSH}" = "XF" -o "X${ENABLE_PLINK}" = "XTRUE"; then
+if test "X${HAS_SSH}" = "XF" -a "X${HAS_PLINK}" = "XF"; then
   BUILD_BIN="plink"
-else
-  if test "X${SYS_NAME}" = "XLinux"; then
-    BUILD_BIN="plink"
-  fi
+fi
+if test "X${ENABLE_PLINK}" = "XTRUE"; then
+  BUILD_BIN="plink"
 fi
 
 dnl Report
@@ -55,6 +51,7 @@ echo " "
 echo ">> SYS_NAME = ${SYS_NAME}"
 echo ">> OS_TYPE = ${OS_TYPE}"
 echo ">> HAS_SSH = ${HAS_SSH}"
+echo ">> HAS_PLINK = ${HAS_PLINK}"
 echo ">> ENABLE_PLINK = ${ENABLE_PLINK}"
 echo ">> BUILD_BIN = ${BUILD_BIN}"
 echo " "

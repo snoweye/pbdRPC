@@ -15,7 +15,7 @@ in this document.
 
 Information about the functionality of this package,
 and any changes in future versions can be found on website:
-``Programming with Big Data in R'' at
+``Programming with Big Data in R'' (pbdR) at
 \url{http://r-pbd.org/}~\citep{pbdR2012}.
 
 
@@ -29,7 +29,10 @@ This package, \pkg{pbdRPC}~\citep{Chen2017pbdRPCpackage},
 provides one high level function, \code{rpc()}, that can securely send
 commands to remote servers via \code{ssh} (OpenSSH) or
 \code{plink}/\code{plink.exe} (PuTTY).
-The high-level function is also a wrapper
+The high-level function is a very light yet secure implementation because
+the communications are encrypted, by default SSH version 2 using RSA key pairs,
+between a local client and remote servers.
+The high-level function is simply a wrapper
 of two low-level functions, \code{ssh()} and \code{plink()}.
 These functions can ask remote servers to execute commands without
 logging in the servers provided that an authentication is set properly.
@@ -54,6 +57,13 @@ Four RPC controls are provided by the package to simply the functions:
 Note that \code{.pbd_env} will be first generated when the library \pkg{pbdRPC}
 is loaded, then default objects \code{RPC.CT}, \code{RPC.LI}, \code{RPC.RR},
 and \code{RPC.CS} will be generated.
+
+In general, only \code{RPC.CT} and \code{RPC.LI} are required to be 
+set by users according to their environment configurations.
+The \code{RPC.RR} and \code{RPC.Cs} are simple templates to show two
+pbdR applications. Users are welcomed to adopt those templates and to
+develop personal applications wherever automations can be benefit
+by remote procedure calls.
 
 Most OSs (Linux, Solaris, Mac OSX) have the system command \code{ssh} (OpenSSH)
 installed, so the

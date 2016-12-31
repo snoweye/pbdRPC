@@ -7,7 +7,10 @@
 * **Author:** See section below.
 
 
-A very light yet secure implementation for remote procedure calls with unified interface via ssh (OpenSSH) or plink/plink.exe (PuTTY).
+A very light yet secure implementation for remote procedure calls with
+unified interface via ssh (OpenSSH) or plink/plink.exe (PuTTY).
+
+See [vignette](./inst/doc/pbdRPC-guide.pdf) for more details.
 
 
 ## Usage
@@ -29,7 +32,7 @@ rpc("whoami", user = "snoweye", hostname = "192.168.56.101")
 - The `rpc()` is unified interface. The call is equivalent to
   `ssh snoweye@192.168.56.101 "whoami"` in a Linux-like system and
   `plink.exe snoweye@192.168.56.101 "whoami"` in a windows system,
-provided that `ssh` and `plink.exe` are reachable through the `PATH`.
+  provided that `ssh` and `plink.exe` are reachable through the `PATH`.
 - The default communications between the local `R` and the remote server
   `192.168.56.101` are encrypted and secure, by default using RSA version 2.
 - Private and public paired key authentications are supported,

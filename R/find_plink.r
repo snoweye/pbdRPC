@@ -21,7 +21,7 @@
 find_plink <- function()
 {
   PACKAGE <- "pbdRPC"
-  ret <- "plink"
+  ret <- as.character(Sys.which("plink"))
 
   pkg.path <- find.package(PACKAGE, quiet = TRUE)[1]
   if (length(pkg.path) == 1)
@@ -34,6 +34,12 @@ find_plink <- function()
 
     if (file.exists(fn))
       ret <- fn
+  }
+
+  if (ret == "")
+  {
+    message("Use `sudo apt-get install putty` to install a plink executable.") 
+    stop("Neither system nor internal compiled plink(.exe) are found.")
   }
 
   return(ret)

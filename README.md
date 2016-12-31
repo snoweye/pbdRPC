@@ -10,7 +10,8 @@
 A very light yet secure implementation for remote procedure calls with
 unified interface via ssh (OpenSSH) or plink/plink.exe (PuTTY).
 
-See [vignette](./inst/doc/pbdRPC-guide.pdf) for more details and applications.
+See [pbdRPC vignette](./inst/doc/pbdRPC-guide.pdf) for more details and
+applications.
 
 
 ## Usage

@@ -1,4 +1,8 @@
 ======================= Log Before Release =====================================
+2016-12-31: Ver. 0.1-1
+  * Add one more advance application with pbdMPI to vignettes.
+  * Fix a .pbd_env bug.
+
 2016-12-26: Ver. 0.1-1
   * Add system plink to find_plink() by default.
 

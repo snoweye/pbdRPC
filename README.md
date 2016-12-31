@@ -24,7 +24,7 @@ rpc("whoami", user = "snoweye", hostname = "192.168.56.101")
 ```
 
 
-### Features
+## Features
 - The above example is completely done in an interactive `R` session.
 - The `rpc()` is unified interface. The call is equivalent to
   `ssh snoweye@192.168.56.101 "whoami"` in a Linux-like system and

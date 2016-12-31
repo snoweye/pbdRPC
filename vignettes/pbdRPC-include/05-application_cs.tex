@@ -1,7 +1,7 @@
 
-\section[An Application Using \pkg{pbdCS}]{An Application Using \pkg{pbdCS}}
+\section[An Application with \pkg{pbdCS}]{An Application with \pkg{pbdCS}}
 \label{sec:application_cs}
-\addcontentsline{toc}{section}{\thesection. An Application Using \pkg{pbdCS}}
+\addcontentsline{toc}{section}{\thesection. An Application with \pkg{pbdCS}}
 
 Similar to the \pkg{remoter}, the \pkg{pbdCS}~\citep{pbdCS} provides
 interactivity for clusters running \proglang{R}'s via the
@@ -33,6 +33,8 @@ Furthermore, one may also use \pkg{pbdRPC} directly within an \proglang{R}
 environment to send those commands. The example is in next.
 \begin{Code}[title=Using \pkg{pbdRPC} to control \pkg{pbdCS}]
 > library(pbdRPC, quietly = TRUE)
+>
+> ### Alter login information as needed
 > rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
 > .pbd_env$RPC.CT$use.shell.exec <- FALSE
 >

@@ -1,7 +1,7 @@
 
-\section[An Application Using \pkg{remoter}]{An Application Using \pkg{remoter}}
+\section[An Application with \pkg{remoter}]{An Application with \pkg{remoter}}
 \label{sec:application_rr}
-\addcontentsline{toc}{section}{\thesection. An Application Using \pkg{remoter}}
+\addcontentsline{toc}{section}{\thesection. An Application with \pkg{remoter}}
 
 The \pkg{remoter}~\citep{remoter} and \pkg{pbdZMQ}~\citep{Chen2015pbdZMQpackage}
 provide client/server interface to control a remote \proglang{R}
@@ -39,6 +39,8 @@ Furthermore, one may also use \pkg{pbdRPC} directly within an \proglang{R}
 environment to send those commands. The example is in next.
 \begin{Code}[title=Using \pkg{pbdRPC} to control \pkg{remoter}]
 > library(pbdRPC, quietly = TRUE)
+>
+> ### Alter login information as needed
 > rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
 > .pbd_env$RPC.CT$use.shell.exec <- FALSE
 >

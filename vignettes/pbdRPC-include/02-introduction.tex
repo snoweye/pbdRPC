@@ -102,6 +102,8 @@ Within \proglang{R}, the next example will have the
 same results as the above shell command.
 \begin{Code}[title=Basic \code{rpc()} in \pkg{pbdRPC} and \proglang{R}]
 > library(pbdRPC, quietly = TRUE)
+>
+> ### Alter login information as needed
 > rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
 > rpc("whoami")
 \end{Code}

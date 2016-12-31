@@ -19,10 +19,11 @@ applications.
 ```r
 library(pbdRPC)
 
+### Alter login information as needed
 rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
 rpc("whoami")
 
-### or
+### Or
 
 rpc("whoami", user = "snoweye", hostname = "192.168.56.101")
 ```

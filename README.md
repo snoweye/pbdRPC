@@ -60,12 +60,11 @@ install_github("RBigData/pbdRPC")
 When mentioning the pbdRPC, please cite:
 
 ```
-@ONELINE{pbdRPC2017,
+@MISC{pbdRPC2017,
   author = {Chen, W.-C},
   title = {{pbdRPC}: Programming with Big Data -- Remote Procedure Call},
   year = {2017},
-  note = {{R} Package},
-  url = {https://cran.r-project.org/package=pbdRPC}
+  note = {{R} Package, URL https://cran.r-project.org/package=pbdRPC}
 }
 ```
 

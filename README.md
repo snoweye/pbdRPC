@@ -22,10 +22,20 @@ rpc("whoami")
 
 rpc("whoami", user = "snoweye", hostname = "192.168.56.101")
 ```
-The above example in `R` is unified and equivalent to
-`ssh snoweye@192.168.56.101 "whoami"` in a Linux-like system and
-`plink.exe snoweye@192.168.56.101 "whoami"` in a windows system,
+
+
+### Features
+- The above example is completely done in an interactive `R` session.
+- The `rpc()` is unified interface. The call is equivalent to
+  `ssh snoweye@192.168.56.101 "whoami"` in a Linux-like system and
+  `plink.exe snoweye@192.168.56.101 "whoami"` in a windows system,
 provided that `ssh` and `plink.exe` are reachable through the `PATH`.
+- The default communications between the local `R` and the remote server
+  `192.168.56.101` are encrypted and secure, by default using RSA version 2.
+- Private and public paired key authentications are supported,
+  i.e. login without password.
+- Port forwarding is also supported for two way tunneling, both local `-L` and
+  remote `-R`.
 
 
 ## Installation

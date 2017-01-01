@@ -26,16 +26,20 @@ and any changes in future versions can be found on website:
 \addcontentsline{toc}{section}{\thesection. Introduction}
 
 This package, \pkg{pbdRPC}~\citep{Chen2017pbdRPCpackage},
-provides one high level function, \code{rpc()}, that can securely send
+provides one high-level function, \code{rpc()}, that can securely send
 commands to remote servers via \code{ssh} (OpenSSH) or
 \code{plink}/\code{plink.exe} (PuTTY).
 The high-level function is a very light yet secure implementation because
 the communications are encrypted, by default SSH version 2 using RSA key pairs,
 between a local client and remote servers.
-The high-level function is simply a wrapper
+
+The high-level function \code{rpc()} is a unified interface via system call
+to either \code{ssh} or \code{plink} across most popular OSs
+including Linux, Mac OSX, MS Windows, and Solaris.
+Simply speaking, the function \code{rpc()} is a wrapper
 of two low-level functions, \code{ssh()} and \code{plink()}.
-These functions can ask remote servers to execute commands without
-logging in the servers provided that an authentication is set properly.
+However, these functions can ask remote servers to execute commands without
+logging in the servers provided that an authentication is setup properly.
 
 Four RPC controls are provided by the package to simply the functions:
 \begin{enumerate}

@@ -62,6 +62,31 @@ $ puttygen id_rsa -O private -o id_rsa.ppk
       {\bf\color{blue} A:}
       Yes, theoretically there is no problem. However, there is no
       appropriate example to show that in \proglang{R}.
+      See Sections~\ref{sec:arguments_local_port_forwarding}
+      and \ref{sec:arguments_tunneling} for the command arguments.
+
+\item {\bf\color{blue} Q:}
+      Error messages from an \proglang{R} session or a shell/terminal
+      are shown as below.
+\begin{Error}
+FATAL ERROR: Network error: Connection refused
+\end{Error}
+      or
+\begin{Error}
+ssh: connect to host 192.168.56.101 port 22: Connection refused
+\end{Error}
+      {\bf\color{blue} A:}
+      The messages are mainly because of incorrect setups of SSH service.
+      Check SSH service on remote servers.
+      \begin{itemize}
+      \item Install SSH server, such as in next.
+\begin{Command}
+$ sudo apt-get install openssh-server
+\end{Command}
+      \item Check network, port, SSH service, and firewall configurations.
+      \item Turn on connection permissions for SSH ports.
+      \item Make sure password or authentication are correct.
+      \end{itemize} 
 
 \end{enumerate}
 

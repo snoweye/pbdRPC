@@ -48,19 +48,19 @@ rpcopt_set <- function(user = NULL, hostname = NULL, pport = NULL,
     exec.type = NULL, args = NULL, priv.key = NULL, priv.key.ppk = NULL)
 {
   if (!is.null(user))
-    .pbe_env$RPC.LI$user <- user
+    .pbd_env$RPC.LI$user <- user
   if (!is.null(hostname))
-    .pbe_env$RPC.LI$hostname <- hostname
+    .pbd_env$RPC.LI$hostname <- hostname
   if (!is.null(pport))
-    .pbe_env$RPC.LI$pport <- pport
+    .pbd_env$RPC.LI$pport <- pport
   if (!is.null(exec.type))
-    .pbe_env$RPC.LI$exec.type <- exec.type
+    .pbd_env$RPC.LI$exec.type <- exec.type
   if (!is.null(args))
-    .pbe_env$RPC.LI$args <- args
+    .pbd_env$RPC.LI$args <- args
   if (!is.null(priv.key))
-    .pbe_env$RPC.LI$priv.key <- priv.key
+    .pbd_env$RPC.LI$priv.key <- priv.key
   if (!is.null(priv.key.ppk))
-    .pbe_env$RPC.LI$priv.key.ppk <- priv.key.ppk
+    .pbd_env$RPC.LI$priv.key.ppk <- priv.key.ppk
 
   return(invisible(.pbd_env$RPC.LI))
 }

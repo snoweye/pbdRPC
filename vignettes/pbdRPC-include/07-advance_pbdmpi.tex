@@ -1,0 +1,108 @@
+
+\section[An Advance Application with \pkg{pbdMPI}]{An Advance Application with \pkg{pbdMPI}}
+\label{sec:advance_pbdmpi}
+\addcontentsline{toc}{section}{\thesection. An Advance Application with \pkg{pbdMPI}}
+
+Examples of the \pkg{pbdMPI}~\citep{Chen2012pbdMPIpackage} are introduced
+in this section first under a shell/terminal mode.
+Then, the examples will be combined with \pkg{pbdRPC} to show how
+\code{rpc()} sends requests from an interactive \proglang{R} session
+to a remote server and execute the examples in the shell/terminal model.
+Multiple commands can be manually combined in one \code{rpc()} call.
+The return values can also be captured by the interactive \proglang{R}
+session with an addition argument.
+
+The \pkg{pbdMPI} is a general MPI interface
+running in SPMD by default. A typical example is to run the \pkg{pbdMPI}
+via \code{mpiexec} and \code{Rscript} from a shell/terminal as
+in below with outputs.
+\begin{Code}[title=\code{pbdMPI::allreduce(1)} in 4 cores]
+$ mpiexec -np 4 Rscript -e 'library(pbdMPI,quietly=T);allreduce(1);finalize()'
+[1] 4
+[1] 4
+[1] 4
+[1] 4
+\end{Code}
+The outputs are printed from 4 cores. Each core has a \code{allreduce(1)}
+call synchronically to reduce three 1's from other peer cores. The default
+operation for \code{allreduce()} is a summation \code{sum()}, so the total
+is 4. Note that the 4 cores may not be in a single machine as long as MPI
+setup correctly.
+
+In next, the example below will give the total 8 in each core because
+the value to be reduced is a 2 from each core.
+\begin{Code}[title=\code{pbdMPI::allreduce(2)} in 4 cores]
+$ mpiexec -np 4 Rscript -e 'library(pbdMPI,quietly=T);allreduce(2);finalize()'
+[1] 8
+[1] 8
+[1] 8
+[1] 8
+\end{Code}
+Similarly, the total will be 12 in each core when 3's are reduced from 4 cours.
+
+With the examples above, one may want to execute them from a local
+machine/laptop. i.e.
+\pkg{pbdMPI} is run on remote servers while \pkg{pbdRPC} is run in local.
+Note that two systems between server and local machines are generally
+different.
+
+Assume environment setups are similar as Sections~\ref{sec:application_rr} and
+\ref{sec:application_cs}.
+The \pkg{pbdRPC} commands within an interactive \proglang{R} session
+are shown below.
+\begin{Code}[title=\pkg{pbdRPC} in local and \pkg{pbdMPI} in remote]
+> library(pbdRPC)
+>
+> ### Alter login information as needed
+> rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+> .pbd_env$RPC.CT$use.shell.exec <- FALSE
+>
+> ### Set the RPC commands
+> preload <- "source ~/work-my/00_set_devel_R; "
+> cmd.mpi <- "mpiexec -np 4 Rscript -e "
+> cmd.code <- "'library(pbdMPI,quietly=T);allreduce(3);finalize()'"
+>
+> ### Put the RPC commands together
+> cmd <- paste(preload, cmd.mpi, cmd.code, sep = "")
+> cmd  ### Similar to the shell example above
+>
+> ### Send the command to remote server, snoweye@192.168.56.101
+> rpc(cmd = cmd)
+[1][1] 12
+[1] 12
+[1] 12
+12
+>
+> ### Turn on verbose
+> .pbd_env$RPC.CT$verbose <- TRUE
+>
+> ### Capture the return values
+> ret <- rpc(cmd = cmd, intern = TRUE)
+C:/Uners/snoweye/Documents/R/win-library/3.4/pbdRPC/libs/x64/plink.exe -P 22 -i ./id_rsa.ppk  snoweye@192.168.56.101 "source ~/work-my/00_set_devel_R; mpiexec -np 4 Rscript -e 'library(pbdMPI,quietly=T);allreduce(3);finalize()'"
+> str(ret)
+ chr [1:4] "[1] 12" "[1] 12" "[1] 12" "[1] 12"
+> ret
+[1] "[1] 12" "[1] 12" "[1] 12" "[1] 12"
+\end{Code}
+In order to capture the return values (four character strings) from the
+remote server, the argument \code{intern = TRUE} set to the \code{rpc()}
+is required as shown in the example.
+
+When \code{verbose = TRUE}, the \code{rpc()} shows the command being passed
+to the shell or terminal. In this case, one may test the message shown above
+to obtain the same result from the interactive \proglang{R} session as
+below.
+\begin{Command}[title=From a \code{cmd.exe} command prompt windows]
+C:\Users\snoweye> cd Documents
+C:\Users\snoweye\Documents> 
+C:/Users/snoweye/Documents/R/win-library/3.4/pbdRPC/libs/x64/plink.exe -P 22 -i ./id_rsa.ppk  snoweye@192.168.56.101 "source ~/work-my/00_set_devel_R; mpiexec -np 4 Rscript -e 'library(pbdMPI,quietly=T);allreduce(3);finalize()'"
+[1] 12
+[1] 12
+[1][1] 12
+ 12
+\end{Command}
+Note that the slash symbols $/$ may be replaced by anti-slash or back slash
+symbols $\setminus$ in MS Windows when Rtools is not loaded correctly.
+Double quote $"$ may be needed as well when the command path to the
+\code{plink.exe} contains any spaces or any non-ascii characters.
+

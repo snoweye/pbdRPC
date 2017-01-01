@@ -19,18 +19,21 @@ applications.
 ```r
 library(pbdRPC)
 
+### Alter login information as needed
 rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
 rpc("whoami")
 
-### or
+### Or
 
 rpc("whoami", user = "snoweye", hostname = "192.168.56.101")
 ```
 
 
 ## Features
+- The `rpc()` is a unified interface across most popular OSs
+  including Linux, Mac OSX, MS Windows, and Solaris.
 - The above example is completely done in an interactive `R` session.
-- The `rpc()` is unified interface. The call is equivalent to
+- The call is equivalent to
   `ssh snoweye@192.168.56.101 "whoami"` in a Linux-like system and
   `plink.exe snoweye@192.168.56.101 "whoami"` in a windows system,
   provided that `ssh` and `plink.exe` are reachable through the
@@ -52,6 +55,20 @@ The package can be installed from the CRAN via the usual
 ```r
 library(devtools)
 install_github("RBigData/pbdRPC")
+```
+
+
+## Citation
+
+When mentioning the pbdRPC, please cite:
+
+```
+@MISC{pbdRPC2017,
+  author = {Chen, W.-C},
+  title = {{pbdRPC}: Programming with Big Data -- Remote Procedure Call},
+  year = {2017},
+  note = {{R} Package, URL https://cran.r-project.org/package=pbdRPC}
+}
 ```
 
 

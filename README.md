@@ -75,5 +75,6 @@ When mentioning the pbdRPC, please cite:
 ## Authors
 
 pbdRPC is authored and maintained by the pbdR core team:
+
 * Wei-Chen Chen
 

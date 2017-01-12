@@ -42,9 +42,9 @@ machine <- function(hostname, user, exec.type = .pbd_env$RPC.LI$exec.type,
   if (missing(user))
   {
     if (.Platform$OS.type == "windows")
-      user <- shell("echo %username%")
+      user <- shell("echo %username%", intern=TRUE)
     else
-      user <- system("whoami")
+      user <- system("whoami", intern=TRUE)
     warning("No user name supplied; using system user name...")
   }
   
@@ -64,8 +64,8 @@ machine <- function(hostname, user, exec.type = .pbd_env$RPC.LI$exec.type,
   if (exec.type != "ssh" && exec.type != "plink")
     stop(paste0("exec.type (", exec.type, ") is not found."))
   
-  m <- list(args=args, pport=pport, user=user, hostname=hostname, 
-    priv.key=priv.key, priv.key.ppk=priv.key.ppk)
+  m <- list(hostname=hostname, user=user, exec.type=exec.type, args=args,
+    pport=pport, priv.key=priv.key, priv.key.ppk=priv.key.ppk)
   class(m) <- "machine"
   
   return(m)

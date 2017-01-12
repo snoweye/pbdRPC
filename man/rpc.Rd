@@ -4,13 +4,13 @@
 \alias{rpc}
 \title{Remote Procedure Call}
 \usage{
-rpc(cmd = "whoami", machine, intern = .pbd_env$RPC.CT$intern,
+rpc(machine, cmd = "whoami", intern = .pbd_env$RPC.CT$intern,
   wait = .pbd_env$RPC.CT$wait)
 }
 \arguments{
-\item{cmd}{the command to be executed on the server.}
-
 \item{machine}{A machine configuration. See \code{?machine}.}
+
+\item{cmd}{the command to be executed on the server.}
 
 \item{intern, wait}{arguments passed to \code{system()} or \code{shell()}
 whereever they are applicable.}
@@ -58,7 +58,7 @@ client()    # equivalent to client(addr = "192.168.56.101")
 
 }
 \seealso{
-\code{\link{start_rr}()},
+\code{\link{machine}()}, \code{\link{start_rr}()},
          \code{\link{check_rr}()}, \code{\link{kill_rr}()},
          \code{\link{ssh}()}, and \code{\link{plink}()}.
 }

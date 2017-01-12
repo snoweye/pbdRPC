@@ -7,17 +7,17 @@
 \alias{start_rr}
 \title{Example Functions of RPC Related to Remote R Server}
 \usage{
-check_rr(cmd = .pbd_env$RPC.RR$check, machine)
+check_rr(machine, cmd = .pbd_env$RPC.RR$check)
 
-kill_rr(cmd = .pbd_env$RPC.RR$kill, machine)
+kill_rr(machine, cmd = .pbd_env$RPC.RR$kill)
 
-start_rr(cmd = .pbd_env$RPC.RR$start, machine,
+start_rr(machine, cmd = .pbd_env$RPC.RR$start,
   preload = .pbd_env$RPC.RR$preload)
 }
 \arguments{
-\item{cmd}{the main command to be executed on the server.}
-
 \item{machine}{A machine configuration. See \code{?machine}.}
+
+\item{cmd}{the main command to be executed on the server.}
 
 \item{preload}{further commands preloaded before the main \code{command} is executed.}
 }

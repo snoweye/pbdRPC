@@ -75,7 +75,7 @@ NULL
 
 #' @rdname rpc_rr_example
 #' @export
-check_rr <- function(cmd = .pbd_env$RPC.RR$check, machine)
+check_rr <- function(machine, cmd = .pbd_env$RPC.RR$check)
 {
   check.is.machine(machine)
   
@@ -89,7 +89,7 @@ check_rr <- function(cmd = .pbd_env$RPC.RR$check, machine)
 
 #' @rdname rpc_rr_example
 #' @export
-kill_rr <- function(cmd = .pbd_env$RPC.RR$kill, machine)
+kill_rr <- function(machine, cmd = .pbd_env$RPC.RR$kill)
 {
   check.is.machine(machine)
   
@@ -103,7 +103,7 @@ kill_rr <- function(cmd = .pbd_env$RPC.RR$kill, machine)
 
 #' @rdname rpc_rr_example
 #' @export
-start_rr <- function(cmd = .pbd_env$RPC.RR$start, machine,
+start_rr <- function(machine, cmd = .pbd_env$RPC.RR$start,
     preload = .pbd_env$RPC.RR$preload)
 {
   check.is.machine(machine)

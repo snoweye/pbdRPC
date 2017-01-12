@@ -7,17 +7,17 @@
 \alias{start_cs}
 \title{Example Functions of RPC Related to pbdCS}
 \usage{
-check_cs(cmd = .pbd_env$RPC.CS$check, machine)
+check_cs(machine, cmd = .pbd_env$RPC.CS$check)
 
-kill_cs(cmd = .pbd_env$RPC.CS$kill, machine)
+kill_cs(machine, cmd = .pbd_env$RPC.CS$kill)
 
-start_cs(cmd = .pbd_env$RPC.CS$start, machine,
+start_cs(machine, cmd = .pbd_env$RPC.CS$start,
   preload = .pbd_env$RPC.CS$preload)
 }
 \arguments{
-\item{cmd}{the main command to be executed on the server.}
-
 \item{machine}{A machine configuration. See \code{?machine}.}
+
+\item{cmd}{the main command to be executed on the server.}
 
 \item{preload}{further commands preloaded before the main \code{command} is executed.}
 }

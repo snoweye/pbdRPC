@@ -76,7 +76,7 @@ NULL
 
 #' @rdname rpc_cs_example
 #' @export
-check_cs <- function(cmd = .pbd_env$RPC.CS$check, machine)
+check_cs <- function(machine, cmd = .pbd_env$RPC.CS$check)
 {
   check.is.machine(machine)
   
@@ -90,7 +90,7 @@ check_cs <- function(cmd = .pbd_env$RPC.CS$check, machine)
 
 #' @rdname rpc_cs_example
 #' @export
-kill_cs <- function(cmd = .pbd_env$RPC.CS$kill, machine)
+kill_cs <- function(machine, cmd = .pbd_env$RPC.CS$kill)
 {
   check.is.machine(machine)
   
@@ -104,7 +104,7 @@ kill_cs <- function(cmd = .pbd_env$RPC.CS$kill, machine)
 
 #' @rdname rpc_cs_example
 #' @export
-start_cs <- function(cmd = .pbd_env$RPC.CS$start, machine,
+start_cs <- function(machine, cmd = .pbd_env$RPC.CS$start,
     preload = .pbd_env$RPC.CS$preload)
 {
   check.is.machine(machine)

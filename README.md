@@ -1,6 +1,6 @@
 # pbdRPC
 
-* **Version:** 0.1-1
+* **Version:** 0.2-0
 * **License:** [![License](http://img.shields.io/badge/license-MPL%202-orange.svg?style=flat)](https://www.mozilla.org/MPL/2.0/)
 * **Download:** [![Download](http://cranlogs.r-pkg.org/badges/pbdRPC)](https://cran.r-project.org/package=pbdRPC)
 * **Status:** [![Build Status](https://travis-ci.org/snoweye/pbdRPC.png)](https://travis-ci.org/snoweye/pbdRPC)
@@ -16,16 +16,30 @@ applications.
 
 ## Usage
 
+
+
 ```r
 library(pbdRPC)
 
-### Alter login information as needed
-rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
-rpc("whoami")
+m <- machine("192.168.56.101", "snoweye")
+m
+## Machine config for snoweye@192.168.56.101
+##     pport = 22
+##     type = ssh
+##     args = ""
+##     priv.key = ~/.ssh/id_rsa
+##     priv.key.ppk = ./id_rsa.ppk
 
-### Or
+rpc(m, "whoami")
+## snoweye
+```
 
-rpc("whoami", user = "snoweye", hostname = "192.168.56.101")
+If no username is supplied during machine configuration, then we take the local system user name (which of course may not be correct...):
+
+```r
+m <- machine("192.168.56.101")
+rpc(m, "whoami")
+## snoweye
 ```
 
 
@@ -49,12 +63,19 @@ rpc("whoami", user = "snoweye", hostname = "192.168.56.101")
 
 ## Installation
 
-The package can be installed from the CRAN via the usual
-`install.packages("pbdRPC")`, or via the `devtools` package:
+To install the R package, run:
 
 ```r
-library(devtools)
-install_github("RBigData/pbdRPC")
+install.package("coop")
+```
+
+The development version is maintained on GitHub, and can easily be installed by any of the packages that offer installations from GitHub:
+
+```r
+### Pick your preference
+devtools::install_github("RBigData/pbdRPC")
+ghit::install_github("RBigData/pbdRPC")
+remotes::install_github("RBigData/pbdRPC")
 ```
 
 
@@ -77,4 +98,3 @@ When mentioning the pbdRPC, please cite:
 pbdRPC is authored and maintained by the pbdR core team:
 
 * Wei-Chen Chen
-

@@ -10,7 +10,7 @@
 RPC.CT(verbose = FALSE, intern = FALSE, wait = TRUE, check.exec = FALSE,
   use.shell.exec = TRUE, pause = TRUE)
 
-RPC.LI(exec.type = "ssh", args = "", pport = "22", user = "snoweye",
+RPC.LI(exec.type = "ssh", args = "", pport = 22, user = "snoweye",
   hostname = "192.168.56.101", priv.key = "~/.ssh/id_rsa",
   priv.key.ppk = "./id_rsa.ppk")
 

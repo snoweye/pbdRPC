@@ -33,4 +33,14 @@ An object of class \code{machine}.
 \description{
 Remote machine configuration settings.
 }
+\examples{
+\dontrun{
+# note: not my actual aws url
+myaws <- machine("ec2-1-2-3-4.compute-1.amazonaws.com", user="my_aws_username")
+
+# if you don't specify 'user', we use your host machine's user name
+myvm <- machine("192.168.1.10")
+}
+
+}
 

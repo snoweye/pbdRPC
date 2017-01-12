@@ -4,15 +4,16 @@
 \alias{machine}
 \title{machine}
 \usage{
-machine(user, hostname, exec.type = .pbd_env$RPC.LI$exec.type,
+machine(hostname, user, exec.type = .pbd_env$RPC.LI$exec.type,
   args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
   priv.key = .pbd_env$RPC.LI$priv.key,
   priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk)
 }
 \arguments{
-\item{user}{user id for logging to the server.}
-
 \item{hostname}{the server ip or host name.}
+
+\item{user}{user id for logging to the server.  If none is supplied, then the system user
+name will be used instead.}
 
 \item{exec.type}{either "ssh" or "plink" in character. Windows will force to use "plink".}
 

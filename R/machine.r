@@ -10,7 +10,8 @@
 #' @param pport
 #' ssh port opened on the server.
 #' @param user
-#' user id for logging to the server.
+#' user id for logging to the server.  If none is supplied, then the system user
+#' name will be used instead.
 #' @param hostname
 #' the server ip or host name.
 #' @param priv.key,priv.key.ppk
@@ -24,12 +25,22 @@
 #' 
 #' @name machine
 #' @export
-machine <- function(user, hostname, exec.type = .pbd_env$RPC.LI$exec.type,
+machine <- function(hostname, user, exec.type = .pbd_env$RPC.LI$exec.type,
   args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-  # user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
   priv.key = .pbd_env$RPC.LI$priv.key,
   priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk)
 {
+  if (missing(user))
+  {
+    if (.Platform$OS.type == "windows")
+      user <- shell("echo %username%")
+    else
+      user <- system("whoami")
+    warning("No user name supplied; using system user name...")
+  }
+  if (missing(hostname))
+    stop("You must supply a host name or ip in machine() call; i.e. what do you want to connect to?")
+  
   m <- list(args=args, pport=pport, user=user, hostname=hostname, priv.key=priv.key, priv.key.ppk=priv.key.ppk)
   class(m) <- "machine"
   return(m)

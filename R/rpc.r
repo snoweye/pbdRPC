@@ -12,22 +12,8 @@
 #'
 #' @param cmd
 #' the command to be executed on the server.
-#' @param exec.type
-#' either "ssh" or "plink" in character. Windows will force to use "plink".
-#' @param args
-#' further arguments to "ssh" or "plink" for connecting to the server
-#' in addition to port, user id, and host name.
-#' @param pport
-#' ssh port opened on the server.
-#' @param user
-#' user id for logging to the server.
-#' @param hostname
-#' the server ip or host name.
-#' @param priv.key,priv.key.ppk
-#' location of the private key for user authentication, the file will be
-#' checked first then \code{-i priv.key} will be added to \code{args}
-#' when the file exists.
-#' \code{priv.key.ppk} is only used when \code{plink} is called.
+#' @param machine
+#' A machine configuration. See \code{?machine}.
 #' @param intern,wait
 #' arguments passed to \code{system()} or \code{shell()}
 #' whereever they are applicable.
@@ -67,13 +53,11 @@
 #' }
 #'
 #' @export
-rpc <- function(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
-    args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-    user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
-    priv.key = .pbd_env$RPC.LI$priv.key,
-    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
+rpc <- function(cmd = "whoami", machine,
     intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
 {
+  check.is.machine(machine)
+  
   ### Pre-check.
   if (.Platform$OS.type == "windows")
     exec.type <- "plink"
@@ -123,4 +107,3 @@ rpc <- function(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
   else
     return(invisible(ret))
 }
-

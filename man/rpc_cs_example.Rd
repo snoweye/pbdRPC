@@ -7,40 +7,17 @@
 \alias{start_cs}
 \title{Example Functions of RPC Related to pbdCS}
 \usage{
-check_cs(exec.type = .pbd_env$RPC.LI$exec.type, args = .pbd_env$RPC.LI$args,
-  pport = .pbd_env$RPC.LI$pport, user = .pbd_env$RPC.LI$user,
-  hostname = .pbd_env$RPC.LI$hostname, priv.key = .pbd_env$RPC.LI$priv.key,
-  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk, cmd = .pbd_env$RPC.CS$check)
+check_cs(cmd = .pbd_env$RPC.CS$check, machine)
 
-kill_cs(exec.type = .pbd_env$RPC.LI$exec.type, args = .pbd_env$RPC.LI$args,
-  pport = .pbd_env$RPC.LI$pport, user = .pbd_env$RPC.LI$user,
-  hostname = .pbd_env$RPC.LI$hostname, priv.key = .pbd_env$RPC.LI$priv.key,
-  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk, cmd = .pbd_env$RPC.CS$kill)
+kill_cs(cmd = .pbd_env$RPC.CS$kill, machine)
 
-start_cs(exec.type = .pbd_env$RPC.LI$exec.type, args = .pbd_env$RPC.LI$args,
-  pport = .pbd_env$RPC.LI$pport, user = .pbd_env$RPC.LI$user,
-  hostname = .pbd_env$RPC.LI$hostname, priv.key = .pbd_env$RPC.LI$priv.key,
-  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-  preload = .pbd_env$RPC.CS$preload, cmd = .pbd_env$RPC.CS$start)
+start_cs(cmd = .pbd_env$RPC.CS$start, machine,
+  preload = .pbd_env$RPC.CS$preload)
 }
 \arguments{
-\item{exec.type}{either "ssh" or "plink" in character. Windows will force to use "plink".}
-
-\item{args}{further arguments to "ssh" or "plink" for connecting to the server
-in addition to port, user id, and host name.}
-
-\item{pport}{ssh port opened on the server.}
-
-\item{user}{user id for logging to the server.}
-
-\item{hostname}{the server ip or host name.}
-
-\item{priv.key, priv.key.ppk}{location of the private key for user authentication, the file will be
-checked first then \code{-i priv.key} will be added to \code{args}
-when the file exists.
-\code{priv.key.ppk} is only used when \code{plink} is called.}
-
 \item{cmd}{the main command to be executed on the server.}
+
+\item{machine}{A machine configuration. See \code{?machine}.}
 
 \item{preload}{further commands preloaded before the main \code{command} is executed.}
 }

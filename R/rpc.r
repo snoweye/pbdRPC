@@ -65,11 +65,6 @@ rpc <- function(cmd = "whoami", machine,
   priv.key <- machine$priv.key
   priv.key.ppk <- machine$priv.key.ppk
   
-  ### Pre-check.
-  if (.Platform$OS.type == "windows")
-    exec.type <- "plink"
-  if (exec.type != "ssh" && exec.type != "plink")
-    stop(paste0("exec.type (", exec.type, ") is not found."))
 
   ### Get port arguments.
   if (length(grep("-(P|p) [0-9]{1-5} ", args)) == 0)

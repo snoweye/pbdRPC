@@ -83,6 +83,7 @@ check_cs <- function(cmd = .pbd_env$RPC.CS$check, machine)
   ret <- suppressWarnings(
     rpc(cmd = cmd, machine = machine)
   )
+  
   invisible(ret)
 }
 
@@ -96,6 +97,7 @@ kill_cs <- function(cmd = .pbd_env$RPC.CS$kill, machine)
   ret <- suppressWarnings(
     rpc(cmd = cmd, machine = machine)
   )
+  
   invisible(ret)
 }
 
@@ -111,5 +113,6 @@ start_cs <- function(cmd = .pbd_env$RPC.CS$start, machine,
   ret <- suppressWarnings(
     rpc(cmd = cmd.all, machine = machine)
   )
+  
   invisible(ret)
 }

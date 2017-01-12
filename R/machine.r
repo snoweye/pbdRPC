@@ -47,11 +47,26 @@ machine <- function(hostname, user, exec.type = .pbd_env$RPC.LI$exec.type,
       user <- system("whoami")
     warning("No user name supplied; using system user name...")
   }
+  
   if (missing(hostname))
     stop("You must supply a host name or ip in machine() call; i.e. what do you want to connect to?")
+  else
+    check.is.string(hostname)
   
-  m <- list(args=args, pport=pport, user=user, hostname=hostname, priv.key=priv.key, priv.key.ppk=priv.key.ppk)
+  if (.Platform$OS.type == "windows")
+    exec.type <- "plink"
+  if (exec.type != "ssh" && exec.type != "plink")
+    stop(paste0("exec.type (", exec.type, ") is not found."))
+  
+  check.is.string(args)
+  check.is.posint(pport)
+  check.is.string(priv.key)
+  check.is.string(priv.key.ppk)
+  
+  m <- list(args=args, pport=pport, user=user, hostname=hostname, 
+    priv.key=priv.key, priv.key.ppk=priv.key.ppk)
   class(m) <- "machine"
+  
   return(m)
 }
 
@@ -59,6 +74,13 @@ check.is.machine <- function(machine)
 {
   if (!inherits(machine, "machine"))
     stop("argument 'machine' seemingly not generated via call to machine()")
+  
+  check.is.string(args)
+  check.is.posint(pport)
+  check.is.string(priv.key)
+  check.is.string(priv.key.ppk)
+  
+  invisible(TRUE)
 }
 
 

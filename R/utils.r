@@ -33,34 +33,49 @@ is.string <- function(x)
 
 
 
-check.is.string <- function(x)
+check.is.string <- function(x, msg=NULL)
 {
 	if (!is.string(x))
 	{
-		nm <- deparse(substitute(x))
-		stop(paste0("argument '", nm, "' must be a single string"), call.=FALSE)
+		if (is.null(msg))
+		{
+			nm <- deparse(substitute(x))
+			stop(paste0("argument '", nm, "' must be a single string"), call.=FALSE)
+		}
+		else
+			stop(msg, call.=FALSE)
 	}
 	
 	invisible(TRUE)
 }
 
-check.is.posint <- function(x)
+check.is.posint <- function(x, msg=NULL)
 {
 	if (!is.numeric(x) || is.annoying(x) || !is.inty(x) || is.negative(x) || is.zero(x))
 	{
-		nm <- deparse(substitute(x))
-		stop(paste0("argument '", nm, "' must be a positive integer"), call.=FALSE)
+		if (is.null(msg))
+		{
+			nm <- deparse(substitute(x))
+			stop(paste0("argument '", nm, "' must be a positive integer"), call.=FALSE)
+		}
+		else
+			stop(msg, call.=FALSE)
 	}
 	
 	invisible(TRUE)
 }
 
-check.is.flag <- function(x)
+check.is.flag <- function(x, msg=NULL)
 {
 	if (!is.logical(x) || is.annoying(x))
 	{
-		nm <- deparse(substitute(x))
-		stop(paste0("argument '", nm, "' must be TRUE or FALSE"), call.=FALSE)
+		if (is.null(msg))
+		{
+			nm <- deparse(substitute(x))
+			stop(paste0("argument '", nm, "' must be TRUE or FALSE"), call.=FALSE)
+		}
+		else
+			stop(msg, call.=FALSE)
 	}
 	
 	invisible(TRUE)

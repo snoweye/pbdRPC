@@ -50,18 +50,19 @@ machine <- function(hostname, user, exec.type = .pbd_env$RPC.LI$exec.type,
   
   if (missing(hostname))
     stop("You must supply a host name or ip in machine() call; i.e. what do you want to connect to?")
-  else
-    check.is.string(hostname)
+  
+  check.is.string(hostname)
+  check.is.string(user)
+  check.is.string(exec.type)
+  check.is.string(args)
+  check.is.posint(pport)
+  check.is.string(priv.key)
+  check.is.string(priv.key.ppk)
   
   if (.Platform$OS.type == "windows")
     exec.type <- "plink"
   if (exec.type != "ssh" && exec.type != "plink")
     stop(paste0("exec.type (", exec.type, ") is not found."))
-  
-  check.is.string(args)
-  check.is.posint(pport)
-  check.is.string(priv.key)
-  check.is.string(priv.key.ppk)
   
   m <- list(args=args, pport=pport, user=user, hostname=hostname, 
     priv.key=priv.key, priv.key.ppk=priv.key.ppk)
@@ -72,13 +73,24 @@ machine <- function(hostname, user, exec.type = .pbd_env$RPC.LI$exec.type,
 
 check.is.machine <- function(machine)
 {
-  if (!inherits(machine, "machine"))
-    stop("argument 'machine' seemingly not generated via call to machine()")
+  # the error message isn't super informative, but the individual argument
+  # checks can only fail if they go meddling with an object after creation
+  # via machine(), and such people get what they deserve
+  errmsg <- "argument 'machine' seemingly not generated via call to machine()"
   
-  check.is.string(args)
-  check.is.posint(pport)
-  check.is.string(priv.key)
-  check.is.string(priv.key.ppk)
+  if (!inherits(machine, "machine"))
+    stop(errmsg)
+  
+  check.is.string(machine$hostname, msg=errmsg)
+  check.is.string(machine$user, msg=errmsg)
+  check.is.string(machine$exec.type, msg=errmsg)
+  check.is.string(machine$args, msg=errmsg)
+  check.is.posint(machine$pport, msg=errmsg)
+  check.is.string(machine$priv.key, msg=errmsg)
+  check.is.string(machine$priv.key.ppk, msg=errmsg)
+  
+  if (machine$exec.type != "ssh" && machine$exec.type != "plink")
+    stop(errmsg)
   
   invisible(TRUE)
 }

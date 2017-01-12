@@ -57,6 +57,13 @@ rpc <- function(cmd = "whoami", machine,
     intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
 {
   check.is.machine(machine)
+  exec.type <- machine$exec.type
+  args <- machine$args
+  pport <- machine$pport
+  user <- machine$user
+  hostname <- machine$hostname
+  priv.key <- machine$priv.key
+  priv.key.ppk <- machine$priv.key.ppk
   
   ### Pre-check.
   if (.Platform$OS.type == "windows")

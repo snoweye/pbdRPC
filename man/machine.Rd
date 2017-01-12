@@ -2,16 +2,12 @@
 % Please edit documentation in R/machine.r
 \name{machine}
 \alias{machine}
-\alias{print-machine}
-\alias{print.machine}
 \title{machine}
 \usage{
 machine(user, hostname, exec.type = .pbd_env$RPC.LI$exec.type,
   args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
   priv.key = .pbd_env$RPC.LI$priv.key,
   priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk)
-
-\method{print}{machine}(x, ...)
 }
 \arguments{
 \item{user}{user id for logging to the server.}

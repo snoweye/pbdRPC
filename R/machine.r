@@ -41,7 +41,13 @@ check.is.machine <- function(machine)
     stop("argument 'machine' seemingly not generated via call to machine()")
 }
 
-#' @rdname machine
+
+
+#' @title print-machine
+#' @description Printing for machine class objects.
+#' @param x machine class object
+#' @param ... ignored
+#' @rdname print-machine
 #' @name print-machine
 #' @method print machine
 #' @export

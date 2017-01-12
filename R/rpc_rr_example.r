@@ -101,7 +101,7 @@ check_rr <- function(exec.type = .pbd_env$RPC.LI$exec.type,
                user = user, hostname = hostname, priv.key = priv.key,
                priv.key.ppk = priv.key.ppk)
          )
-  return(ret)
+  invisible(ret)
 }
 
 
@@ -119,7 +119,7 @@ kill_rr <- function(exec.type = .pbd_env$RPC.LI$exec.type,
                user = user, hostname = hostname, priv.key = priv.key,
                priv.key.ppk = priv.key.ppk)
          )
-  return(ret)
+  invisible(ret)
 }
 
 
@@ -139,6 +139,6 @@ start_rr <- function(exec.type = .pbd_env$RPC.LI$exec.type,
                user = user, hostname = hostname, priv.key = priv.key,
                priv.key.ppk = priv.key.ppk)
          )
-  return(ret)
+  invisible(ret)
 }
 

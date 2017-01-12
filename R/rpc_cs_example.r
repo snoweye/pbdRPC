@@ -102,7 +102,7 @@ check_cs <- function(exec.type = .pbd_env$RPC.LI$exec.type,
                user = user, hostname = hostname, priv.key = priv.key,
                priv.key.ppk = priv.key.ppk)
          )
-  return(ret)
+  invisible(ret)
 }
 
 
@@ -120,7 +120,7 @@ kill_cs <- function(exec.type = .pbd_env$RPC.LI$exec.type,
                user = user, hostname = hostname, priv.key = priv.key,
                priv.key.ppk = priv.key.ppk)
          )
-  return(ret)
+  invisible(ret)
 }
 
 
@@ -140,6 +140,6 @@ start_cs <- function(exec.type = .pbd_env$RPC.LI$exec.type,
                user = user, hostname = hostname, priv.key = priv.key,
                priv.key.ppk = priv.key.ppk)
          )
-  return(ret)
+  invisible(ret)
 }
 

@@ -52,6 +52,12 @@
 #' client()    # equivalent to client(addr = "192.168.56.101")
 #' }
 #'
+#' @rdname rpc
+#' @name rpc
+NULL
+
+
+#' @rdname rpc
 #' @export
 rpc <- function(machine, cmd = "whoami", intern = .pbd_env$RPC.CT$intern,
   wait = .pbd_env$RPC.CT$wait)
@@ -64,7 +70,27 @@ rpc <- function(machine, cmd = "whoami", intern = .pbd_env$RPC.CT$intern,
   hostname <- machine$hostname
   priv.key <- machine$priv.key
   priv.key.ppk <- machine$priv.key.ppk
+
+  rpc0(cmd = cmd, exec.type = exec.type, args = args, pport = pport,
+       user = user, hostname = hosetname, priv.key = priv.key,
+       priv.key.ppk = priv.key.ppk, intern = intern, wait = wait)
+}
   
+
+#' @rdname rpc
+#' @export
+rpc0 <- function(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
+    args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
+    user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
+    priv.key = .pbd_env$RPC.LI$priv.key,
+    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
+    intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
+{
+  ### Pre-check.
+  if (.Platform$OS.type == "windows")
+    exec.type <- "plink"
+  if (exec.type != "ssh" && exec.type != "plink")
+    stop(paste0("exec.type (", exec.type, ") is not found."))
 
   ### Get port arguments.
   if (length(grep("-(P|p) [0-9]{1-5} ", args)) == 0)

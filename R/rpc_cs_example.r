@@ -33,22 +33,8 @@
 #' Lunix/unix commands \code{ps}, \code{grep}, \code{awk}, and \code{kill}
 #' are used.
 #'
-#' @param exec.type
-#' either "ssh" or "plink" in character. Windows will force to use "plink".
-#' @param args
-#' further arguments to "ssh" or "plink" for connecting to the server
-#' in addition to port, user id, and host name.
-#' @param pport
-#' ssh port opened on the server.
-#' @param user
-#' user id for logging to the server.
-#' @param hostname
-#' the server ip or host name.
-#' @param priv.key,priv.key.ppk
-#' location of the private key for user authentication, the file will be
-#' checked first then \code{-i priv.key} will be added to \code{args}
-#' when the file exists.
-#' \code{priv.key.ppk} is only used when \code{plink} is called.
+#' @param machine
+#' A machine configuration. See \code{?machine}.
 #' @param preload
 #' further commands preloaded before the main \code{command} is executed. 
 #' @param cmd
@@ -90,56 +76,43 @@ NULL
 
 #' @rdname rpc_cs_example
 #' @export
-check_cs <- function(exec.type = .pbd_env$RPC.LI$exec.type,
-    args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-    user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
-    priv.key = .pbd_env$RPC.LI$priv.key,
-    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-    cmd = .pbd_env$RPC.CS$check)
+check_cs <- function(machine, cmd = .pbd_env$RPC.CS$check)
 {
+  check.is.machine(machine)
+  
   ret <- suppressWarnings(
-           rpc(cmd = cmd, exec.type = exec.type, args = args, pport = pport,
-               user = user, hostname = hostname, priv.key = priv.key,
-               priv.key.ppk = priv.key.ppk)
-         )
+    rpc(cmd = cmd, machine = machine)
+  )
+  
   invisible(ret)
 }
 
 
 #' @rdname rpc_cs_example
 #' @export
-kill_cs <- function(exec.type = .pbd_env$RPC.LI$exec.type,
-    args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-    user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
-    priv.key = .pbd_env$RPC.LI$priv.key,
-    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-    cmd = .pbd_env$RPC.CS$kill)
+kill_cs <- function(machine, cmd = .pbd_env$RPC.CS$kill)
 {
+  check.is.machine(machine)
+  
   ret <- suppressWarnings(
-           rpc(cmd = cmd, exec.type = exec.type, args = args, pport = pport,
-               user = user, hostname = hostname, priv.key = priv.key,
-               priv.key.ppk = priv.key.ppk)
-         )
+    rpc(cmd = cmd, machine = machine)
+  )
+  
   invisible(ret)
 }
 
 
 #' @rdname rpc_cs_example
 #' @export
-start_cs <- function(exec.type = .pbd_env$RPC.LI$exec.type,
-    args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-    user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
-    priv.key = .pbd_env$RPC.LI$priv.key,
-    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-    preload = .pbd_env$RPC.CS$preload,
-    cmd = .pbd_env$RPC.CS$start)
+start_cs <- function(machine, cmd = .pbd_env$RPC.CS$start,
+    preload = .pbd_env$RPC.CS$preload)
 {
+  check.is.machine(machine)
+  
   cmd.all <- paste0(preload, cmd)
   ret <- suppressWarnings(
-           rpc(cmd = cmd.all, exec.type = exec.type, args = args, pport = pport,
-               user = user, hostname = hostname, priv.key = priv.key,
-               priv.key.ppk = priv.key.ppk)
-         )
+    rpc(cmd = cmd.all, machine = machine)
+  )
+  
   invisible(ret)
 }
-

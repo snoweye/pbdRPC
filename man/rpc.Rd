@@ -4,31 +4,13 @@
 \alias{rpc}
 \title{Remote Procedure Call}
 \usage{
-rpc(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
-  args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-  user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
-  priv.key = .pbd_env$RPC.LI$priv.key,
-  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-  intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
+rpc(machine, cmd = "whoami", intern = .pbd_env$RPC.CT$intern,
+  wait = .pbd_env$RPC.CT$wait)
 }
 \arguments{
+\item{machine}{A machine configuration. See \code{?machine}.}
+
 \item{cmd}{the command to be executed on the server.}
-
-\item{exec.type}{either "ssh" or "plink" in character. Windows will force to use "plink".}
-
-\item{args}{further arguments to "ssh" or "plink" for connecting to the server
-in addition to port, user id, and host name.}
-
-\item{pport}{ssh port opened on the server.}
-
-\item{user}{user id for logging to the server.}
-
-\item{hostname}{the server ip or host name.}
-
-\item{priv.key, priv.key.ppk}{location of the private key for user authentication, the file will be
-checked first then \code{-i priv.key} will be added to \code{args}
-when the file exists.
-\code{priv.key.ppk} is only used when \code{plink} is called.}
 
 \item{intern, wait}{arguments passed to \code{system()} or \code{shell()}
 whereever they are applicable.}
@@ -76,7 +58,7 @@ client()    # equivalent to client(addr = "192.168.56.101")
 
 }
 \seealso{
-\code{\link{start_rr}()},
+\code{\link{machine}()}, \code{\link{start_rr}()},
          \code{\link{check_rr}()}, \code{\link{kill_rr}()},
          \code{\link{ssh}()}, and \code{\link{plink}()}.
 }

@@ -58,7 +58,7 @@ RPC.CT <- function(
 RPC.LI <- function(
   exec.type = "ssh",
   args = "",
-  pport = "22",
+  pport = 22,
   user = "snoweye",
   hostname = "192.168.56.101",
   priv.key = "~/.ssh/id_rsa",
@@ -133,4 +133,3 @@ RPC.CS <- function(
     preload = preload
   )
 }
-

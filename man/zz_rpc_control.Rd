@@ -24,7 +24,7 @@ RPC.RR(check = "ps ax|grep '[r]emoter::server'",
 \code{wait = FALSE} allows asynchronous commands which need more test.
 e.g. continuously port forwarding without sending commands to background.}
 
-\item{exec.type, args, pport, user, hostname, priv.key, priv.key.ppk}{RPC login information used by \code{\link{rpc}()}, \code{\link{ssh}()}, or
+\item{exec.type, args, pport, user, hostname, priv.key, priv.key.ppk}{RPC login information used by \code{\link{srpc}()}, \code{\link{ssh}()}, or
 \code{\link{plink}()}.}
 
 \item{check, kill, start, preload}{RPC remoter commands used by \code{\link{check_rr}()},

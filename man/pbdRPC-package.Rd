@@ -8,7 +8,7 @@
 A very light yet secure implementation of remote procedure call.
 }
 \author{
-Wei-Chen Chen
+Wei-Chen Chen and Drew Schmidt
 }
 \references{
 Project URL: \url{https://github.com/RBigData/pbdRPC}

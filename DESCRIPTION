@@ -5,7 +5,7 @@ Title: Programming with Big Data -- Remote Procedure Call
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("Drew", "Schmidt", role="ctb"))
 Depends: R (>= 3.2.0), tools
-Enhances: pbdZMQ, remoter, pbdMPI, pbdCS
+Enhances: pbdZMQ, remoter, pbdMPI
 LazyLoad: yes
 LazyData: yes
 Copyright: See pbdRPC/inst/putty_LICENCE for files in src/putty/.

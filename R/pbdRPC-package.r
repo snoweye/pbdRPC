@@ -6,6 +6,8 @@
 #' @author Wei-Chen Chen and Drew Schmidt
 #' 
 #' @name pbdRPC-package
+#'
+#' @importFrom tools pskill
 #' 
 #' @docType package
 #' @keywords package

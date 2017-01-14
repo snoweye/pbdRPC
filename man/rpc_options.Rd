@@ -30,7 +30,7 @@ rpcopt_get()
 A list is returned.
 }
 \description{
-Set and get default options of login information for \code{rpc()}.
+Set and get default options of login information for \code{srpc()}.
 }
 \details{
 \code{rpcopt_set()} is to alter default options of login information. 
@@ -48,6 +48,6 @@ rpcopt_get()
 
 }
 \seealso{
-\code{\link{rpc}()}.
+\code{\link{rpc}()}, \code{\link{srpc}()}.
 }
 

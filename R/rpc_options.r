@@ -26,7 +26,7 @@
 #' @return
 #' A list is returned.
 #'
-#' @seealso \code{\link{rpc}()}.
+#' @seealso \code{\link{rpc}()}, \code{\link{srpc}()}.
 #'
 #' @examples
 #' \dontrun{

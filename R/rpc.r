@@ -29,7 +29,7 @@
 #'
 #' @seealso \code{\link{machine}()}, \code{\link{start_rr}()},
 #'          \code{\link{check_rr}()}, \code{\link{kill_rr}()},
-#'          \code{\link{srpc}()),
+#'          \code{\link{srpc}()},
 #'          \code{\link{ssh}()}, and \code{\link{plink}()}.
 #'
 rpc <- function(machine, cmd = "whoami", intern = .pbd_env$RPC.CT$intern,

@@ -35,31 +35,10 @@ Authentication is working currently for \code{ssh}.
 NO further input from \code{stdin} is expected.
 Outputs or errors may not be captured by R.
 }
-\examples{
-\dontrun{
-library(pbdRPC, quietly = TRUE)
-rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
-
-### see start_rr(), check_rr(), and kill_rr() for more examples.
-rpc()
-rpc("ls")
-rpc("ls ~/work-my")
-rpc("cat ~/work-my/00_set_devel_R")
-
-### see ssh(), plink(), and run_args() for lower level examples.
-
-### Local port forwarding
-rpc(args = "-N -T -L 55555:localhost:55555")
-start_rr()
-
-library(remoter)
-client()    # equivalent to client(addr = "192.168.56.101")
-}
-
-}
 \seealso{
 \code{\link{machine}()}, \code{\link{start_rr}()},
          \code{\link{check_rr}()}, \code{\link{kill_rr}()},
+         \code{\link{srpc}()},
          \code{\link{ssh}()}, and \code{\link{plink}()}.
 }
 

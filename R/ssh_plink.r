@@ -159,6 +159,13 @@ run_args <- function(exec = "ssh", args = "",
     {
       ret <- try(system(cmd, intern = intern, wait = wait),
                  silent = TRUE)
+
+      if (!intern && !wait)
+      {
+        pid <- system('Tasklist /FI "IMAGENAME eq plink.exe"', intern = TRUE)
+        cat(pid, sep = "\n")
+      }
+
       if (intern)
         return(ret)
       else
@@ -169,6 +176,14 @@ run_args <- function(exec = "ssh", args = "",
   {
     ret <- try(system(cmd, intern = intern, wait = wait),
                silent = TRUE)
+
+    if (!intern && !wait)
+    {
+      pid <- system("/bin/ps uxww", intern = TRUE)
+      pid <- grep(exec, pid, value = TRUE)
+      cat(pid, sep = "\n")
+    }
+
     if (intern)
       return(ret)
     else

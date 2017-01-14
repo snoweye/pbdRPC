@@ -80,11 +80,11 @@ local \proglang{R} in the local laptop. However, the computation
 \code{1+1} was done by a remote \proglang{R} on the server (192.168.56.101).
 
 The \code{start_rr()}, \code{check_rr()}, and \code{kill_rr()} are
-all wrapper functions of \code{rpc()} to submit different commands stored in
+all wrapper functions of \code{srpc()} to submit different commands stored in
 \code{.pbd_env$RPC.RR$start}, \code{.pbd_env$RPC.RR$check}, and
 \code{.pbd_env$RPC.RR$kill}, respectively.
 The tedious details of \code{RPC.RR} are in next which all can be
-simply sent by \code{rpc()} to execute on the server.
+simply sent by \code{srpc()} to execute on the server.
 \begin{Code}[title=\code{RPC.RR} for controlling \pkg{remoter}]
 > .pbd_env$RPC.RR
 $check

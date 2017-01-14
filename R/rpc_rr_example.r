@@ -80,7 +80,7 @@ check_rr <- function(machine, cmd = .pbd_env$RPC.RR$check)
   check.is.machine(machine)
   
   ret <- suppressWarnings(
-    rpc(cmd = cmd, machine = machine)
+    srpc(cmd = cmd, machine = machine)
   )
   
   invisible(ret)
@@ -94,7 +94,7 @@ kill_rr <- function(machine, cmd = .pbd_env$RPC.RR$kill)
   check.is.machine(machine)
   
   ret <- suppressWarnings(
-    rpc(cmd = cmd, machine = machine)
+    srpc(cmd = cmd, machine = machine)
   )
   
   invisible(ret)
@@ -110,7 +110,7 @@ start_rr <- function(machine, cmd = .pbd_env$RPC.RR$start,
   
   cmd.all <- paste0(preload, cmd)
   ret <- suppressWarnings(
-    rpc(cmd = cmd.all, machine = machine)
+    srpc(cmd = cmd.all, machine = machine)
   )
   
   invisible(ret)

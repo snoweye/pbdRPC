@@ -4,7 +4,7 @@ Date: 2017-01-01
 Title: Programming with Big Data -- Remote Procedure Call
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("Drew", "Schmidt", role="ctb"))
-Depends: R (>= 3.2.0)
+Depends: R (>= 3.2.0), tools
 Enhances: pbdZMQ, remoter, pbdMPI, pbdCS
 LazyLoad: yes
 LazyData: yes

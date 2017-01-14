@@ -8,7 +8,7 @@
 #' e.g. continuously port forwarding without sending commands to background.
 #'
 #' @param exec.type,args,pport,user,hostname,priv.key,priv.key.ppk
-#' RPC login information used by \code{\link{rpc}()}, \code{\link{ssh}()}, or
+#' RPC login information used by \code{\link{srpc}()}, \code{\link{ssh}()}, or
 #' \code{\link{plink}()}.
 #' 
 # #' @param unix,macos,windows

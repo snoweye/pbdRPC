@@ -31,24 +31,24 @@ One may consider to forward the \code{localhost} port \code{55555} to the
 server directly.
 
 The following code serves the purpose of local port forwarding in
-\pkg{pbdRPC} using \code{rpc()}, then start a \pkg{remoter} server and
+\pkg{pbdRPC} using \code{srpc()}, then start a \pkg{remoter} server and
 launch a connection via \code{client()} without changing arguments.
 \begin{Code}[title=Forward \code{localhost:55555} to \code{192.168.56.101:55555}]
 > library(pbdRPC)
-> rpc(args = "-N -T -L 55555:192.168.56.101:55555", wait = FALSE)
+> srpc(args = "-N -T -L 55555:192.168.56.101:55555", wait = FALSE)
 > start_rr()
 >
 > library(remoter)
 > client()    # equivalent to client(addr = "192.168.56.101")
 \end{Code}
 
-First, \code{rpc(args = "-N -T -L 55555:192.168.56.101:55555")}
+First, \code{srpc(args = "-N -T -L 55555:192.168.56.101:55555")}
 forwards the connection between \code{55555} of the local host and
 \code{192.168.56.101:5555}.
 Note that this call (local process) is running in background and is
 not disconnected even after quiting \proglang{R},
 because \code{intern = FALSE} (default) and {\color{red} \code{wait = FALSE}}
-are set to \code{rpc()} and passed down to its callee (in a shell).
+are set to \code{srpc()} and passed down to its callee (in a shell).
 {\color{red}
 The additional command ``\code{kill -p [pid]}'' may be needed to manually
 kill the local process (pid) when the forwarding is not needed anymore.
@@ -97,7 +97,7 @@ i.e. batch and background modes are preferable.
 \label{sec:arguments_tunneling}
 \addcontentsline{toc}{subsection}{\thesubsection. Arguments for Tunneling}
 
-Theoretically, this is possible to be used in \code{rpc()}. However,
+Theoretically, this is possible to be used in \code{srpc()}. However,
 there is no appropriate example yet.
 
 Note that the \code{ssh} and \code{plink.exe} has similar functionalities

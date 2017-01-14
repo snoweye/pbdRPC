@@ -44,7 +44,7 @@ rpc(m, "whoami")
 
 
 ## Features
-- The `rpc()` is a unified interface across most popular OSs
+- The `rpc()` or `srpc()` are unified interfaces across most popular OSs
   including Linux, Mac OSX, MS Windows, and Solaris.
 - The above example is completely done in an interactive `R` session.
 - The call is equivalent to
@@ -85,7 +85,7 @@ When mentioning the pbdRPC, please cite:
 
 ```
 @MISC{pbdRPC2017,
-  author = {Chen, W.-C},
+  author = {Chen, W.-C and Schmidt, D.},
   title = {{pbdRPC}: Programming with Big Data -- Remote Procedure Call},
   year = {2017},
   note = {{R} Package, URL https://cran.r-project.org/package=pbdRPC}
@@ -98,3 +98,5 @@ When mentioning the pbdRPC, please cite:
 pbdRPC is authored and maintained by the pbdR core team:
 
 * Wei-Chen Chen
+* Drew Schmidt
+

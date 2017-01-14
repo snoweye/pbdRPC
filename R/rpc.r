@@ -29,36 +29,9 @@
 #'
 #' @seealso \code{\link{machine}()}, \code{\link{start_rr}()},
 #'          \code{\link{check_rr}()}, \code{\link{kill_rr}()},
+#'          \code{\link{srpc}()),
 #'          \code{\link{ssh}()}, and \code{\link{plink}()}.
 #'
-#' @examples
-#' \dontrun{
-#' library(pbdRPC, quietly = TRUE)
-#' rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
-#'
-#' ### see start_rr(), check_rr(), and kill_rr() for more examples.
-#' rpc()
-#' rpc("ls")
-#' rpc("ls ~/work-my")
-#' rpc("cat ~/work-my/00_set_devel_R")
-#'
-#' ### see ssh(), plink(), and run_args() for lower level examples.
-#'
-#' ### Local port forwarding
-#' rpc(args = "-N -T -L 55555:localhost:55555")
-#' start_rr()
-#'
-#' library(remoter)
-#' client()    # equivalent to client(addr = "192.168.56.101")
-#' }
-#'
-#' @rdname rpc
-#' @name rpc
-NULL
-
-
-#' @rdname rpc
-#' @export
 rpc <- function(machine, cmd = "whoami", intern = .pbd_env$RPC.CT$intern,
   wait = .pbd_env$RPC.CT$wait)
 {
@@ -71,67 +44,7 @@ rpc <- function(machine, cmd = "whoami", intern = .pbd_env$RPC.CT$intern,
   priv.key <- machine$priv.key
   priv.key.ppk <- machine$priv.key.ppk
 
-  rpc0(cmd = cmd, exec.type = exec.type, args = args, pport = pport,
+  srpc(cmd = cmd, exec.type = exec.type, args = args, pport = pport,
        user = user, hostname = hosetname, priv.key = priv.key,
        priv.key.ppk = priv.key.ppk, intern = intern, wait = wait)
-}
-  
-
-#' @rdname rpc
-#' @export
-rpc0 <- function(cmd = "whoami", exec.type = .pbd_env$RPC.LI$exec.type,
-    args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-    user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
-    priv.key = .pbd_env$RPC.LI$priv.key,
-    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-    intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait)
-{
-  ### Pre-check.
-  if (.Platform$OS.type == "windows")
-    exec.type <- "plink"
-  if (exec.type != "ssh" && exec.type != "plink")
-    stop(paste0("exec.type (", exec.type, ") is not found."))
-
-  ### Get port arguments.
-  if (length(grep("-(P|p) [0-9]{1-5} ", args)) == 0)
-  {
-    if (exec.type == "ssh")
-      args.pport <- paste0("-p ", pport)
-    else
-      args.pport <- paste0("-P ", pport)
-  }
-
-  ### Get private key arguments.
-  if (length(grep("-i (.*) ", args)) == 0)
-  {
-    if (exec.type == "ssh")
-      args.priv.key <- paste0("-i ", priv.key)
-    else
-      args.priv.key <- paste0("-i ", priv.key.ppk)
-  }
-
-  ### Get user and hostname arguments.
-  if (length(grep("(.*)@(.*)", args)) == 0 &&
-      length(grep("-l (.*) ", args)) == 0)
-    user.hostname <- paste0(user, "@", hostname)
-
-  ### Assemble and execute the cmd.
-  args <- paste(args.pport, args.priv.key, args, user.hostname,
-                paste0("\"", cmd, "\""), sep = " ")
-  if (exec.type == "ssh")
-    ret <- ssh(args, intern = intern, wait = wait)
-  else
-    ret <- plink(args, intern = intern, wait = wait)
-
-  ### For return.
-  if (.Platform$OS.type == "windows")
-  {
-    if (.pbd_env$RPC.CT$use.shell.exec)
-      return(invisible(ret))
-  }
-
-  if (intern)
-    return(ret)
-  else
-    return(invisible(ret))
 }

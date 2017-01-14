@@ -19,10 +19,10 @@ the function \code{rpcopt_set()} to assign/overwrite the login information to
 \end{Code}
 
 In next, the basic login information \code{RPC.LI} describes that
-\code{rpc()} will
+\code{srpc()} will
 \begin{itemize}
 \item use \code{ssh} (exec.type) to execute a command
-      (given by \code{rpc()}, \code{ssh()}, or \code{plink()})
+      (given by \code{srpc()}, \code{ssh()}, or \code{plink()})
 \item with \code{args} (additional arguments to \code{ssh} or \code{plink.exe})
 \item and a \code{user} account (snoweye)
 \item login into a \code{hostname} (server ip = \code{192.168.56.101} or
@@ -60,7 +60,7 @@ argument.
 \code{plink.exe} uses ``\code{-P}'' (upper case) to input the server port
 argument.
 Therefore, the \code{args} should not include ``\code{-p}'' nor ``\code{-P}''
-to avoid confusion in the unified function \code{rpc()}.
+to avoid confusion in the unified function \code{srpc()}.
 Similarly, the ``\code{-i}'' may not be include in the \code{args} as well
 because additional authentication may be required.
 

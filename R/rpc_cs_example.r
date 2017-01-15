@@ -47,25 +47,26 @@
 #' @examples
 #' \dontrun{
 #' library(pbdRPC, quietly = TRUE)
-#' rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+#' # rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+#' m <- machine(user = "snoweye", hostname = "192.168.56.101")
 #'
-#' check_cs()    # pid 2857 (may differ)
-#' kill_cs()     # all pbdCS pids are killed
-#' check_cs()    # make sure no pbdCS R cluster is running
+#' check_cs(m)    # pid 2857 (may differ)
+#' kill_cs(m)     # all pbdCS pids are killed
+#' check_cs(m)    # make sure no pbdCS R cluster is running
 #'
 #' ### use "; " to bypass multiple commands
 #' preload <- "source ~/work-my/00_set_devel_R; "
 #'
 #' ### start a new pbdCS R cluster
-#' start_cs(preload = preload)
-#' check_cs()
-#' kill_cs()
+#' start_cs(m, preload = preload)
+#' check_cs(m)
+#' kill_cs(m)
 #'
 #' ### Example: for module load on supercomputers
 #' preload <- "module load r; "    # e.g. via module load r
-#' start_cs(preload = preload)
-#' check_cs()
-#' kill_cs()
+#' start_cs(m, preload = preload)
+#' check_cs(m)
+#' kill_cs(m)
 #' }
 #'
 #' 

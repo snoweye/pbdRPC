@@ -40,7 +40,8 @@
       key? i.e. convert OpenSSH format to PuTTY format. \\
       {\bf\color{blue} A:}
       Yes, the \code{puttygen} on linux can convert the \code{id_rsa}
-      (OpenSSH format) to \code{id_rsa.ppk} (PuTTY format) as in next.
+      (OpenSSH format) to \code{id_rsa.ppk} (PuTTY format) as the commands
+      below.
 \begin{Command}
 $ sudo apt-get install putty
 $ puttygen id_rsa -O private -o id_rsa.ppk
@@ -67,7 +68,7 @@ $ puttygen id_rsa -O private -o id_rsa.ppk
 
 \item {\bf\color{blue} Q:}
       Error messages from an \proglang{R} session or a shell/terminal
-      are shown as below.
+      are shown as the error below.
 \begin{Error}
 FATAL ERROR: Network error: Connection refused
 \end{Error}
@@ -79,7 +80,7 @@ ssh: connect to host 192.168.56.101 port 22: Connection refused
       The messages are mainly because of incorrect setups of SSH service.
       Check SSH service on remote servers.
       \begin{itemize}
-      \item Install SSH server, such as in next.
+      \item Install SSH server, such as the command below.
 \begin{Command}
 $ sudo apt-get install openssh-server
 \end{Command}

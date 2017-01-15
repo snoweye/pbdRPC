@@ -1,0 +1,31 @@
+\section[Handling Machine Information]{Handling Machine Information}
+\label{sec:handling_machine_information}
+\addcontentsline{toc}{section}{\thesection. Handling Machine Information}
+
+In Section~\ref{sec:handling_login_information}, we have seen a very
+tedious way to handle login information which also includes some
+information for a single machine. In this section, we introduce a better way
+to handle both login information and multiple machines.
+The function \code{machine()} will generate a constructor-like object
+containing all required information.
+It is as simple as the example below.
+\begin{Code}[title=Set machine information]
+> library(pbdRPC, quietly = TRUE)
+>
+> ### Multiple machine information as needed
+> m1 <- machine(user = "snoweye", hostname = "192.168.56.101", pport = 22)
+> m2 <- machine(user = "snoweye", hostname = "192.168.56.102", pport = 22)
+> m3 <- machine(user = "snoweye", hostname = "192.168.56.103", pport = 22)
+\end{Code}
+
+With the above objects \code{m1}, \code{m2}, and \code{m3}, the function
+\code{rpc()} can assess freely to three machines with simpler
+interface then the function \code{srpc()}.
+For example, one may quickly check the access of three machines as the
+example below.
+\begin{Code}[title=Basic \code{rpc()} in \pkg{pbdRPC} and \proglang{R}]
+> rpc(m1, "uname")
+> rpc(m2, "uname")
+> rpc(m3, "uname")
+\end{Code}
+

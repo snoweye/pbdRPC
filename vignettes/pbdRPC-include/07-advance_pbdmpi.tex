@@ -29,7 +29,7 @@ operation for \code{allreduce()} is a summation \code{sum()}, so the total
 is 4. Note that the 4 cores may not be in a single machine as long as MPI
 setup correctly.
 
-In next, the example below will give the total 8 in each core because
+The example below will give the total 8 in each core because
 the value to be reduced is a 2 from each core.
 \begin{Code}[title=\code{pbdMPI::allreduce(2)} in 4 cores]
 $ mpiexec -np 4 Rscript -e 'library(pbdMPI,quietly=T);allreduce(2);finalize()'

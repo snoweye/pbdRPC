@@ -90,6 +90,7 @@ Silver Spring, MD, USA \\
 
 \input{./pbdRPC-include/02-introduction}
 \input{./pbdRPC-include/03-login_information}
+\input{./pbdRPC-include/08-machine_information}
 \input{./pbdRPC-include/04-application_rr}
 \input{./pbdRPC-include/05-application_cs}
 \input{./pbdRPC-include/06-port_forwarding}

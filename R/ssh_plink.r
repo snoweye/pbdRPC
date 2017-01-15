@@ -153,6 +153,12 @@ run_args <- function(exec = "ssh", args = "",
         cat(cmd, file = cmd.fn, sep = "\n")
 
       ret <- shell.exec(cmd.fn)
+
+      pid <- system('Tasklist /FI "IMAGENAME eq plink.exe"', intern = TRUE)
+      cat(pid, sep = "\n")
+      pid <- system('Tasklist /FI "IMAGENAME eq cmd.exe"', intern = TRUE)
+      cat(pid, sep = "\n")
+
       return(invisible(ret))
     }
     else

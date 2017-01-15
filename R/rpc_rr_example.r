@@ -46,25 +46,26 @@
 #' @examples
 #' \dontrun{
 #' library(pbdRPC, quietly = TRUE)
-#' rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+#' # rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+#' m <- machine(user = "snoweye", hostname = "192.168.56.101")
 #'
-#' check_rr()    # pid 2857 (may differ)
-#' kill_rr()     # all remoter pids are killed
-#' check_rr()    # make sure no remoter servers are running
+#' check_rr(m)    # pid 2857 (may differ)
+#' kill_rr(m)     # all remoter pids are killed
+#' check_rr(m)    # make sure no remoter servers are running
 #'
 #' ### use "; " to bypass multiple commands
 #' preload <- "source ~/work-my/00_set_devel_R; "
 #'
 #' ### start a new remoter server
-#' start_rr(preload = preload)
-#' check_rr()
-#' kill_rr()
+#' start_rr(m, preload = preload)
+#' check_rr(m)
+#' kill_rr(m)
 #'
 #' ### Example: for module load on supercomputers
 #' preload <- "module load r; "    # e.g. via module load r
-#' start_rr(preload = preload)
-#' check_rr()
-#' kill_rr()
+#' start_rr(m, preload = preload)
+#' check_rr(m)
+#' kill_rr(m)
 #' }
 #'
 #' 

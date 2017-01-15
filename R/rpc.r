@@ -32,6 +32,7 @@
 #'          \code{\link{srpc}()},
 #'          \code{\link{ssh}()}, and \code{\link{plink}()}.
 #'
+#' @export
 rpc <- function(machine, cmd = "whoami", intern = .pbd_env$RPC.CT$intern,
   wait = .pbd_env$RPC.CT$wait)
 {

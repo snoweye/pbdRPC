@@ -1,4 +1,4 @@
-#' Search or Kill pid of Remote Procedure Call
+#' Search or kill possible pid's of Remote Procedure Call
 #'
 #' Search or kill possible pid's that running remote procedure calls
 #' in background.
@@ -27,19 +27,25 @@ rpc_ps <- function()
 {
   if (.Platform$OS.type == "windows")
   {
-    pid <- system('Tasklist /FI "IMAGENAME eq plink.exe"', intern = TRUE)
+    cmd <- 'Tasklist /FI "IMAGENAME eq plink.exe"'
+    cat("cmd: ", cmd, "\n", sep = "")
+    pid <- system(cmd, intern = TRUE)
     cat(pid, sep = "\n")
-    pid <- system('Tasklist /FI "IMAGENAME eq cmd.exe"', intern = TRUE)
+    cmd <- 'Tasklist /FI "IMAGENAME eq cmd.exe"'
+    cat("cmd: ", cmd, "\n", sep = "")
+    pid <- system(cmd, intern = TRUE)
     cat(pid, sep = "\n")
   }
   else
   {
-    pid <- system("/bin/ps uxww", intern = TRUE)
+    cmd <- '/bin/ps uxww'
+    cat("cmd: ", cmd, "\n", sep = "")
+    pid <- system(cmd, intern = TRUE)
     pid <- grep("(ssh|plink) ", pid, value = TRUE)
     cat(pid, sep = "\n")
   }
 
-  return(invisible())
+  return(invisible(pid))
 }
 
 

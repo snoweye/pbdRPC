@@ -46,6 +46,6 @@ rpc <- function(machine, cmd = "whoami", intern = .pbd_env$RPC.CT$intern,
   priv.key.ppk <- machine$priv.key.ppk
 
   srpc(cmd = cmd, exec.type = exec.type, args = args, pport = pport,
-       user = user, hostname = hosetname, priv.key = priv.key,
+       user = user, hostname = hostname, priv.key = priv.key,
        priv.key.ppk = priv.key.ppk, intern = intern, wait = wait)
 }

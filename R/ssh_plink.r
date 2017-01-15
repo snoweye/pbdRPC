@@ -153,12 +153,7 @@ run_args <- function(exec = "ssh", args = "",
         cat(cmd, file = cmd.fn, sep = "\n")
 
       ret <- shell.exec(cmd.fn)
-
-      pid <- system('Tasklist /FI "IMAGENAME eq plink.exe"', intern = TRUE)
-      cat(pid, sep = "\n")
-      pid <- system('Tasklist /FI "IMAGENAME eq cmd.exe"', intern = TRUE)
-      cat(pid, sep = "\n")
-
+      pid <- rpc_ps()
       return(invisible(ret))
     }
     else
@@ -167,10 +162,7 @@ run_args <- function(exec = "ssh", args = "",
                  silent = TRUE)
 
       if (!intern && !wait)
-      {
-        pid <- system('Tasklist /FI "IMAGENAME eq plink.exe"', intern = TRUE)
-        cat(pid, sep = "\n")
-      }
+        pid <- rpc_ps()
 
       if (intern)
         return(ret)
@@ -184,11 +176,7 @@ run_args <- function(exec = "ssh", args = "",
                silent = TRUE)
 
     if (!intern && !wait)
-    {
-      pid <- system("/bin/ps uxww", intern = TRUE)
-      pid <- grep(exec, pid, value = TRUE)
-      cat(pid, sep = "\n")
-    }
+      pid <- rpc_ps()
 
     if (intern)
       return(ret)

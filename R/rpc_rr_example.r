@@ -116,3 +116,19 @@ start_rr <- function(machine, cmd = .pbd_env$RPC.RR$start,
   
   invisible(ret)
 }
+
+
+#' @rdname rpc_rr_example
+#' @export
+startx_rr <- function(machine, cmd = .pbd_env$RPC.RR$startx,
+    preload = .pbd_env$RPC.RR$preload)
+{
+  check.is.machine(machine)
+  
+  cmd.all <- paste0(preload, cmd)
+  ret <- suppressWarnings(
+    rpc(cmd = cmd.all, machine = machine)
+  )
+  
+  invisible(ret)
+}

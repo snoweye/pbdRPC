@@ -2,8 +2,8 @@
 % Please edit documentation in R/222_export_env.r
 \docType{data}
 \name{RPC Control Environment}
-\alias{.pbd_env}
 \alias{RPC Control Environment}
+\alias{.pbd_env}
 \title{Sets of controls in pbdRPC.}
 \format{Objects contain several parameters for communicators and methods.}
 \description{
@@ -16,14 +16,13 @@ control files.
 The elements of \code{.pbd_env$RPC.LI} are default values for RPC defult
 login information.
 }
+\seealso{
+\code{\link{.rpcopt_init}()}.
+}
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.
 
 Programming with Big Data in R Website: \url{http://r-pbd.org/}
 }
-\seealso{
-\code{\link{.rpcopt_init}()}.
-}
 \keyword{global}
 \keyword{variables}
-

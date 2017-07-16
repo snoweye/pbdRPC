@@ -6,20 +6,18 @@
 \usage{
 tunnel(pport = .pbd_env$RPC.LI$pport, user = .pbd_env$RPC.LI$user,
   hostname = .pbd_env$RPC.LI$hostname, priv.key = .pbd_env$RPC.LI$priv.key,
-  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-  intern = .pbd_env$RPC.CT$intern, wait = .pbd_env$RPC.CT$wait,
-  lport = 55555, rport = 55555, lhostname = "127.0.0.1")
+  priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk, lport = 55555,
+  rport = 55555, rhostname = "127.0.0.1")
 }
 \arguments{
-\item{pport, user, priv.key, priv.key.ppk, intern, wait}{See \code{?pbdRPC::srpc}.}
+\item{pport, user, priv.key, priv.key.ppk}{See \code{?pbdRPC::srpc}.}
 
 \item{hostname}{the server ip or host name.}
 
 \item{lport, rport}{local and remote ports.}
 
-\item{lhostname}{the local ip or host name.}
+\item{rhostname}{the local ip or host name.}
 }
 \description{
 tunnel
 }
-

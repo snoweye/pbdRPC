@@ -17,6 +17,7 @@ RPC.LI(exec.type = "ssh", args = "", pport = 22, user = "snoweye",
 RPC.RR(check = "ps ax|grep '[r]emoter::server'",
   kill = "kill -9 $(ps ax|grep '[r]emoter::server'|awk '{print $1}')",
   start = "nohup Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &",
+  startx = "nohup xvfb-run Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &",
   preload = "source ~/work-my/00_set_devel_R; ")
 }
 \arguments{
@@ -27,7 +28,7 @@ e.g. continuously port forwarding without sending commands to background.}
 \item{exec.type, args, pport, user, hostname, priv.key, priv.key.ppk}{RPC login information used by \code{\link{srpc}()}, \code{\link{ssh}()}, or
 \code{\link{plink}()}.}
 
-\item{check, kill, start, preload}{RPC remoter commands used by \code{\link{check_rr}()},
+\item{check, kill, start, startx, preload}{RPC remoter commands used by \code{\link{check_rr}()},
 \code{\link{kill_rr}()}, or \code{\link{start_rr}()}.
 RPC pbdCS commands used by \code{\link{check_cs}()},
 \code{\link{kill_cs}()}, or \code{\link{start_cs}()}.}
@@ -35,14 +36,13 @@ RPC pbdCS commands used by \code{\link{check_cs}()},
 \description{
 These sets of controls are used to provide default values in pbdRPC package.
 }
+\seealso{
+\code{\link{.pbd_env}}.
+}
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.
 
 Programming with Big Data in R Website: \url{http://r-pbd.org/}
 }
-\seealso{
-\code{\link{.pbd_env}}.
-}
 \keyword{global}
 \keyword{variables}
-

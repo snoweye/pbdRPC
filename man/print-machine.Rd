@@ -15,4 +15,3 @@
 \description{
 Printing for machine class objects.
 }
-

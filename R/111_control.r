@@ -13,7 +13,7 @@
 #' 
 # #' @param unix,macos,windows
 #'
-#' @param check,kill,start,preload
+#' @param check,kill,start,startx,preload
 #' RPC remoter commands used by \code{\link{check_rr}()},
 #' \code{\link{kill_rr}()}, or \code{\link{start_rr}()}.
 #' RPC pbdCS commands used by \code{\link{check_cs}()},
@@ -106,12 +106,14 @@ RPC.RR <- function(
   check = "ps ax|grep '[r]emoter::server'",
   kill = "kill -9 $(ps ax|grep '[r]emoter::server'|awk '{print $1}')",
   start = "nohup Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &",
+  startx = "nohup xvfb-run Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &",
   preload = "source ~/work-my/00_set_devel_R; "
 ){
   list(
     check = check,
     kill = kill,
     start = start,
+    startx = startx,
     preload = preload
   )
 }

@@ -2,8 +2,8 @@
 % Please edit documentation in R/rpc_options.r
 \name{rpc_options}
 \alias{rpc_options}
-\alias{rpcopt_get}
 \alias{rpcopt_set}
+\alias{rpcopt_get}
 \title{Set and Get Options for Remote Procedure Call}
 \usage{
 rpcopt_set(user = NULL, hostname = NULL, pport = NULL, exec.type = NULL,
@@ -50,4 +50,3 @@ rpcopt_get()
 \seealso{
 \code{\link{rpc}()}, \code{\link{srpc}()}.
 }
-

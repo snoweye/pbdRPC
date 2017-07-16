@@ -41,4 +41,3 @@ Outputs or errors may not be captured by R.
          \code{\link{srpc}()},
          \code{\link{ssh}()}, and \code{\link{plink}()}.
 }
-

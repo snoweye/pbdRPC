@@ -80,4 +80,3 @@ client()    # equivalent to client(addr = "192.168.56.101")
          \code{\link{check_rr}()}, \code{\link{kill_rr}()},
          \code{\link{ssh}()}, and \code{\link{plink}()}.
 }
-

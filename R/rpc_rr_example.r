@@ -32,6 +32,9 @@
 #' Lunix/unix commands \code{ps}, \code{grep}, \code{awk}, and \code{kill}
 #' are used.
 #'
+#' \code{checkx_rr()}, \code{killx_rr()}, and \code{startx_rr()} are functions
+#' with virtual X11 windows.
+#'
 #' @param machine
 #' A machine configuration. See \code{?machine}.
 #' @param preload
@@ -90,7 +93,35 @@ check_rr <- function(machine, cmd = .pbd_env$RPC.RR$check)
 
 #' @rdname rpc_rr_example
 #' @export
+checkx_rr <- function(machine, cmd = .pbd_env$RPC.RR$checkx)
+{
+  check.is.machine(machine)
+  
+  ret <- suppressWarnings(
+    rpc(cmd = cmd, machine = machine)
+  )
+  
+  invisible(ret)
+}
+
+
+#' @rdname rpc_rr_example
+#' @export
 kill_rr <- function(machine, cmd = .pbd_env$RPC.RR$kill)
+{
+  check.is.machine(machine)
+  
+  ret <- suppressWarnings(
+    rpc(cmd = cmd, machine = machine)
+  )
+  
+  invisible(ret)
+}
+
+
+#' @rdname rpc_rr_example
+#' @export
+killx_rr <- function(machine, cmd = .pbd_env$RPC.RR$killx)
 {
   check.is.machine(machine)
   

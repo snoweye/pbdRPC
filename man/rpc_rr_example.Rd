@@ -3,14 +3,20 @@
 \name{rpc_rr_example}
 \alias{rpc_rr_example}
 \alias{check_rr}
+\alias{checkx_rr}
 \alias{kill_rr}
+\alias{killx_rr}
 \alias{start_rr}
 \alias{startx_rr}
 \title{Example Functions of RPC Related to Remote R Server}
 \usage{
 check_rr(machine, cmd = .pbd_env$RPC.RR$check)
 
+checkx_rr(machine, cmd = .pbd_env$RPC.RR$checkx)
+
 kill_rr(machine, cmd = .pbd_env$RPC.RR$kill)
+
+killx_rr(machine, cmd = .pbd_env$RPC.RR$killx)
 
 start_rr(machine, cmd = .pbd_env$RPC.RR$start,
   preload = .pbd_env$RPC.RR$preload)
@@ -61,6 +67,9 @@ server. Lunix/unix commands \code{ps} and \code{grep} are used.
 \code{kill_rr()} kills remote R servers if found.
 Lunix/unix commands \code{ps}, \code{grep}, \code{awk}, and \code{kill}
 are used.
+
+\code{checkx_rr()}, \code{killx_rr()}, and \code{startx_rr()} are functions
+with virtual X11 windows.
 }
 \examples{
 \dontrun{

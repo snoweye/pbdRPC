@@ -26,22 +26,29 @@ else
 fi
 
 dnl All AC_ARG_ENABLE
-ENABLE_PLINK=FASLE
 AC_ARG_ENABLE(plink,
-  AC_HELP_STRING([--enable-plink], [Enable plink, default no.]),
-                 [ENABLE_PLINK=TRUE], [ENABLE_PLINK=FALSE])
+  AC_HELP_STRING([--enable-plink], [Enable plink, default auto.]),
+                 [ENABLE_PLINK=$enableval], [ENABLE_PLINK=auto])
 
 dnl Get build_bin
 SYS_NAME=`${R_SCMD} "source('./R/get_conf.r');get.conf('SYS_NAME')"`
 OS_TYPE=`${R_SCMD} "source('./R/get_conf.r');get.conf('OS_TYPE')"`
 
 dnl Check each condition
-BUILD_BIN=""
 if test "X${HAS_SSH}" = "XF" -a "X${HAS_PLINK}" = "XF"; then
-  BUILD_BIN="plink"
+  NEED_PLINK=yes
 fi
-if test "X${ENABLE_PLINK}" = "XTRUE"; then
+BUILD_BIN=""
+if test "x${ENABLE_PLINK}" = "xauto"; then
+  if test "x${NEED_PLINK}" = "xyes"; then
+    BUILD_BIN="plink"
+  fi
+elif test "x${ENABLE_PLINK}" = "xyes"; then
   BUILD_BIN="plink"
+else
+  if test "x${NEED_PLINK}" = "xyes"; then
+    AC_MSG_ERROR([Unable to find ssh or plink, but internal plink is disabled.])
+  fi
 fi
 
 dnl Report

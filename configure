@@ -1253,7 +1253,7 @@ Optional Features:
   --disable-option-checking  ignore unrecognized --enable/--with options
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
-  --enable-plink          Enable plink, default no.
+  --enable-plink          Enable plink, default auto.
 
 Report bugs to the package provider.
 _ACEOF
@@ -1779,24 +1779,31 @@ else
   HAS_PLINK="T"
 fi
 
-ENABLE_PLINK=FASLE
 # Check whether --enable-plink was given.
 if test "${enable_plink+set}" = set; then :
-  enableval=$enable_plink; ENABLE_PLINK=TRUE
+  enableval=$enable_plink; ENABLE_PLINK=$enableval
 else
-  ENABLE_PLINK=FALSE
+  ENABLE_PLINK=auto
 fi
 
 
 SYS_NAME=`${R_SCMD} "source('./R/get_conf.r');get.conf('SYS_NAME')"`
 OS_TYPE=`${R_SCMD} "source('./R/get_conf.r');get.conf('OS_TYPE')"`
 
-BUILD_BIN=""
 if test "X${HAS_SSH}" = "XF" -a "X${HAS_PLINK}" = "XF"; then
-  BUILD_BIN="plink"
+  NEED_PLINK=yes
 fi
-if test "X${ENABLE_PLINK}" = "XTRUE"; then
+BUILD_BIN=""
+if test "x${ENABLE_PLINK}" = "xauto"; then
+  if test "x${NEED_PLINK}" = "xyes"; then
+    BUILD_BIN="plink"
+  fi
+elif test "x${ENABLE_PLINK}" = "xyes"; then
   BUILD_BIN="plink"
+else
+  if test "x${NEED_PLINK}" = "xyes"; then
+    as_fn_error $? "Unable to find ssh or plink, but internal plink is disabled." "$LINENO" 5
+  fi
 fi
 
 echo " "

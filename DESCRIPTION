@@ -1,9 +1,9 @@
 Package: pbdRPC
 Version: 0.2-0
-Date: 2017-07-15
+Date: 2018-02-01
 Title: Programming with Big Data -- Remote Procedure Call
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
-        "wccsnow@gmail.com"), person("Drew", "Schmidt", role="ctb"))
+        "wccsnow@gmail.com"), person("Drew", "Schmidt", role="aut"))
 Depends: R (>= 3.2.0), tools
 Enhances: pbdZMQ, remoter, pbdMPI
 LazyLoad: yes

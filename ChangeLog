@@ -1,3 +1,6 @@
+2018-02-01: Ver. 0.2-0
+  *
+
 2017-01-15: Ver. 0.2-0
   * Fix rpc_ps() and tunnel().
   * Modify port forwarding example in vignettes via tunnel().

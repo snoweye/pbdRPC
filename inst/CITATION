@@ -3,20 +3,22 @@ citHeader("To cite pbdRPC in a publication use:")
 citEntry(
   entry = "Misc",
   title = "{pbdRPC}: Programming with Big Data -- Remote Procedure Call",
-  author = personList(as.person("Wei-Chen Chen")),
+  author = personList(as.person("Wei-Chen Chen"),
+                      as.person("Drew Schmidt")),
   year = "2017",
   note = "{R} Package, URL https://cran.r-project.org/package=pbdMPI",
-  textVersion = "Chen, W.-C. (2017) pbdRPC: Programming with Big Data -- Remote Procedure Call. R Package, URL https://cran.r-project.org/package=pbdRPC",
+  textVersion = "Chen, W.-C. and Schmidt, D. (2017) pbdRPC: Programming with Big Data -- Remote Procedure Call. R Package, URL https://cran.r-project.org/package=pbdRPC",
   key = "Chen2017pbdRPCpackage"
 )
 
 citEntry(
   entry = "Manual",
   title = "A Quick Guide for the {pbdRPC} Package",
-  author = personList(as.person("Wei-Chen Chen")),
+  author = personList(as.person("Wei-Chen Chen"),
+                      as.person("Drew Schmidt")),
   year = "2017",
   note = "{R} Vignette, URL https://cran.r-project.org/package=pbdRPC",
-  textVersion = "Chen, W.-C. (2017) A Quick Guide for the pbdRPC Package. R Vignette, URL https://cran.r-project.org/package=pbdRPC",
+  textVersion = "Chen, W.-C. and Schmidt, D. (2017) A Quick Guide for the pbdRPC Package. R Vignette, URL https://cran.r-project.org/package=pbdRPC",
   key = "Chen2017pbdRPCvignette"
 )
 

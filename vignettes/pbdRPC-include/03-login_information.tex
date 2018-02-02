@@ -12,17 +12,17 @@ Note that \code{telnet} and \code{ssh} uses ports 23 and 22 as default,
 respectively.
 Suppose further the login id is called ``snoweye'', then one may use
 the function \code{rpcopt_set()} to assign/overwrite the login information to
-\code{.pbd_env$RPC.LI} as in next.
+\code{.pbd_env$RPC.LI} below.
 \begin{Code}[title=Set login information]
 > ### Alter login information as needed
-> rpcopt_set(user = "snoweye", hostname = "192.168.56.101", pport = "22")
+> rpcopt_set(user = "snoweye", hostname = "192.168.56.101", pport = 22)
 \end{Code}
 
-In next, the basic login information \code{RPC.LI} describes that
-\code{rpc()} will
+The basic login information \code{RPC.LI} below describes that
+\code{srpc()} will
 \begin{itemize}
 \item use \code{ssh} (exec.type) to execute a command
-      (given by \code{rpc()}, \code{ssh()}, or \code{plink()})
+      (given by \code{srpc()}, \code{ssh()}, or \code{plink()})
 \item with \code{args} (additional arguments to \code{ssh} or \code{plink.exe})
 \item and a \code{user} account (snoweye)
 \item login into a \code{hostname} (server ip = \code{192.168.56.101} or
@@ -39,7 +39,7 @@ $args
 [1] ""
 
 $pport
-[1] "22"
+[1] 22
 
 $user
 [1] "snoweye"
@@ -60,7 +60,7 @@ argument.
 \code{plink.exe} uses ``\code{-P}'' (upper case) to input the server port
 argument.
 Therefore, the \code{args} should not include ``\code{-p}'' nor ``\code{-P}''
-to avoid confusion in the unified function \code{rpc()}.
+to avoid confusion in the unified function \code{srpc()}.
 Similarly, the ``\code{-i}'' may not be include in the \code{args} as well
 because additional authentication may be required.
 

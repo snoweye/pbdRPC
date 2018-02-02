@@ -6,9 +6,9 @@
 Examples of the \pkg{pbdMPI}~\citep{Chen2012pbdMPIpackage} are introduced
 in this section first under a shell/terminal mode.
 Then, the examples will be combined with \pkg{pbdRPC} to show how
-\code{rpc()} sends requests from an interactive \proglang{R} session
+\code{srpc()} sends requests from an interactive \proglang{R} session
 to a remote server and execute the examples in the shell/terminal model.
-Multiple commands can be manually combined in one \code{rpc()} call.
+Multiple commands can be manually combined in one \code{srpc()} call.
 The return values can also be captured by the interactive \proglang{R}
 session with an addition argument.
 
@@ -29,7 +29,7 @@ operation for \code{allreduce()} is a summation \code{sum()}, so the total
 is 4. Note that the 4 cores may not be in a single machine as long as MPI
 setup correctly.
 
-In next, the example below will give the total 8 in each core because
+The example below will give the total 8 in each core because
 the value to be reduced is a 2 from each core.
 \begin{Code}[title=\code{pbdMPI::allreduce(2)} in 4 cores]
 $ mpiexec -np 4 Rscript -e 'library(pbdMPI,quietly=T);allreduce(2);finalize()'
@@ -67,7 +67,7 @@ are shown below.
 > cmd  ### Similar to the shell example above
 >
 > ### Send the command to remote server, snoweye@192.168.56.101
-> rpc(cmd = cmd)
+> srpc(cmd = cmd)
 [1][1] 12
 [1] 12
 [1] 12
@@ -77,7 +77,7 @@ are shown below.
 > .pbd_env$RPC.CT$verbose <- TRUE
 >
 > ### Capture the return values
-> ret <- rpc(cmd = cmd, intern = TRUE)
+> ret <- srpc(cmd = cmd, intern = TRUE)
 C:/Uners/snoweye/Documents/R/win-library/3.4/pbdRPC/libs/x64/plink.exe -P 22 -i ./id_rsa.ppk  snoweye@192.168.56.101 "source ~/work-my/00_set_devel_R; mpiexec -np 4 Rscript -e 'library(pbdMPI,quietly=T);allreduce(3);finalize()'"
 > str(ret)
  chr [1:4] "[1] 12" "[1] 12" "[1] 12" "[1] 12"
@@ -85,10 +85,10 @@ C:/Uners/snoweye/Documents/R/win-library/3.4/pbdRPC/libs/x64/plink.exe -P 22 -i 
 [1] "[1] 12" "[1] 12" "[1] 12" "[1] 12"
 \end{Code}
 In order to capture the return values (four character strings) from the
-remote server, the argument \code{intern = TRUE} set to the \code{rpc()}
+remote server, the argument \code{intern = TRUE} set to the \code{srpc()}
 is required as shown in the example.
 
-When \code{verbose = TRUE}, the \code{rpc()} shows the command being passed
+When \code{verbose = TRUE}, the \code{srpc()} shows the command being passed
 to the shell or terminal. In this case, one may test the message shown above
 to obtain the same result from the interactive \proglang{R} session as
 below.

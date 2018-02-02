@@ -32,22 +32,11 @@
 #' Lunix/unix commands \code{ps}, \code{grep}, \code{awk}, and \code{kill}
 #' are used.
 #'
-#' @param exec.type
-#' either "ssh" or "plink" in character. Windows will force to use "plink".
-#' @param args
-#' further arguments to "ssh" or "plink" for connecting to the server
-#' in addition to port, user id, and host name.
-#' @param pport
-#' ssh port opened on the server.
-#' @param user
-#' user id for logging to the server.
-#' @param hostname
-#' the server ip or host name.
-#' @param priv.key,priv.key.ppk
-#' location of the private key for user authentication, the file will be
-#' checked first then \code{-i priv.key} will be added to \code{args}
-#' when the file exists.
-#' \code{priv.key.ppk} is only used when \code{plink} is called.
+#' \code{checkx_rr()}, \code{killx_rr()}, and \code{startx_rr()} are functions
+#' with virtual X11 windows.
+#'
+#' @param machine
+#' A machine configuration. See \code{?machine}.
 #' @param preload
 #' further commands preloaded before the main \code{command} is executed. 
 #' @param cmd
@@ -60,25 +49,26 @@
 #' @examples
 #' \dontrun{
 #' library(pbdRPC, quietly = TRUE)
-#' rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+#' # rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+#' m <- machine(user = "snoweye", hostname = "192.168.56.101")
 #'
-#' check_rr()    # pid 2857 (may differ)
-#' kill_rr()     # all remoter pids are killed
-#' check_rr()    # make sure no remoter servers are running
+#' check_rr(m)    # pid 2857 (may differ)
+#' kill_rr(m)     # all remoter pids are killed
+#' check_rr(m)    # make sure no remoter servers are running
 #'
 #' ### use "; " to bypass multiple commands
 #' preload <- "source ~/work-my/00_set_devel_R; "
 #'
 #' ### start a new remoter server
-#' start_rr(preload = preload)
-#' check_rr()
-#' kill_rr()
+#' start_rr(m, preload = preload)
+#' check_rr(m)
+#' kill_rr(m)
 #'
 #' ### Example: for module load on supercomputers
 #' preload <- "module load r; "    # e.g. via module load r
-#' start_rr(preload = preload)
-#' check_rr()
-#' kill_rr()
+#' start_rr(m, preload = preload)
+#' check_rr(m)
+#' kill_rr(m)
 #' }
 #'
 #' 
@@ -89,56 +79,87 @@ NULL
 
 #' @rdname rpc_rr_example
 #' @export
-check_rr <- function(exec.type = .pbd_env$RPC.LI$exec.type,
-    args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-    user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
-    priv.key = .pbd_env$RPC.LI$priv.key,
-    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-    cmd = .pbd_env$RPC.RR$check)
+check_rr <- function(machine, cmd = .pbd_env$RPC.RR$check)
 {
+  check.is.machine(machine)
+  
   ret <- suppressWarnings(
-           rpc(cmd = cmd, exec.type = exec.type, args = args, pport = pport,
-               user = user, hostname = hostname, priv.key = priv.key,
-               priv.key.ppk = priv.key.ppk)
-         )
-  return(ret)
+    rpc(cmd = cmd, machine = machine)
+  )
+  
+  invisible(ret)
 }
 
 
 #' @rdname rpc_rr_example
 #' @export
-kill_rr <- function(exec.type = .pbd_env$RPC.LI$exec.type,
-    args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-    user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
-    priv.key = .pbd_env$RPC.LI$priv.key,
-    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-    cmd = .pbd_env$RPC.RR$kill)
+checkx_rr <- function(machine, cmd = .pbd_env$RPC.RR$checkx)
 {
+  check.is.machine(machine)
+  
   ret <- suppressWarnings(
-           rpc(cmd = cmd, exec.type = exec.type, args = args, pport = pport,
-               user = user, hostname = hostname, priv.key = priv.key,
-               priv.key.ppk = priv.key.ppk)
-         )
-  return(ret)
+    rpc(cmd = cmd, machine = machine)
+  )
+  
+  invisible(ret)
 }
 
 
 #' @rdname rpc_rr_example
 #' @export
-start_rr <- function(exec.type = .pbd_env$RPC.LI$exec.type,
-    args = .pbd_env$RPC.LI$args, pport = .pbd_env$RPC.LI$pport,
-    user = .pbd_env$RPC.LI$user, hostname = .pbd_env$RPC.LI$hostname,
-    priv.key = .pbd_env$RPC.LI$priv.key,
-    priv.key.ppk = .pbd_env$RPC.LI$priv.key.ppk,
-    preload = .pbd_env$RPC.RR$preload,
-    cmd = .pbd_env$RPC.RR$start)
+kill_rr <- function(machine, cmd = .pbd_env$RPC.RR$kill)
 {
+  check.is.machine(machine)
+  
+  ret <- suppressWarnings(
+    rpc(cmd = cmd, machine = machine)
+  )
+  
+  invisible(ret)
+}
+
+
+#' @rdname rpc_rr_example
+#' @export
+killx_rr <- function(machine, cmd = .pbd_env$RPC.RR$killx)
+{
+  check.is.machine(machine)
+  
+  ret <- suppressWarnings(
+    rpc(cmd = cmd, machine = machine)
+  )
+  
+  invisible(ret)
+}
+
+
+#' @rdname rpc_rr_example
+#' @export
+start_rr <- function(machine, cmd = .pbd_env$RPC.RR$start,
+    preload = .pbd_env$RPC.RR$preload)
+{
+  check.is.machine(machine)
+  
   cmd.all <- paste0(preload, cmd)
   ret <- suppressWarnings(
-           rpc(cmd = cmd.all, exec.type = exec.type, args = args, pport = pport,
-               user = user, hostname = hostname, priv.key = priv.key,
-               priv.key.ppk = priv.key.ppk)
-         )
-  return(ret)
+    rpc(cmd = cmd.all, machine = machine)
+  )
+  
+  invisible(ret)
 }
 
+
+#' @rdname rpc_rr_example
+#' @export
+startx_rr <- function(machine, cmd = .pbd_env$RPC.RR$startx,
+    preload = .pbd_env$RPC.RR$preload)
+{
+  check.is.machine(machine)
+  
+  cmd.all <- paste0(preload, cmd)
+  ret <- suppressWarnings(
+    rpc(cmd = cmd.all, machine = machine)
+  )
+  
+  invisible(ret)
+}

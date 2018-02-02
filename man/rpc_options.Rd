@@ -2,8 +2,8 @@
 % Please edit documentation in R/rpc_options.r
 \name{rpc_options}
 \alias{rpc_options}
-\alias{rpcopt_get}
 \alias{rpcopt_set}
+\alias{rpcopt_get}
 \title{Set and Get Options for Remote Procedure Call}
 \usage{
 rpcopt_set(user = NULL, hostname = NULL, pport = NULL, exec.type = NULL,
@@ -30,7 +30,7 @@ rpcopt_get()
 A list is returned.
 }
 \description{
-Set and get default options of login information for \code{rpc()}.
+Set and get default options of login information for \code{srpc()}.
 }
 \details{
 \code{rpcopt_set()} is to alter default options of login information. 
@@ -48,6 +48,5 @@ rpcopt_get()
 
 }
 \seealso{
-\code{\link{rpc}()}.
+\code{\link{rpc}()}, \code{\link{srpc}()}.
 }
-

@@ -26,17 +26,17 @@ and any changes in future versions can be found on website:
 \addcontentsline{toc}{section}{\thesection. Introduction}
 
 This package, \pkg{pbdRPC}~\citep{Chen2017pbdRPCpackage},
-provides one high-level function, \code{rpc()}, that can securely send
+provides one high-level function, \code{srpc()}, that can securely send
 commands to remote servers via \code{ssh} (OpenSSH) or
 \code{plink}/\code{plink.exe} (PuTTY).
 The high-level function is a very light yet secure implementation because
 the communications are encrypted, by default SSH version 2 using RSA key pairs,
 between a local client and remote servers.
 
-The high-level function \code{rpc()} is a unified interface via system call
+The high-level function \code{srpc()} is a unified interface via system call
 to either \code{ssh} or \code{plink} across most popular OSs
 including Linux, Mac OSX, MS Windows, and Solaris.
-Simply speaking, the function \code{rpc()} is a wrapper
+Simply speaking, the function \code{srpc()} is a wrapper
 of two low-level functions, \code{ssh()} and \code{plink()}.
 However, these functions can ask remote servers to execute commands without
 logging in the servers provided that an authentication is setup properly.
@@ -44,7 +44,7 @@ logging in the servers provided that an authentication is setup properly.
 Four RPC controls are provided by the package to simply the functions:
 \begin{enumerate}
 \item \code{.pbd_env$RPC.CT} is main RPC controls taking care several basic
-      functionalities of three functions, \code{rpc()}, \code{ssh()}, and
+      functionalities of three functions, \code{srpc()}, \code{ssh()}, and
       \code{plink()}.
 \item \code{.pbd_env$RPC.LI} has information of login account for logging in
       the remote server include authentication using private keys.
@@ -78,9 +78,9 @@ executable file, \code{plink.exe}.
 Note that for non-Windows system, the \code{plink} can be compiled as well.
 
 
-\subsection[Basic \code{ssh} and \code{rpc()}]{Basic \code{ssh} and \code{rpc()}}
+\subsection[Basic \code{ssh} and \code{srpc()}]{Basic \code{ssh} and \code{srpc()}}
 \label{sec:basic_rpc}
-\addcontentsline{toc}{subsection}{\thesubsection. Basic \code{ssh}\  and \code{rpc()}}
+\addcontentsline{toc}{subsection}{\thesubsection. Basic \code{ssh}\  and \code{srpc()}}
 
 Suppose a \code{sshd} is set and running correctly on a server running a Linux
 system at an ip address ``192.168.56.101'' and a port ``22''.
@@ -102,27 +102,27 @@ by any other proper programs, shell scripts, or procedures.
 For Windows system, one may use \code{plink.exe} instead of \code{ssh}
 from a terminal \code{cmd.exe}. See Section~\ref{sec:basic_plink} for details.
 
-Within \proglang{R}, the next example will have the
+Within \proglang{R}, the example below will have the
 same results as the above shell command.
-\begin{Code}[title=Basic \code{rpc()} in \pkg{pbdRPC} and \proglang{R}]
+\begin{Code}[title=Basic \code{srpc()} in \pkg{pbdRPC} and \proglang{R}]
 > library(pbdRPC, quietly = TRUE)
 >
 > ### Alter login information as needed
 > rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
-> rpc("whoami")
+> srpc("whoami")
 \end{Code}
 The command results may be captured by \proglang{R} as well.
 
 Regardless the system,
-the high level function \code{rpc()} can unify the calls to
+the high level function \code{srpc()} can unify the calls to
 either \code{ssh()} or \code{plink()} functions.
 One may use \code{ssh()} in non-Windows system, but
 use \code{plink()} in Windows system.
-The \code{rpc()} automatically
+The \code{srpc()} automatically
 detects the system first, then calls the corresponding function.
 Currently, no external \code{plink.exe} or \code{plink} is implemented
 even though it is possible.
-The details of \code{ssh()} and \code{plink()} are given in next.
+The details of \code{ssh()} and \code{plink()} are given in examples below.
 
 
 \subsection[Basic \code{ssh()}]{Basic \code{ssh()}}
@@ -141,7 +141,7 @@ authentication file (\code{id_rda}) is not available.
 Note that multiple commands can be automatically given at once
 as shell commands under an shell prompt, such as ``\code{;}'', ``\code{\&\&}'',
 ``\code{>}'', ``\code{<}'', ``\code{|}'' or ``\code{\&}'' etc.
-For example, the next will tell current id, date/time, and files.
+For example, the code below will tell current id, date/time, and files.
 \begin{Command}[title=Multiple commands to \code{ssh} in shell]
 $ ssh snoweye@192.168.56.101 'whoami;date;ls -a'
 \end{Command}
@@ -158,7 +158,8 @@ more details.
 \label{sec:basic_plink}
 \addcontentsline{toc}{subsection}{\thesubsection. Basic \code{plink.exe}\  and \code{plink()}}
 
-In Windows system and inside the \code{cmd.exe}, one may similarly use next
+In Windows system and inside the \code{cmd.exe}, one may similarly use
+the code below
 \begin{Command}[title=Basic \code{plink.exe} in \code{cmd.exe}]
 C:\> plink.exe snoweye@192.168.56.101 'whoami'
 \end{Command}
@@ -177,7 +178,7 @@ the \code{plink()} will open an \code{cmd.exe} to execute the
 command \code{whoami} because the password input is not allowed inside
 \code{RGui}.
 When the authentication file (\code{id_rsa.ppk}) is available,
-one may want to disable the opening \code{cmd.exe} as in next.
+one may want to disable the opening \code{cmd.exe} below.
 \begin{Code}[title=Advance \code{plink()} in \pkg{pbdRPC} and \proglang{R}]
 > .pbd_env$RPC.CT$use.shell.exec <- FALSE
 > ret <- plink("snoweye@192.168.56.101 'whoami'")

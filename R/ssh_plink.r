@@ -153,12 +153,17 @@ run_args <- function(exec = "ssh", args = "",
         cat(cmd, file = cmd.fn, sep = "\n")
 
       ret <- shell.exec(cmd.fn)
+      pid <- rpc_ps()
       return(invisible(ret))
     }
     else
     {
       ret <- try(system(cmd, intern = intern, wait = wait),
                  silent = TRUE)
+
+      if (!intern && !wait)
+        pid <- rpc_ps()
+
       if (intern)
         return(ret)
       else
@@ -169,6 +174,10 @@ run_args <- function(exec = "ssh", args = "",
   {
     ret <- try(system(cmd, intern = intern, wait = wait),
                silent = TRUE)
+
+    if (!intern && !wait)
+      pid <- rpc_ps()
+
     if (intern)
       return(ret)
     else

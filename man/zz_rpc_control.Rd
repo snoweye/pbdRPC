@@ -10,39 +10,43 @@
 RPC.CT(verbose = FALSE, intern = FALSE, wait = TRUE, check.exec = FALSE,
   use.shell.exec = TRUE, pause = TRUE)
 
-RPC.LI(exec.type = "ssh", args = "", pport = "22", user = "snoweye",
+RPC.LI(exec.type = "ssh", args = "", pport = 22, user = "snoweye",
   hostname = "192.168.56.101", priv.key = "~/.ssh/id_rsa",
   priv.key.ppk = "./id_rsa.ppk")
 
-RPC.RR(check = "ps ax|grep '[r]emoter::server'",
-  kill = "kill -9 $(ps ax|grep '[r]emoter::server'|awk '{print $1}')",
+RPC.RR(check = "ps axww|grep '[r]emoter::server'",
+  kill = "kill -9 $(ps axww|grep '[r]emoter::server'|awk '{print $1}')",
   start = "nohup Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &",
-  preload = "source ~/work-my/00_set_devel_R; ")
+  preload = "source ~/work-my/00_set_devel_R; ",
+  checkx = "ps axww|grep '[r]emoter::server\\\\|[x]vfb-run'",
+  killx = "kill -9 $(ps axww|grep '[r]emoter::server\\\\|[x]vfb-run'|awk '{print $1}')",
+  startx = "nohup xvfb-run Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &")
 }
 \arguments{
 \item{verbose, intern, wait, check.exec, use.shell.exec, pause}{RPC control for \code{system}, \code{shell.exec}, and so on.
 \code{wait = FALSE} allows asynchronous commands which need more test.
 e.g. continuously port forwarding without sending commands to background.}
 
-\item{exec.type, args, pport, user, hostname, priv.key, priv.key.ppk}{RPC login information used by \code{\link{rpc}()}, \code{\link{ssh}()}, or
+\item{exec.type, args, pport, user, hostname, priv.key, priv.key.ppk}{RPC login information used by \code{\link{srpc}()}, \code{\link{ssh}()}, or
 \code{\link{plink}()}.}
 
-\item{check, kill, start, preload}{RPC remoter commands used by \code{\link{check_rr}()},
-\code{\link{kill_rr}()}, or \code{\link{start_rr}()}.
+\item{check, kill, start, preload, checkx, killx, startx}{RPC remoter commands used by \code{\link{check_rr}()},
+\code{\link{kill_rr}()}, or \code{\link{start_rr}()} and
+virtual X11 related versions \code{\link{checkx_rr}()},
+\code{\link{killx_rr}()}, or \code{\link{startx_rr}()}..
 RPC pbdCS commands used by \code{\link{check_cs}()},
 \code{\link{kill_cs}()}, or \code{\link{start_cs}()}.}
 }
 \description{
 These sets of controls are used to provide default values in pbdRPC package.
 }
+\seealso{
+\code{\link{.pbd_env}}.
+}
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.
 
 Programming with Big Data in R Website: \url{http://r-pbd.org/}
 }
-\seealso{
-\code{\link{.pbd_env}}.
-}
 \keyword{global}
 \keyword{variables}
-

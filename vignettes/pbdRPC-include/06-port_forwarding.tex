@@ -31,27 +31,108 @@ One may consider to forward the \code{localhost} port \code{55555} to the
 server directly.
 
 The following code serves the purpose of local port forwarding in
-\pkg{pbdRPC} using \code{rpc()}, then start a \pkg{remoter} server and
+\pkg{pbdRPC} using \code{srpc()}, then start a \pkg{remoter} server and
 launch a connection via \code{client()} without changing arguments.
 \begin{Code}[title=Forward \code{localhost:55555} to \code{192.168.56.101:55555}]
-> library(pbdRPC)
-> rpc(args = "-N -T -L 55555:192.168.56.101:55555", wait = FALSE)
-> start_rr()
+> library(pbdRPC, quietly = TRUE)
 >
-> library(remoter)
+> ### Alter login information as needed
+> rpcopt_set(user = "snoweye", hostname = "192.168.56.101")
+> # .pbd_env$RPC.CT$use.shell.exec <- FALSE
+>
+> # srpc(args = "-N -T -L 55555:192.168.56.101:55555", wait = FALSE)
+> tunnel(rhostname = "192.168.56.101")
+cmd: Tasklist /FI "IMAGENAME eq plink.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+plink.exe                     9052 Console                    3         64 K
+cmd: Tasklist /FI "IMAGENAME eq cmd.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+cmd.exe                       5060 Console                    3      2,624 K
+>
+> ### Launch the remoter server.
+> m <- machine(user = "snoweye", hostname = "192.168.56.101")
+> start_rr(m)
+cmd: Tasklist /FI "IMAGENAME eq plink.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+plink.exe                     9052 Console                    3      4,316 K
+plink.exe                     3972 Console                    3      3,992 K
+cmd: Tasklist /FI "IMAGENAME eq cmd.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+cmd.exe                       5060 Console                    3      2,624 K
+cmd.exe                       4644 Console                    3      2,460 K
+> library(remoter, quietly = TRUE)
+
+Attaching package: ‘pbdZMQ’
+
+The following object is masked from ‘package:base’:
+
+    ls
+
+
+Attaching package: ‘remoter’
+
+The following object is masked from ‘package:grDevices’:
+
+    dev.off
+
+The following objects are masked from ‘package:utils’:
+
+    ?, help
+
 > client()    # equivalent to client(addr = "192.168.56.101")
+WARNING: server not secure; communications are not encrypted.
+
+remoter> 1+1
+[1] 2 
+remoter> shutdown()
+>
+> ### Check/kill the alive background processes for local port forwarding.
+>
+> rpc_ps()
+cmd: Tasklist /FI "IMAGENAME eq plink.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+plink.exe                     9052 Console                    3      4,348 K
+cmd: Tasklist /FI "IMAGENAME eq cmd.exe"
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+cmd.exe                       5060 Console                    3      2,624 K
+> rpc_kill(c(9052, 5060))
+>
+> rpc_ps()
+cmd: Tasklist /FI "IMAGENAME eq plink.exe"
+INFO: No tasks are running which match the specified criteria.
+cmd: Tasklist /FI "IMAGENAME eq cmd.exe"
+INFO: No tasks are running which match the specified criteria.
 \end{Code}
 
-First, \code{rpc(args = "-N -T -L 55555:192.168.56.101:55555")}
+First, \code{srpc(args = "-N -T -L 55555:192.168.56.101:55555")}
 forwards the connection between \code{55555} of the local host and
-\code{192.168.56.101:5555}.
+\code{192.168.56.101:5555}, the remote host and port.
+This is also equivalent to the function \code{tunnel}.
 Note that this call (local process) is running in background and is
 not disconnected even after quiting \proglang{R},
 because \code{intern = FALSE} (default) and {\color{red} \code{wait = FALSE}}
-are set to \code{rpc()} and passed down to its callee (in a shell).
+are set to \code{srpc()} and passed down to its callee (in a shell).
+The possible process id (\code{pid}) for the forwarding
+should be printed in \proglang{R} via the function \code{rpc_ps()}.
+For example, the code above shows that \code{9052} is running
+for \code{plink.exe} which is also a child process of \code{5060}
+running for \code{cmd.exe}.
 {\color{red}
 The additional command ``\code{kill -p [pid]}'' may be needed to manually
 kill the local process (pid) when the forwarding is not needed anymore.
+Or, use the function \code{rpc_kill(pid)} in \proglang{R}.
 }
 See Section~\ref{sec:arguments_local_port_forwarding} or
 \code{ssh}'s man page for details of arguments \code{-N -T -L}
@@ -97,7 +178,7 @@ i.e. batch and background modes are preferable.
 \label{sec:arguments_tunneling}
 \addcontentsline{toc}{subsection}{\thesubsection. Arguments for Tunneling}
 
-Theoretically, this is possible to be used in \code{rpc()}. However,
+Theoretically, this is possible to be used in \code{srpc()}. However,
 there is no appropriate example yet.
 
 Note that the \code{ssh} and \code{plink.exe} has similar functionalities

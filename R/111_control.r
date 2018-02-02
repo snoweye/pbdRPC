@@ -8,14 +8,16 @@
 #' e.g. continuously port forwarding without sending commands to background.
 #'
 #' @param exec.type,args,pport,user,hostname,priv.key,priv.key.ppk
-#' RPC login information used by \code{\link{rpc}()}, \code{\link{ssh}()}, or
+#' RPC login information used by \code{\link{srpc}()}, \code{\link{ssh}()}, or
 #' \code{\link{plink}()}.
 #' 
 # #' @param unix,macos,windows
 #'
-#' @param check,kill,start,preload
+#' @param check,kill,start,preload,checkx,killx,startx
 #' RPC remoter commands used by \code{\link{check_rr}()},
-#' \code{\link{kill_rr}()}, or \code{\link{start_rr}()}.
+#' \code{\link{kill_rr}()}, or \code{\link{start_rr}()} and
+#' virtual X11 related versions \code{\link{checkx_rr}()},
+#' \code{\link{killx_rr}()}, or \code{\link{startx_rr}()}..
 #' RPC pbdCS commands used by \code{\link{check_cs}()},
 #' \code{\link{kill_cs}()}, or \code{\link{start_cs}()}.
 #' 
@@ -58,7 +60,7 @@ RPC.CT <- function(
 RPC.LI <- function(
   exec.type = "ssh",
   args = "",
-  pport = "22",
+  pport = 22,
   user = "snoweye",
   hostname = "192.168.56.101",
   priv.key = "~/.ssh/id_rsa",
@@ -103,16 +105,22 @@ RPC.LI <- function(
 #' @export
 #' @rdname zz_rpc_control
 RPC.RR <- function(
-  check = "ps ax|grep '[r]emoter::server'",
-  kill = "kill -9 $(ps ax|grep '[r]emoter::server'|awk '{print $1}')",
+  check = "ps axww|grep '[r]emoter::server'",
+  kill = "kill -9 $(ps axww|grep '[r]emoter::server'|awk '{print $1}')",
   start = "nohup Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &",
-  preload = "source ~/work-my/00_set_devel_R; "
+  preload = "source ~/work-my/00_set_devel_R; ",
+  checkx = "ps axww|grep '[r]emoter::server\\|[x]vfb-run'",
+  killx = "kill -9 $(ps axww|grep '[r]emoter::server\\|[x]vfb-run'|awk '{print $1}')",
+  startx = "nohup xvfb-run Rscript -e 'remoter::server()' > .rrlog 2>&1 < /dev/null &"
 ){
   list(
     check = check,
     kill = kill,
     start = start,
-    preload = preload
+    preload = preload,
+    checkx = checkx,
+    killx = killx,
+    startx = startx
   )
 }
 
@@ -133,4 +141,3 @@ RPC.CS <- function(
     preload = preload
   )
 }
-

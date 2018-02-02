@@ -1,6 +1,6 @@
 #' Set and Get Options for Remote Procedure Call
 #'
-#' Set and get default options of login information for \code{rpc()}.
+#' Set and get default options of login information for \code{srpc()}.
 #'
 #' @details
 #' \code{rpcopt_set()} is to alter default options of login information. 
@@ -26,7 +26,7 @@
 #' @return
 #' A list is returned.
 #'
-#' @seealso \code{\link{rpc}()}.
+#' @seealso \code{\link{rpc}()}, \code{\link{srpc}()}.
 #'
 #' @examples
 #' \dontrun{

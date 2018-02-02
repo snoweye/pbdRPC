@@ -32,7 +32,7 @@
       Inside \pkg{pbdRPC}, one can use the options of the control
       \code{.pbd_env$RPC.LI$priv.key} and \code{.pbd_env$RPC.LI$pri.key.ppk} to
       indicate the file of the private key. Then, \code{ssh()}, \code{plink()},
-      and \code{rpc()} commands will automatically access those files,
+      and \code{srpc()} commands will automatically access those files,
       accordingly.
 
 \item {\bf\color{blue} Q:}
@@ -40,7 +40,8 @@
       key? i.e. convert OpenSSH format to PuTTY format. \\
       {\bf\color{blue} A:}
       Yes, the \code{puttygen} on linux can convert the \code{id_rsa}
-      (OpenSSH format) to \code{id_rsa.ppk} (PuTTY format) as in next.
+      (OpenSSH format) to \code{id_rsa.ppk} (PuTTY format) as the commands
+      below.
 \begin{Command}
 $ sudo apt-get install putty
 $ puttygen id_rsa -O private -o id_rsa.ppk
@@ -48,7 +49,7 @@ $ puttygen id_rsa -O private -o id_rsa.ppk
 
 \item {\bf\color{blue} Q:}
       Is it possible to capture the returns from the RPC calls
-      by \code{rpc()}, \code{ssh()}, or \code{plink()}? How? \\
+      by \code{srpc()}, \code{ssh()}, or \code{plink()}? How? \\
       {\bf\color{blue} A:}
       Yes, set the arguments \code{intern = TRUE} and \code{wait = TRUE}
       to the RPC calls can obtain the outputs as used by \code{system()}.
@@ -57,7 +58,7 @@ $ puttygen id_rsa -O private -o id_rsa.ppk
       is used instead of \code{system()}.
 
 \item {\bf\color{blue} Q:}
-      Does \code{rpc()} support \code{SSH} (reverse/remote) tunneling or
+      Does \code{srpc()} support \code{SSH} (reverse/remote) tunneling or
       port forwarding? \\
       {\bf\color{blue} A:}
       Yes, theoretically there is no problem. However, there is no
@@ -67,7 +68,7 @@ $ puttygen id_rsa -O private -o id_rsa.ppk
 
 \item {\bf\color{blue} Q:}
       Error messages from an \proglang{R} session or a shell/terminal
-      are shown as below.
+      are shown as the error below.
 \begin{Error}
 FATAL ERROR: Network error: Connection refused
 \end{Error}
@@ -79,7 +80,7 @@ ssh: connect to host 192.168.56.101 port 22: Connection refused
       The messages are mainly because of incorrect setups of SSH service.
       Check SSH service on remote servers.
       \begin{itemize}
-      \item Install SSH server, such as in next.
+      \item Install SSH server, such as the command below.
 \begin{Command}
 $ sudo apt-get install openssh-server
 \end{Command}

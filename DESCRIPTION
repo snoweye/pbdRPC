@@ -15,7 +15,7 @@ SystemRequirements: ssh (OpenSSH) or plink (PuTTY) on Solaris, Linux,
         and Mac.
 License: Mozilla Public License 2.0
 URL: http://r-pbd.org/
-BugReports: http://group.r-pbd.org/
+BugReports: https://github.com/snoweye/pbdRPC/issues
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 RoxygenNote: 6.0.1

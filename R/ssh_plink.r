@@ -172,8 +172,22 @@ run_args <- function(exec = "ssh", args = "",
   }
   else
   {
+    ## start SSH_ASKPASS swap for RStudio on OSX
+    rstudio_darwin <- .Platform$GUI == "RStudio" &&
+      Sys.info()["sysname"] == "Darwin"
+    if(rstudio_darwin)
+    {
+      askpass <- Sys.getenv("SSH_ASKPASS")
+      Sys.setenv(SSH_ASKPASS = system.file("scripts/ssh-askpass",
+                                            package="pbdRPC"))
+    }
+    ## end SSH_ASKPASS swap
     ret <- try(system(cmd, intern = intern, wait = wait),
                silent = TRUE)
+
+    ## revert to original SSH_ASKPASS
+    if(rstudio_darwin)
+      Sys.setenv(SSH_ASKPASS = askpass)
 
     if (!intern && !wait)
       pid <- rpc_ps()
